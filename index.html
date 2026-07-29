@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Innovation Fitness - 3rd Anniversary Community Run</title>
+    <title>Innovation Fitness - 3rd Anniversary Community Run Registration</title>
 
-    <!-- Google Fonts & Font Awesome Icons -->
+    <!-- Google Fonts & Font Awesome Icons CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -58,11 +58,6 @@
             transform: translateY(-1px);
         }
 
-        /* Golden Hour Poster Glows */
-        .poster-glow {
-            background: radial-gradient(circle at center, rgba(245, 197, 66, 0.2) 0%, rgba(184, 134, 11, 0.05) 70%, transparent 100%);
-        }
-
         /* Glassmorphic Cards - Brightened Warm Golden Hour Vibe */
         .glass-card {
             background: rgba(28, 25, 23, 0.85);
@@ -104,49 +99,38 @@
 
 <body class="bg-[#121015] text-gray-100 min-h-screen flex flex-col antialiased selection:bg-gold-500 selection:text-black relative overflow-x-hidden">
 
-    <!-- Golden Hour Background Ambient Lighting -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[1000px] h-[550px] bg-gradient-to-b from-amber-500/20 via-gold-500/10 to-transparent blur-3xl"></div>
         <div class="absolute top-1/3 right-0 w-96 h-96 bg-amber-600/15 rounded-full blur-3xl"></div>
         <div class="absolute bottom-10 left-0 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl"></div>
     </div>
 
-    <!-- Navigation Bar -->
     <header class="sticky top-0 z-40 bg-[#121015]/90 backdrop-blur-md border-b border-amber-500/20 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
             <!-- Gym Brand Logo with Text -->
-            <a href="#/register" class="flex items-center space-x-3 group">
+            <a href="index.html" class="flex items-center space-x-3 group">
                 <img src="https://arleta.site/interactivelink/5674/innovation_logo_FA-removebg-preview.png" alt="Innovation Fitness Logo" class="h-11 sm:h-12 w-auto max-w-[180px] object-contain transition-transform duration-200 group-hover:scale-105">
                 <span class="text-lg sm:text-2xl font-black font-display tracking-widest text-white group-hover:text-gold-400 transition">INNOVATION FITNESS</span>
             </a>
 
-            <!-- Navigation Links -->
+            <!-- Navigation Link -->
             <nav class="flex items-center space-x-2 sm:space-x-4">
-                <a href="#/register" id="nav-register-btn" class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center space-x-2 text-white bg-gold-500/10 border border-gold-500/30 text-gold-400">
-                    <i class="fa-solid fa-person-running"></i>
-                    <span>Register</span>
-                </a>
-                <a href="#/admin" id="nav-admin-btn" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-400 hover:text-white transition flex items-center space-x-2">
+                <a href="admin.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-400 hover:text-white transition flex items-center space-x-2">
                     <i class="fa-solid fa-user-shield text-xs"></i>
-                    <span>Admin Dashboard</span>
+                    <span>Admin Portal</span>
                 </a>
             </nav>
 
         </div>
     </header>
 
-    <!-- Main Dynamic Router View Container -->
     <main class="flex-grow">
         
-        <!-- ========================================== -->
-        <!-- VIEW 1: REGISTRATION PAGE (#/register)    -->
-        <!-- ========================================== -->
-        <section id="view-register" class="py-8 md:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        <section class="py-8 md:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
             
             <!-- Hero Event Banner Header -->
             <div class="relative overflow-hidden rounded-3xl glass-card p-6 md:p-10 mb-10 border border-gold-500/30 shadow-2xl">
-                <!-- Golden Hour Background Light Effects -->
                 <div class="absolute -top-24 -right-24 w-96 h-96 bg-amber-400/20 rounded-full blur-3xl pointer-events-none"></div>
                 <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-yellow-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -155,13 +139,11 @@
                     <!-- Left Hero Content -->
                     <div class="lg:col-span-7 space-y-5">
                         
-                        <!-- Event Badge - Poster Brush Vibe -->
                         <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-lg poster-brush-banner text-black font-extrabold text-xs uppercase tracking-widest shadow-md">
                             <i class="fa-solid fa-cake-candles text-black"></i>
                             <span>3rd Anniversary Celebration</span>
                         </div>
 
-                        <!-- Title -->
                         <h1 class="text-4xl sm:text-6xl font-extrabold uppercase font-display tracking-wide leading-none">
                             INNO <span class="gold-gradient-text">COMMUNITY DAY</span>
                         </h1>
@@ -190,7 +172,6 @@
                         </div>
                     </div>
 
-                    <!-- Right Quick Info Card Grid (Bright Frosted Poster Style) -->
                     <div class="lg:col-span-5 grid grid-cols-2 gap-3 sm:gap-4">
                         
                         <!-- Date -->
@@ -225,9 +206,7 @@
                                     <i class="fa-solid fa-arrow-up-right-from-square text-[8px] text-amber-700"></i>
                                 </span>
                             </div>
-                            <span class="text-[10px] uppercase font-black text-amber-800 tracking-wider block">
-                                MEET-UP POINT
-                            </span>
+                            <span class="text-[10px] uppercase font-black text-amber-800 tracking-wider block">MEET-UP POINT</span>
                             <span class="text-base font-black text-black block leading-snug">AEON MALL</span>
                             <span class="text-xs text-amber-800 font-bold block mt-0.5">(Near Sireh Residence)</span>
                         </a>
@@ -244,9 +223,7 @@
                                     <i class="fa-solid fa-arrow-up-right-from-square text-[8px] text-amber-700"></i>
                                 </span>
                             </div>
-                            <span class="text-[10px] uppercase font-black text-amber-800 tracking-wider block">
-                                AFTER RUN
-                            </span>
+                            <span class="text-[10px] uppercase font-black text-amber-800 tracking-wider block">AFTER RUN</span>
                             <span class="text-base font-black text-black block leading-snug">Innovation Fitness</span>
                             <span class="text-xs text-amber-800 font-bold uppercase mt-0.5">Gym Location</span>
                         </a>
@@ -256,7 +233,6 @@
                 </div>
             </div>
 
-            <!-- Form & Live Counter Section -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 
                 <!-- Registration Form Column -->
@@ -306,7 +282,6 @@
                                 <p class="text-[11px] text-gray-400 mt-1">We will send check-in updates and event alerts to this number.</p>
                             </div>
 
-                            <!-- T-Shirt Size & Emergency Contact Options -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 
                                 <div>
@@ -351,7 +326,6 @@
                     </div>
                 </div>
 
-                <!-- Right Side: Real-time Stats & Community Highlights -->
                 <div class="lg:col-span-5 space-y-6">
                     
                     <!-- Real-time Live Registrations Counter -->
@@ -369,13 +343,12 @@
                         </div>
                         <p class="text-xs text-gray-400 mt-2">Join hundreds of gym members & fitness enthusiasts celebrating 3 years of fitness!</p>
                         
-                        <!-- Progress bar mock -->
                         <div class="w-full bg-darkbg rounded-full h-2 mt-4 overflow-hidden border border-darkborder">
                             <div id="counter-progress-bar" class="bg-gradient-to-r from-amber-600 via-gold-500 to-yellow-300 h-full transition-all duration-1000" style="width: 15%;"></div>
                         </div>
                     </div>
 
-                    <!-- Event Highlights / Schedule Box -->
+                    <!-- Event Itinerary Box -->
                     <div class="glass-card rounded-3xl p-6 space-y-4">
                         <h3 class="text-sm font-bold uppercase tracking-wider text-white border-b border-darkborder pb-3 flex items-center justify-between">
                             <span>Event Itinerary & Challenges</span>
@@ -441,11 +414,10 @@
                         </ul>
                     </div>
 
-                    <!-- Gym Official Contact info from Poster -->
+                    <!-- WhatsApp Inquiry Box -->
                     <div class="rounded-2xl bg-darkcard/90 border border-darkborder p-5 text-xs text-gray-400 space-y-3">
                         <div class="font-bold text-gray-200 uppercase tracking-wider">Official Gym Contacts</div>
                         
-                        <!-- Big WhatsApp Inquiry Button -->
                         <a href="https://wa.me/60102505902?text=Hi%20Innovation%20Fitness!%20I%20have%20an%20inquiry%20regarding%20the%203rd%20Anniversary%20Community%20Run." 
                            target="_blank" 
                            rel="noopener noreferrer" 
@@ -469,153 +441,8 @@
 
         </section>
 
-
-        <!-- ========================================== -->
-        <!-- VIEW 2: ADMIN DASHBOARD (#/admin)          -->
-        <!-- ========================================== -->
-        <section id="view-admin" class="py-8 md:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto hidden">
-            
-            <!-- Admin Lock Overlay (if not unlocked) -->
-            <div id="admin-auth-card" class="max-w-md mx-auto glass-card rounded-3xl p-8 text-center space-y-6">
-                <div class="w-16 h-16 rounded-2xl bg-gold-500/10 border border-gold-500/30 text-gold-400 flex items-center justify-center mx-auto text-2xl">
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-bold text-white">Admin Portal</h2>
-                    <p class="text-xs text-gray-400 mt-1">Enter your authorization key to view runner registrations.</p>
-                </div>
-                <form id="admin-pin-form" class="space-y-4">
-                    <input type="password" id="admin-pin-input" placeholder="Enter Admin Passcode" required
-                        class="w-full px-4 py-3 bg-darkbg border border-darkborder rounded-xl text-center text-lg tracking-widest text-white focus:outline-none focus:border-gold-500">
-                    <button type="submit" class="w-full py-3 rounded-xl font-bold uppercase text-black gold-button text-xs tracking-wider">
-                        Access Dashboard
-                    </button>
-                    <p class="text-[11px] text-gray-500">Default Demo Passcode: <code class="text-gold-400 font-mono">1234</code></p>
-                </form>
-            </div>
-
-            <!-- Admin Content Container (Unlocked) -->
-            <div id="admin-content" class="hidden space-y-8">
-                
-                <!-- Admin Header & Actions Bar -->
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-darkborder pb-6">
-                    <div>
-                        <div class="flex items-center space-x-3">
-                            <h1 class="text-3xl font-extrabold text-white">Registrations Dashboard</h1>
-                            <span class="px-2.5 py-0.5 rounded-md bg-gold-500/10 text-gold-400 border border-gold-500/20 text-xs font-bold">Admin Mode</span>
-                        </div>
-                        <p class="text-xs text-gray-400 mt-1">Real-time list of participants for Innovation Fitness 3rd Anniversary Run.</p>
-                    </div>
-
-                    <div class="flex flex-wrap items-center gap-3 no-print">
-                        <button id="export-csv-btn" class="px-4 py-2.5 rounded-xl bg-darkcard border border-darkborder text-xs font-semibold hover:border-gold-500/40 text-gray-200 hover:text-white transition flex items-center space-x-2">
-                            <i class="fa-solid fa-file-csv text-green-400"></i>
-                            <span>Export CSV</span>
-                        </button>
-                        <button id="print-list-btn" class="px-4 py-2.5 rounded-xl bg-darkcard border border-darkborder text-xs font-semibold hover:border-gold-500/40 text-gray-200 hover:text-white transition flex items-center space-x-2">
-                            <i class="fa-solid fa-print text-blue-400"></i>
-                            <span>Print List</span>
-                        </button>
-                        <button id="lock-admin-btn" class="px-3 py-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-xs font-semibold text-red-400 hover:bg-red-500/20 transition">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Metric Summary Cards -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="p-5 rounded-2xl glass-card">
-                        <span class="text-xs text-gray-400 font-bold uppercase tracking-wider block">Total Signups</span>
-                        <div class="text-3xl font-bold font-display text-white mt-1" id="admin-stat-total">0</div>
-                        <span class="text-[11px] text-gray-500 mt-1 block">Registered runners</span>
-                    </div>
-
-                    <div class="p-5 rounded-2xl glass-card">
-                        <span class="text-xs text-gray-400 font-bold uppercase tracking-wider block">Checked In</span>
-                        <div class="text-3xl font-bold font-display text-green-400 mt-1" id="admin-stat-checkedin">0</div>
-                        <span class="text-[11px] text-gray-500 mt-1 block">Race day check-ins</span>
-                    </div>
-
-                    <div class="p-5 rounded-2xl glass-card">
-                        <span class="text-xs text-gray-400 font-bold uppercase tracking-wider block">Most Popular Size</span>
-                        <div class="text-3xl font-bold font-display text-gold-400 mt-1" id="admin-stat-popular-size">M</div>
-                        <span class="text-[11px] text-gray-500 mt-1 block" id="admin-stat-size-breakdown">0 Shirts</span>
-                    </div>
-
-                    <div class="p-5 rounded-2xl glass-card">
-                        <span class="text-xs text-gray-400 font-bold uppercase tracking-wider block">Database Status</span>
-                        <div class="text-sm font-bold text-green-400 mt-2 flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
-                            <span>Firestore Synced</span>
-                        </div>
-                        <span class="text-[11px] text-gray-500 mt-1 block">Live real-time updates</span>
-                    </div>
-                </div>
-
-                <!-- Search & Filters Toolbar -->
-                <div class="glass-card rounded-2xl p-4 flex flex-col md:flex-row md:items-center gap-4 justify-between no-print">
-                    <div class="relative flex-1 max-w-md">
-                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
-                            <i class="fa-solid fa-magnifying-glass text-xs"></i>
-                        </div>
-                        <input type="text" id="admin-search-input" placeholder="Search by name or contact number..."
-                            class="w-full pl-10 pr-4 py-2.5 bg-darkbg border border-darkborder rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-gold-500">
-                    </div>
-
-                    <div class="flex items-center space-x-3 text-xs">
-                        <label class="text-gray-400 font-semibold whitespace-nowrap">Filter Size:</label>
-                        <select id="admin-filter-size" class="bg-darkbg border border-darkborder rounded-xl px-3 py-2 text-white focus:outline-none focus:border-gold-500">
-                            <option value="ALL">All Sizes</option>
-                            <option value="Unisex S">S</option>
-                            <option value="Unisex M">M</option>
-                            <option value="Unisex L">L</option>
-                            <option value="Unisex XL">XL</option>
-                            <option value="Unisex XXL">2XL</option>
-                        </select>
-
-                        <select id="admin-filter-checkin" class="bg-darkbg border border-darkborder rounded-xl px-3 py-2 text-white focus:outline-none focus:border-gold-500">
-                            <option value="ALL">All Status</option>
-                            <option value="CHECKED_IN">Checked In</option>
-                            <option value="NOT_CHECKED">Pending Check-in</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Table View -->
-                <div class="glass-card rounded-3xl overflow-hidden shadow-2xl border border-darkborder">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs text-gray-300">
-                            <thead class="bg-darkbg/90 text-gray-400 uppercase tracking-wider font-bold text-[10px] border-b border-darkborder">
-                                <tr>
-                                    <th class="py-4 px-6">Runner ID</th>
-                                    <th class="py-4 px-6">Full Name</th>
-                                    <th class="py-4 px-6">Contact Number</th>
-                                    <th class="py-4 px-6">Shirt Size</th>
-                                    <th class="py-4 px-6">Registered At</th>
-                                    <th class="py-4 px-6">Check-In Status</th>
-                                    <th class="py-4 px-6 text-right no-print">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="admin-table-body" class="divide-y divide-darkborder font-medium">
-                                <!-- Dynamic Rows Injected Here -->
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Empty Table State -->
-                    <div id="admin-empty-state" class="py-12 text-center hidden">
-                        <i class="fa-solid fa-folder-open text-4xl text-gray-600 mb-3"></i>
-                        <p class="text-gray-400 text-sm font-semibold">No registrations match your filter criteria.</p>
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-
     </main>
 
-    <!-- Footer -->
     <footer class="mt-auto border-t border-darkborder py-8 bg-darkbg/80 text-xs text-gray-400 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center space-x-2">
@@ -628,14 +455,10 @@
         </div>
     </footer>
 
-
-    <!-- ========================================== -->
-    <!-- SUCCESS TICKET DIGITAL PASS MODAL          -->
-    <!-- ========================================== -->
+    <!-- Digital Pass Ticket Modal -->
     <div id="ticket-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
         <div class="glass-card max-w-md w-full rounded-3xl p-6 md:p-8 relative border border-gold-500/30 shadow-2xl space-y-6 text-center transform scale-95 transition-transform duration-300" id="ticket-card-container">
             
-            <!-- Close Modal Button -->
             <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white w-8 h-8 rounded-full bg-darkbg flex items-center justify-center text-sm">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -649,7 +472,6 @@
                 <p class="text-xs text-gray-400 mt-1">Present this official digital pass at race kit collection.</p>
             </div>
 
-            <!-- Digital Ticket Card Visual -->
             <div class="p-5 rounded-2xl bg-gradient-to-b from-darkcard to-darkbg border border-gold-500/40 text-left space-y-4 relative overflow-hidden shadow-inner">
                 <div class="absolute -right-8 -top-8 w-24 h-24 bg-gold-500/10 rounded-full blur-xl pointer-events-none"></div>
 
@@ -683,7 +505,6 @@
                     </div>
                 </div>
 
-                <!-- Simulated Barcode Visual -->
                 <div class="pt-3 border-t border-darkborder flex flex-col items-center">
                     <div class="h-10 w-full bg-white/10 rounded p-1 flex justify-center items-center space-x-1">
                         <div class="bg-white h-full w-1"></div>
@@ -702,9 +523,8 @@
                 </div>
             </div>
 
-            <!-- Action buttons -->
             <div class="flex gap-3">
-                <button id="modal-download-btn" onclick="window.print()" class="flex-1 py-3 rounded-xl bg-darkcard border border-darkborder text-xs font-bold text-white hover:border-gold-500/40 transition">
+                <button onclick="window.print()" class="flex-1 py-3 rounded-xl bg-darkcard border border-darkborder text-xs font-bold text-white hover:border-gold-500/40 transition">
                     <i class="fa-solid fa-print mr-1.5"></i> Print / Save Pass
                 </button>
                 <button id="modal-done-btn" class="flex-1 py-3 rounded-xl gold-button text-xs font-bold text-black uppercase tracking-wider">
@@ -714,7 +534,7 @@
         </div>
     </div>
 
-    <!-- Floating WhatsApp Inquiry Button -->
+    <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/60102505902?text=Hi%20Innovation%20Fitness!%20I%20have%20an%20inquiry%20regarding%20the%203rd%20Anniversary%20Community%20Run." 
        target="_blank" 
        rel="noopener noreferrer" 
@@ -730,25 +550,14 @@
     <!-- Notification Toast Element -->
     <div id="toast-notification" class="fixed bottom-6 right-6 z-50 max-w-sm px-4 py-3 rounded-2xl glass-card border border-gold-500/40 text-xs font-medium text-white shadow-2xl flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
         <i id="toast-icon" class="fa-solid fa-circle-check text-gold-400 text-lg"></i>
-        <span id="toast-message">Notification message here</span>
+        <span id="toast-message">Notification message</span>
     </div>
 
-
-    <!-- ========================================== -->
-    <!-- APPLICATION LOGIC & FIREBASE PERSISTENCE  -->
-    <!-- ========================================== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Application Constants & State
-        const ADMIN_PIN = "1234";
-        let isAdminAuthenticated = false;
-        let registeredParticipants = [];
-        let unsubscribeListener = null;
-
-        // Firebase Configuration & Setup
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'inno-fitness-3rd-run';
         const firebaseConfig = typeof __firebase_config !== 'undefined' 
             ? JSON.parse(__firebase_config) 
@@ -763,73 +572,14 @@
 
         let app, auth, db;
         let isCloudStorageAvailable = false;
+        let localCount = 2;
 
-        // Collection Path according to mandatory storage rule
-        const COLLECTION_PATH = `artifacts/${appId}/public/data/registrations`;
-
-        // Local Memory Fallback Array if Firebase isn't available
-        let localMemoryRegistrations = [
-            {
-                id: "INF-9012",
-                fullName: "Muhammad Hafiz",
-                contactNumber: "012-3456789",
-                tshirtSize: "Unisex L",
-                emergencyContact: "Aina - 012-9876543",
-                checkedIn: true,
-                createdAtMs: Date.now() - 3600000 * 5
-            },
-            {
-                id: "INF-9013",
-                fullName: "Siti Sarah Abdullah",
-                contactNumber: "017-8899100",
-                tshirtSize: "Unisex M",
-                emergencyContact: "Farhan - 019-1122334",
-                checkedIn: false,
-                createdAtMs: Date.now() - 3600000 * 2
-            }
-        ];
-
-        // Router Management
-        function handleRoute() {
-            const hash = window.location.hash || '#/register';
-            const registerView = document.getElementById('view-register');
-            const adminView = document.getElementById('view-admin');
-            const navRegisterBtn = document.getElementById('nav-register-btn');
-            const navAdminBtn = document.getElementById('nav-admin-btn');
-
-            if (hash.startsWith('#/admin')) {
-                registerView.classList.add('hidden');
-                adminView.classList.remove('hidden');
-
-                navAdminBtn.classList.add('bg-gold-500/10', 'border', 'border-gold-500/30', 'text-gold-400');
-                navAdminBtn.classList.remove('text-gray-400');
-
-                navRegisterBtn.classList.remove('bg-gold-500/10', 'border', 'border-gold-500/30', 'text-gold-400');
-                navRegisterBtn.classList.add('text-gray-400');
-            } else {
-                adminView.classList.add('hidden');
-                registerView.classList.remove('hidden');
-
-                navRegisterBtn.classList.add('bg-gold-500/10', 'border', 'border-gold-500/30', 'text-gold-400');
-                navRegisterBtn.classList.remove('text-gray-400');
-
-                navAdminBtn.classList.remove('bg-gold-500/10', 'border', 'border-gold-500/30', 'text-gold-400');
-                navAdminBtn.classList.add('text-gray-400');
-            }
-            window.scrollTo(0, 0);
-        }
-
-        window.addEventListener('hashchange', handleRoute);
-        window.addEventListener('DOMContentLoaded', handleRoute);
-
-        // Initialize Firebase Authentication & Real-time Firestore Listeners
-        async function initFirebaseAndData() {
+        async function initFirebase() {
             try {
                 app = initializeApp(firebaseConfig);
                 auth = getAuth(app);
                 db = getFirestore(app);
 
-                // Authenticate before querying
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
                 } else {
@@ -837,230 +587,35 @@
                 }
 
                 isCloudStorageAvailable = true;
-                subscribeToRegistrations();
+                subscribeToCount();
             } catch (err) {
-                console.warn("Firestore initialization fallback to local memory mode:", err);
-                isCloudStorageAvailable = false;
-                registeredParticipants = [...localMemoryRegistrations];
-                updateAllUIComponents();
+                console.warn("Firestore fallback to offline counter mode:", err);
+                updateCounter(localCount);
             }
         }
 
-        // Subscribe to Firestore changes
-        function subscribeToRegistrations() {
+        function subscribeToCount() {
             if (!isCloudStorageAvailable || !db) return;
-
             const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'registrations');
-
-            unsubscribeListener = onSnapshot(colRef, (snapshot) => {
-                const list = [];
-                snapshot.forEach(docSnap => {
-                    const data = docSnap.data();
-                    list.push({
-                        docId: docSnap.id,
-                        id: data.id || `INF-${docSnap.id.substring(0, 5).toUpperCase()}`,
-                        fullName: data.fullName || 'Anonymous Runner',
-                        contactNumber: data.contactNumber || '-',
-                        tshirtSize: data.tshirtSize || 'Unisex M',
-                        emergencyContact: data.emergencyContact || '-',
-                        checkedIn: !!data.checkedIn,
-                        createdAtMs: data.createdAtMs || Date.now()
-                    });
-                });
-
-                // Sort in memory by creation time descending
-                list.sort((a, b) => b.createdAtMs - a.createdAtMs);
-                registeredParticipants = list;
-                updateAllUIComponents();
-            }, (error) => {
-                console.error("Firestore onSnapshot error:", error);
-                // Fallback to local
-                registeredParticipants = [...localMemoryRegistrations];
-                updateAllUIComponents();
+            onSnapshot(colRef, (snapshot) => {
+                updateCounter(snapshot.size);
+            }, (err) => {
+                console.error("Counter snapshot error:", err);
+                updateCounter(localCount);
             });
         }
 
-        // Register New Runner Action
-        async function registerRunner(fullName, contactNumber, tshirtSize, emergencyContact) {
-            const runnerId = `INF-${Math.floor(1000 + Math.random() * 9000)}`;
-            const newRunner = {
-                id: runnerId,
-                fullName: fullName.trim(),
-                contactNumber: contactNumber.trim(),
-                tshirtSize: tshirtSize,
-                emergencyContact: emergencyContact.trim() || '-',
-                checkedIn: false,
-                createdAtMs: Date.now()
-            };
-
-            if (isCloudStorageAvailable && db) {
-                try {
-                    const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'registrations');
-                    await addDoc(colRef, newRunner);
-                } catch (err) {
-                    console.error("Error writing to Firestore:", err);
-                    // Add local fallback
-                    localMemoryRegistrations.unshift(newRunner);
-                    registeredParticipants = [...localMemoryRegistrations];
-                    updateAllUIComponents();
-                }
-            } else {
-                localMemoryRegistrations.unshift(newRunner);
-                registeredParticipants = [...localMemoryRegistrations];
-                updateAllUIComponents();
-            }
-
-            return newRunner;
-        }
-
-        // Toggle Runner Check-in Status
-        async function toggleCheckIn(runner) {
-            const newStatus = !runner.checkedIn;
-            if (isCloudStorageAvailable && db && runner.docId) {
-                try {
-                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'registrations', runner.docId);
-                    await updateDoc(docRef, { checkedIn: newStatus });
-                    showToast(`Check-in status updated for ${runner.fullName}`);
-                } catch (err) {
-                    console.error("Checkin update error:", err);
-                }
-            } else {
-                runner.checkedIn = newStatus;
-                updateAllUIComponents();
-                showToast(`Check-in status updated for ${runner.fullName}`);
-            }
-        }
-
-        // Delete Runner Entry
-        async function deleteRunner(runner) {
-            if (isCloudStorageAvailable && db && runner.docId) {
-                try {
-                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'registrations', runner.docId);
-                    await deleteDoc(docRef);
-                    showToast(`Registration deleted for ${runner.fullName}`);
-                } catch (err) {
-                    console.error("Delete error:", err);
-                }
-            } else {
-                registeredParticipants = registeredParticipants.filter(p => p.id !== runner.id);
-                localMemoryRegistrations = localMemoryRegistrations.filter(p => p.id !== runner.id);
-                updateAllUIComponents();
-                showToast(`Registration deleted for ${runner.fullName}`);
-            }
-        }
-
-        // UI Renderers & Component Updates
-        function updateAllUIComponents() {
-            renderPublicStats();
-            renderAdminDashboard();
-        }
-
-        function renderPublicStats() {
+        function updateCounter(count) {
             const totalCountEl = document.getElementById('stat-total-count');
             const progressBar = document.getElementById('counter-progress-bar');
-            
-            const count = registeredParticipants.length;
             if (totalCountEl) totalCountEl.textContent = count;
-
-            // Simple visual progress bar up to target of 300 runners
             if (progressBar) {
                 const percentage = Math.min(100, Math.max(10, Math.round((count / 300) * 100)));
                 progressBar.style.width = `${percentage}%`;
             }
         }
 
-        function renderAdminDashboard() {
-            if (!isAdminAuthenticated) return;
-
-            const tableBody = document.getElementById('admin-table-body');
-            const emptyState = document.getElementById('admin-empty-state');
-            const searchInput = document.getElementById('admin-search-input').value.toLowerCase();
-            const filterSize = document.getElementById('admin-filter-size').value;
-            const filterCheckin = document.getElementById('admin-filter-checkin').value;
-
-            // Stats Elements
-            document.getElementById('admin-stat-total').textContent = registeredParticipants.length;
-            const checkedInCount = registeredParticipants.filter(p => p.checkedIn).length;
-            document.getElementById('admin-stat-checkedin').textContent = checkedInCount;
-
-            // Calculate Popular Size
-            const sizeCounts = {};
-            registeredParticipants.forEach(p => {
-                const s = p.tshirtSize.replace('Unisex ', '');
-                sizeCounts[s] = (sizeCounts[s] || 0) + 1;
-            });
-            let popularSize = 'M';
-            let maxCount = 0;
-            Object.entries(sizeCounts).forEach(([sz, c]) => {
-                if (c > maxCount) {
-                    maxCount = c;
-                    popularSize = sz;
-                }
-            });
-            document.getElementById('admin-stat-popular-size').textContent = popularSize;
-            document.getElementById('admin-stat-size-breakdown').textContent = `${maxCount} Shirts Requested`;
-
-            // Filter List
-            const filtered = registeredParticipants.filter(runner => {
-                const matchesSearch = runner.fullName.toLowerCase().includes(searchInput) || runner.contactNumber.includes(searchInput) || runner.id.toLowerCase().includes(searchInput);
-                const matchesSize = filterSize === 'ALL' || runner.tshirtSize === filterSize;
-                const matchesCheckin = filterCheckin === 'ALL' || (filterCheckin === 'CHECKED_IN' ? runner.checkedIn : !runner.checkedIn);
-                return matchesSearch && matchesSize && matchesCheckin;
-            });
-
-            if (filtered.length === 0) {
-                tableBody.innerHTML = '';
-                emptyState.classList.remove('hidden');
-                return;
-            }
-
-            emptyState.classList.add('hidden');
-            tableBody.innerHTML = filtered.map(runner => `
-                <tr class="hover:bg-white/5 transition">
-                    <td class="py-4 px-6 font-mono font-bold text-gold-400">${runner.id}</td>
-                    <td class="py-4 px-6 text-white font-semibold">${escapeHtml(runner.fullName)}</td>
-                    <td class="py-4 px-6 text-gray-300 font-mono">${escapeHtml(runner.contactNumber)}</td>
-                    <td class="py-4 px-6">
-                        <span class="px-2.5 py-1 rounded-md bg-darkbg border border-darkborder text-gray-300 font-mono text-[11px]">
-                            ${escapeHtml(runner.tshirtSize)}
-                        </span>
-                    </td>
-                    <td class="py-4 px-6 text-gray-400 text-[11px]">
-                        ${new Date(runner.createdAtMs).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                    </td>
-                    <td class="py-4 px-6">
-                        <button data-action="toggle-checkin" data-id="${runner.id}" class="px-3 py-1 rounded-full text-[11px] font-bold border transition ${runner.checkedIn ? 'bg-green-500/10 border-green-500/30 text-green-400 hover:bg-green-500/20' : 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400 hover:bg-yellow-500/20'}">
-                            <i class="fa-solid ${runner.checkedIn ? 'fa-circle-check' : 'fa-clock'} mr-1"></i>
-                            ${runner.checkedIn ? 'Checked In' : 'Pending'}
-                        </button>
-                    </td>
-                    <td class="py-4 px-6 text-right space-x-2 no-print">
-                        <button data-action="view-pass" data-id="${runner.id}" class="p-1.5 rounded-lg text-gray-400 hover:text-gold-400 transition" title="View Ticket Pass">
-                            <i class="fa-solid fa-ticket"></i>
-                        </button>
-                        <button data-action="delete-runner" data-id="${runner.id}" class="p-1.5 rounded-lg text-gray-400 hover:text-red-400 transition" title="Delete Participant">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-
-            // Attach event listeners to buttons inside table
-            tableBody.querySelectorAll('button[data-action]').forEach(btn => {
-                const action = btn.getAttribute('data-action');
-                const runnerId = btn.getAttribute('data-id');
-                const runner = registeredParticipants.find(p => p.id === runnerId);
-                if (!runner) return;
-
-                btn.addEventListener('click', () => {
-                    if (action === 'toggle-checkin') toggleCheckIn(runner);
-                    if (action === 'view-pass') openPassModal(runner);
-                    if (action === 'delete-runner') deleteRunner(runner);
-                });
-            });
-        }
-
-        // Form Event Submission
+        // Form Submission
         const regForm = document.getElementById('registration-form');
         regForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -1069,18 +624,41 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i><span>Processing...</span>`;
 
-            const fullName = document.getElementById('fullName').value;
-            const contactNumber = document.getElementById('contactNumber').value;
+            const fullName = document.getElementById('fullName').value.trim();
+            const contactNumber = document.getElementById('contactNumber').value.trim();
             const tshirtSize = document.getElementById('tshirtSize').value;
-            const emergencyContact = document.getElementById('emergencyContact').value;
+            const emergencyContact = document.getElementById('emergencyContact').value.trim() || '-';
+            const runnerId = `INF-${Math.floor(1000 + Math.random() * 9000)}`;
 
-            const newRunner = await registerRunner(fullName, contactNumber, tshirtSize, emergencyContact);
+            const runnerObj = {
+                id: runnerId,
+                fullName,
+                contactNumber,
+                tshirtSize,
+                emergencyContact,
+                checkedIn: false,
+                createdAtMs: Date.now()
+            };
+
+            if (isCloudStorageAvailable && db) {
+                try {
+                    const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'registrations');
+                    await addDoc(colRef, runnerObj);
+                } catch (err) {
+                    console.error("Firestore write error:", err);
+                    localCount++;
+                    updateCounter(localCount);
+                }
+            } else {
+                localCount++;
+                updateCounter(localCount);
+            }
 
             submitBtn.disabled = false;
             submitBtn.innerHTML = `<i class="fa-solid fa-bolt"></i><span>Complete Registration</span>`;
 
             regForm.reset();
-            openPassModal(newRunner);
+            openPassModal(runnerObj);
             showToast("Registration successful! Ticket pass generated.");
         });
 
@@ -1116,70 +694,6 @@
         document.getElementById('close-modal-btn').addEventListener('click', closePassModal);
         document.getElementById('modal-done-btn').addEventListener('click', closePassModal);
 
-        // Admin Security & Access Form
-        const adminPinForm = document.getElementById('admin-pin-form');
-        adminPinForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const pinInput = document.getElementById('admin-pin-input').value;
-            if (pinInput === ADMIN_PIN) {
-                isAdminAuthenticated = true;
-                document.getElementById('admin-auth-card').classList.add('hidden');
-                document.getElementById('admin-content').classList.remove('hidden');
-                renderAdminDashboard();
-                showToast("Admin access granted.");
-            } else {
-                showToast("Invalid passcode. Try '1234'", true);
-            }
-        });
-
-        document.getElementById('lock-admin-btn').addEventListener('click', () => {
-            isAdminAuthenticated = false;
-            document.getElementById('admin-pin-input').value = '';
-            document.getElementById('admin-content').classList.add('hidden');
-            document.getElementById('admin-auth-card').classList.remove('hidden');
-            showToast("Admin dashboard locked.");
-        });
-
-        // Search and Filter Listeners
-        document.getElementById('admin-search-input').addEventListener('input', renderAdminDashboard);
-        document.getElementById('admin-filter-size').addEventListener('change', renderAdminDashboard);
-        document.getElementById('admin-filter-checkin').addEventListener('change', renderAdminDashboard);
-
-        // Export to CSV Action
-        document.getElementById('export-csv-btn').addEventListener('click', () => {
-            if (registeredParticipants.length === 0) {
-                showToast("No participant data to export.", true);
-                return;
-            }
-
-            const headers = ["Runner ID", "Full Name", "Contact Number", "T-Shirt Size", "Emergency Contact", "Checked In", "Registration Date"];
-            const rows = registeredParticipants.map(p => [
-                `"${p.id}"`,
-                `"${p.fullName.replace(/"/g, '""')}"`,
-                `"${p.contactNumber}"`,
-                `"${p.tshirtSize}"`,
-                `"${p.emergencyContact.replace(/"/g, '""')}"`,
-                `"${p.checkedIn ? 'YES' : 'NO'}"`,
-                `"${new Date(p.createdAtMs).toISOString()}"`
-            ]);
-
-            const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `Inno_Fitness_Run_Registrations_${new Date().toISOString().slice(0,10)}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showToast("CSV file exported successfully!");
-        });
-
-        // Print List Action
-        document.getElementById('print-list-btn').addEventListener('click', () => {
-            window.print();
-        });
-
-        // Helper Toast Notification
         function showToast(msg, isError = false) {
             const toast = document.getElementById('toast-notification');
             const icon = document.getElementById('toast-icon');
@@ -1199,15 +713,7 @@
             }, 3500);
         }
 
-        function escapeHtml(str) {
-            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-        }
-
-        // Initialize application on load
-        window.addEventListener('load', () => {
-            initFirebaseAndData();
-            handleRoute();
-        });
+        window.addEventListener('load', initFirebase);
     </script>
 </body>
 </html>
