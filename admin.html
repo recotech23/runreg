@@ -69,19 +69,45 @@
 
 <body class="bg-[#121015] text-gray-100 min-h-screen flex flex-col antialiased selection:bg-gold-500 selection:text-black relative overflow-x-hidden">
 
+    <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#121015] bg-opacity-95 backdrop-blur-md">
+        <div class="glass-card max-w-md w-full rounded-3xl p-8 border border-gold-500/30 shadow-2xl text-center space-y-6">
+            <div class="w-16 h-16 rounded-2xl bg-gold-500/10 border border-gold-500/30 text-gold-400 flex items-center justify-center mx-auto text-2xl shadow-inner">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold text-white font-display uppercase tracking-wider">Admin Verification</h2>
+                <p class="text-xs text-gray-400 mt-1">Enter passcode to access participant dashboard.</p>
+            </div>
+            <form id="passcode-form" class="space-y-4">
+                <div class="relative">
+                    <input type="password" id="passcode-input" maxlength="6" placeholder="• • • • • •" required autofocus
+                        class="w-full text-center text-2xl font-mono tracking-widest py-3.5 bg-darkbg border border-darkborder rounded-xl text-gold-400 placeholder-gray-600 focus:outline-none focus:border-gold-500 transition">
+                </div>
+                <p id="passcode-error" class="text-xs text-red-400 hidden font-medium"><i class="fa-solid fa-circle-exclamation mr-1"></i> Incorrect Passcode</p>
+                <button type="submit" class="w-full py-3.5 rounded-xl font-bold uppercase tracking-wider text-black gold-button text-xs shadow-lg">
+                    Unlock Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
     <header class="sticky top-0 z-40 bg-[#121015]/90 backdrop-blur-md border-b border-amber-500/20 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
-            <a href="index.html" class="flex items-center space-x-3 group">
+            <a href="/" class="flex items-center space-x-3 group">
                 <img src="https://arleta.site/interactivelink/5674/innovation_logo_FA-removebg-preview.png" alt="Innovation Fitness Logo" class="h-11 sm:h-12 w-auto max-w-[180px] object-contain transition-transform duration-200 group-hover:scale-105">
                 <span class="text-lg sm:text-2xl font-black font-display tracking-widest text-white group-hover:text-gold-400 transition">INNOVATION FITNESS</span>
             </a>
 
             <nav class="flex items-center space-x-2 sm:space-x-4">
-                <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gold-400 hover:text-gold-300 transition flex items-center space-x-2 bg-gold-500/10 border border-gold-500/30">
+                <a href="/" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-gold-400 hover:text-gold-300 transition flex items-center space-x-1.5 bg-gold-500/10 border border-gold-500/30">
                     <i class="fa-solid fa-person-running text-xs"></i>
                     <span>Registration Page</span>
                 </a>
+                <button id="lock-portal-btn" class="px-3 py-1.5 rounded-lg text-xs font-bold text-red-400 hover:text-red-300 transition flex items-center space-x-1.5 bg-red-500/10 border border-red-500/20">
+                    <i class="fa-solid fa-lock text-[11px]"></i>
+                    <span>Lock</span>
+                </button>
             </nav>
 
         </div>
@@ -112,7 +138,6 @@
                 </div>
             </div>
 
-            <!-- Metric Cards -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="p-5 rounded-2xl glass-card">
                     <span class="text-xs text-gray-400 font-bold uppercase tracking-wider block">Total Signups</span>
@@ -170,7 +195,6 @@
                 </div>
             </div>
 
-            <!-- Table View -->
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl border border-darkborder">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-xs text-gray-300">
@@ -270,7 +294,6 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div id="toast-notification" class="fixed bottom-6 right-6 z-50 max-w-sm px-4 py-3 rounded-2xl glass-card border border-gold-500/40 text-xs font-medium text-white shadow-2xl flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
         <i id="toast-icon" class="fa-solid fa-circle-check text-gold-400 text-lg"></i>
         <span id="toast-message">Notification message</span>
@@ -281,7 +304,7 @@
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, doc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        let isAdminAuthenticated = true;
+        let isAdminAuthenticated = false;
         let registeredParticipants = [];
 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'inno-fitness-3rd-run';
@@ -304,7 +327,46 @@
             { id: "INF-9013", fullName: "Siti Sarah Abdullah", contactNumber: "017-8899100", tshirtSize: "Unisex M", emergencyContact: "Farhan - 019-1122334", checkedIn: false, createdAtMs: Date.now() - 3600000 * 2 }
         ];
 
+        const passcodeForm = document.getElementById('passcode-form');
+        const passcodeInput = document.getElementById('passcode-input');
+        const passcodeError = document.getElementById('passcode-error');
+        const loginScreen = document.getElementById('login-screen');
+        const lockPortalBtn = document.getElementById('lock-portal-btn');
+
+        function checkPasscodeAuth() {
+            if (sessionStorage.getItem('inno_admin_auth') === 'true') {
+                isAdminAuthenticated = true;
+                loginScreen.classList.add('hidden');
+                initAdminFirebase();
+            }
+        }
+
+        passcodeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (passcodeInput.value === '020999') {
+                isAdminAuthenticated = true;
+                sessionStorage.setItem('inno_admin_auth', 'true');
+                loginScreen.classList.add('hidden');
+                passcodeError.classList.add('hidden');
+                showToast("Admin access granted!");
+                initAdminFirebase();
+            } else {
+                passcodeError.classList.remove('hidden');
+                passcodeInput.value = '';
+                passcodeInput.focus();
+            }
+        });
+
+        lockPortalBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('inno_admin_auth');
+            isAdminAuthenticated = false;
+            loginScreen.classList.remove('hidden');
+            passcodeInput.value = '';
+            showToast("Portal locked.");
+        });
+
         async function initAdminFirebase() {
+            if (!isAdminAuthenticated) return;
             try {
                 app = initializeApp(firebaseConfig);
                 auth = getAuth(app);
@@ -389,7 +451,6 @@
             }
         }
 
-        // Dashboard Renderer
         function renderAdminDashboard() {
             if (!isAdminAuthenticated) return;
 
@@ -477,12 +538,10 @@
             });
         }
 
-        // Search & Filter Listeners
         document.getElementById('admin-search-input').addEventListener('input', renderAdminDashboard);
         document.getElementById('admin-filter-size').addEventListener('change', renderAdminDashboard);
         document.getElementById('admin-filter-checkin').addEventListener('change', renderAdminDashboard);
 
-        // Export CSV
         document.getElementById('export-csv-btn').addEventListener('click', () => {
             if (registeredParticipants.length === 0) {
                 showToast("No data to export.", true);
@@ -561,7 +620,7 @@
             return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         }
 
-        window.addEventListener('load', initAdminFirebase);
+        window.addEventListener('load', checkPasscodeAuth);
     </script>
 </body>
 </html>
