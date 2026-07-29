@@ -163,9 +163,9 @@
                 </div>
 
                 <div class="p-4 sm:p-5 rounded-2xl glass-card">
-                    <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Popular Size</span>
-                    <div class="text-2xl sm:text-3xl font-bold font-display text-gold-400 mt-1" id="admin-stat-popular-size">M</div>
-                    <span class="text-[10px] sm:text-[11px] text-gray-500 mt-1 block" id="admin-stat-size-breakdown">0 Shirts</span>
+                    <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Payments Collected</span>
+                    <div class="text-2xl sm:text-3xl font-bold font-display text-emerald-400 mt-1" id="admin-stat-paid">0</div>
+                    <span class="text-[10px] sm:text-[11px] text-gray-500 mt-1 block" id="admin-stat-payment-breakdown">0 QR • 0 Cash</span>
                 </div>
 
                 <div class="p-4 sm:p-5 rounded-2xl glass-card">
@@ -188,13 +188,20 @@
                         class="w-full pl-10 pr-4 py-2.5 bg-darkbg border border-darkborder rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-gold-500">
                 </div>
 
-                <div class="flex items-center space-x-2 text-xs">
+                <div class="flex items-center space-x-2 text-xs flex-wrap sm:flex-nowrap gap-2">
                     <select id="admin-filter-size" class="flex-1 bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500">
                         <option value="ALL">All Sizes</option>
                         <option value="S">S</option>
                         <option value="M">M</option>
                         <option value="L">L</option>
                         <option value="XL">XL</option>
+                    </select>
+
+                    <select id="admin-filter-payment" class="flex-1 bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500">
+                        <option value="ALL">All Payments</option>
+                        <option value="PAID_QR">Paid (QR)</option>
+                        <option value="PAID_CASH">Paid (Cash)</option>
+                        <option value="UNPAID">Unpaid</option>
                     </select>
 
                     <select id="admin-filter-checkin" class="flex-1 bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500">
@@ -205,10 +212,9 @@
                 </div>
             </div>
 
-            <!-- Table Container -->
             <div class="glass-card rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-darkborder">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs text-gray-300 min-w-[650px]">
+                    <table class="w-full text-left text-xs text-gray-300 min-w-[750px]">
                         <thead class="bg-darkbg/90 text-gray-400 uppercase tracking-wider font-bold text-[10px] border-b border-darkborder">
                             <tr>
                                 <th class="py-3.5 px-4 sm:px-6">Runner ID</th>
@@ -216,6 +222,7 @@
                                 <th class="py-3.5 px-4 sm:px-6">Contact Number</th>
                                 <th class="py-3.5 px-4 sm:px-6">Size</th>
                                 <th class="py-3.5 px-4 sm:px-6">Registered At</th>
+                                <th class="py-3.5 px-4 sm:px-6">Payment</th>
                                 <th class="py-3.5 px-4 sm:px-6">Check-In</th>
                                 <th class="py-3.5 px-4 sm:px-6 text-right no-print">Actions</th>
                             </tr>
@@ -235,6 +242,42 @@
         </div>
 
     </main>
+
+    <div id="payment-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-card max-w-sm w-full rounded-3xl p-5 sm:p-6 relative border border-gold-500/30 shadow-2xl space-y-4 text-center transform scale-95 transition-transform duration-300" id="payment-card-container">
+            
+            <button id="close-payment-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white w-8 h-8 rounded-full bg-darkbg flex items-center justify-center text-sm">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 text-gold-400 flex items-center justify-center mx-auto text-xl shadow-inner">
+                <i class="fa-solid fa-wallet"></i>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-bold text-white">Update Payment Status</h3>
+                <p id="payment-modal-runner-name" class="text-xs text-gold-400 mt-1 font-semibold truncate">Runner: -</p>
+                <p class="text-[11px] text-gray-400 mt-0.5">Select payment method for RM30 registration fee.</p>
+            </div>
+
+            <div class="space-y-2.5 pt-2">
+                <button id="pay-qr-btn" class="w-full py-3 px-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 font-bold text-xs flex items-center justify-center space-x-2 transition min-h-[44px]">
+                    <i class="fa-solid fa-qrcode text-sm"></i>
+                    <span>Paid via QR Code (RM30)</span>
+                </button>
+
+                <button id="pay-cash-btn" class="w-full py-3 px-4 rounded-xl bg-green-500/10 border border-green-500/30 text-green-400 hover:bg-green-500/20 font-bold text-xs flex items-center justify-center space-x-2 transition min-h-[44px]">
+                    <i class="fa-solid fa-money-bill-wave text-sm"></i>
+                    <span>Paid via Cash (RM30)</span>
+                </button>
+
+                <button id="pay-unpaid-btn" class="w-full py-3 px-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 font-bold text-xs flex items-center justify-center space-x-2 transition min-h-[44px]">
+                    <i class="fa-solid fa-circle-xmark text-sm"></i>
+                    <span>Mark as Unpaid / Pending</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <div id="ticket-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
         <div class="glass-card max-w-md w-full max-h-[90vh] overflow-y-auto rounded-3xl p-5 sm:p-8 relative border border-gold-500/30 shadow-2xl space-y-5 text-center transform scale-95 transition-transform duration-300" id="ticket-card-container">
@@ -296,6 +339,7 @@
         </div>
     </div>
 
+    <!-- Notification Toast -->
     <div id="toast-notification" class="fixed bottom-6 right-4 left-4 sm:left-auto sm:right-6 z-50 max-w-sm px-4 py-3 rounded-2xl glass-card border border-gold-500/40 text-xs font-medium text-white shadow-2xl flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
         <i id="toast-icon" class="fa-solid fa-circle-check text-gold-400 text-lg"></i>
         <span id="toast-message">Notification message</span>
@@ -308,8 +352,9 @@
 
         let isAdminAuthenticated = false;
         let registeredParticipants = [];
+        let selectedPaymentRunner = null;
 
-        // Your web app's Firebase configuration
+        // Web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDVjFo8WAezuxlma6OfGV1dIfugqYE0_EA",
             authDomain: "funrun-registration-25487.firebaseapp.com",
@@ -370,7 +415,12 @@
                 db = getFirestore(app);
 
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
+                    try {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } catch (tokenErr) {
+                        console.warn("Custom token mismatched, falling back to anonymous auth:", tokenErr);
+                        await signInAnonymously(auth);
+                    }
                 } else {
                     await signInAnonymously(auth);
                 }
@@ -392,6 +442,13 @@
             return collection(db, 'registrations');
         }
 
+        function getDocRef(docId) {
+            if (typeof __app_id !== 'undefined') {
+                return doc(db, 'artifacts', __app_id, 'public', 'data', 'registrations', docId);
+            }
+            return doc(db, 'registrations', docId);
+        }
+
         function subscribeToRegistrations() {
             if (!isCloudStorageAvailable || !db) return;
             const colRef = getCollectionRef();
@@ -405,10 +462,11 @@
                         id: data.id || `INF-${docSnap.id.substring(0, 5).toUpperCase()}`,
                         fullName: data.fullName || 'Anonymous Runner',
                         contactNumber: data.contactNumber || '-',
-                        tshirtSize: data.tshirtSize || 'M',
+                        tshirtSize: data.tshirtSize || data.tShirtSize || 'M',
                         emergencyContact: data.emergencyContact || '-',
                         checkedIn: !!data.checkedIn,
-                        createdAtMs: data.createdAtMs || Date.now()
+                        paymentStatus: data.paymentStatus || 'UNPAID', // 'UNPAID', 'QR', 'CASH'
+                        createdAtMs: data.createdAtMs || (data.createdAt ? new Date(data.createdAt).getTime() : Date.now())
                     });
                 });
                 list.sort((a, b) => b.createdAtMs - a.createdAtMs);
@@ -424,9 +482,7 @@
             const newStatus = !runner.checkedIn;
             if (isCloudStorageAvailable && db && runner.docId) {
                 try {
-                    const docRef = typeof __app_id !== 'undefined'
-                        ? doc(db, 'artifacts', __app_id, 'public', 'data', 'registrations', runner.docId)
-                        : doc(db, 'registrations', runner.docId);
+                    const docRef = getDocRef(runner.docId);
                     await updateDoc(docRef, { checkedIn: newStatus });
                     showToast(`Updated check-in for ${runner.fullName}`);
                 } catch (err) {
@@ -439,12 +495,30 @@
             }
         }
 
+        async function updatePaymentStatus(runner, newStatus) {
+            closePaymentModal();
+            if (isCloudStorageAvailable && db && runner.docId) {
+                try {
+                    const docRef = getDocRef(runner.docId);
+                    await updateDoc(docRef, { paymentStatus: newStatus });
+                    let label = newStatus === 'QR' ? 'Paid (QR)' : newStatus === 'CASH' ? 'Paid (Cash)' : 'Unpaid';
+                    showToast(`Payment for ${runner.fullName} updated to ${label}`);
+                } catch (err) {
+                    console.error("Payment status update error:", err);
+                    showToast("Failed to update payment status.", true);
+                }
+            } else {
+                runner.paymentStatus = newStatus;
+                renderAdminDashboard();
+                let label = newStatus === 'QR' ? 'Paid (QR)' : newStatus === 'CASH' ? 'Paid (Cash)' : 'Unpaid';
+                showToast(`Payment for ${runner.fullName} updated to ${label}`);
+            }
+        }
+
         async function deleteRunner(runner) {
             if (isCloudStorageAvailable && db && runner.docId) {
                 try {
-                    const docRef = typeof __app_id !== 'undefined'
-                        ? doc(db, 'artifacts', __app_id, 'public', 'data', 'registrations', runner.docId)
-                        : doc(db, 'registrations', runner.docId);
+                    const docRef = getDocRef(runner.docId);
                     await deleteDoc(docRef);
                     showToast(`Deleted ${runner.fullName}`);
                 } catch (err) {
@@ -464,33 +538,31 @@
             const emptyState = document.getElementById('admin-empty-state');
             const searchInput = document.getElementById('admin-search-input').value.toLowerCase();
             const filterSize = document.getElementById('admin-filter-size').value;
+            const filterPayment = document.getElementById('admin-filter-payment').value;
             const filterCheckin = document.getElementById('admin-filter-checkin').value;
 
             document.getElementById('admin-stat-total').textContent = registeredParticipants.length;
             const checkedInCount = registeredParticipants.filter(p => p.checkedIn).length;
             document.getElementById('admin-stat-checkedin').textContent = checkedInCount;
 
-            const sizeCounts = {};
-            registeredParticipants.forEach(p => {
-                const s = p.tshirtSize;
-                sizeCounts[s] = (sizeCounts[s] || 0) + 1;
-            });
-            let popularSize = 'M';
-            let maxCount = 0;
-            Object.entries(sizeCounts).forEach(([sz, c]) => {
-                if (c > maxCount) {
-                    maxCount = c;
-                    popularSize = sz;
-                }
-            });
-            document.getElementById('admin-stat-popular-size').textContent = popularSize;
-            document.getElementById('admin-stat-size-breakdown').textContent = `${maxCount} Shirts Requested`;
+            // Payment statistics
+            const qrCount = registeredParticipants.filter(p => p.paymentStatus === 'QR').length;
+            const cashCount = registeredParticipants.filter(p => p.paymentStatus === 'CASH').length;
+            const totalPaid = qrCount + cashCount;
+            document.getElementById('admin-stat-paid').textContent = totalPaid;
+            document.getElementById('admin-stat-payment-breakdown').textContent = `${qrCount} QR • ${cashCount} Cash`;
 
             const filtered = registeredParticipants.filter(runner => {
                 const matchesSearch = runner.fullName.toLowerCase().includes(searchInput) || runner.contactNumber.includes(searchInput) || runner.id.toLowerCase().includes(searchInput);
                 const matchesSize = filterSize === 'ALL' || runner.tshirtSize === filterSize;
+                
+                let matchesPayment = true;
+                if (filterPayment === 'PAID_QR') matchesPayment = runner.paymentStatus === 'QR';
+                if (filterPayment === 'PAID_CASH') matchesPayment = runner.paymentStatus === 'CASH';
+                if (filterPayment === 'UNPAID') matchesPayment = !runner.paymentStatus || runner.paymentStatus === 'UNPAID';
+
                 const matchesCheckin = filterCheckin === 'ALL' || (filterCheckin === 'CHECKED_IN' ? runner.checkedIn : !runner.checkedIn);
-                return matchesSearch && matchesSize && matchesCheckin;
+                return matchesSearch && matchesSize && matchesPayment && matchesCheckin;
             });
 
             if (filtered.length === 0) {
@@ -512,6 +584,24 @@
                     </td>
                     <td class="py-3.5 px-4 sm:px-6 text-gray-400 text-[11px]">
                         ${new Date(runner.createdAtMs).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                    </td>
+                    <td class="py-3.5 px-4 sm:px-6">
+                        <button data-action="open-payment" data-id="${runner.id}" class="px-2.5 py-1 rounded-full text-[10px] font-bold border transition ${
+                            runner.paymentStatus === 'QR' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20' :
+                            runner.paymentStatus === 'CASH' ? 'bg-green-500/10 border-green-500/30 text-green-400 hover:bg-green-500/20' :
+                            'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20'
+                        }">
+                            <i class="fa-solid ${
+                                runner.paymentStatus === 'QR' ? 'fa-qrcode' :
+                                runner.paymentStatus === 'CASH' ? 'fa-money-bill-wave' :
+                                'fa-circle-xmark'
+                            } mr-1"></i>
+                            ${
+                                runner.paymentStatus === 'QR' ? 'Paid (QR)' :
+                                runner.paymentStatus === 'CASH' ? 'Paid (Cash)' :
+                                'Unpaid'
+                            }
+                        </button>
                     </td>
                     <td class="py-3.5 px-4 sm:px-6">
                         <button data-action="toggle-checkin" data-id="${runner.id}" class="px-2.5 py-1 rounded-full text-[10px] font-bold border transition ${runner.checkedIn ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400'}">
@@ -537,6 +627,7 @@
                 if (!runner) return;
 
                 btn.addEventListener('click', () => {
+                    if (action === 'open-payment') openPaymentModal(runner);
                     if (action === 'toggle-checkin') toggleCheckIn(runner);
                     if (action === 'view-pass') openPassModal(runner);
                     if (action === 'delete-runner') deleteRunner(runner);
@@ -546,20 +637,61 @@
 
         document.getElementById('admin-search-input').addEventListener('input', renderAdminDashboard);
         document.getElementById('admin-filter-size').addEventListener('change', renderAdminDashboard);
+        document.getElementById('admin-filter-payment').addEventListener('change', renderAdminDashboard);
         document.getElementById('admin-filter-checkin').addEventListener('change', renderAdminDashboard);
 
+        // Payment Modal Controls
+        function openPaymentModal(runner) {
+            selectedPaymentRunner = runner;
+            document.getElementById('payment-modal-runner-name').textContent = `Runner: ${runner.fullName} (#${runner.id})`;
+
+            const modal = document.getElementById('payment-modal');
+            const card = document.getElementById('payment-card-container');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                card.classList.remove('scale-95');
+                card.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closePaymentModal() {
+            const modal = document.getElementById('payment-modal');
+            const card = document.getElementById('payment-card-container');
+            modal.classList.add('opacity-0');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                selectedPaymentRunner = null;
+            }, 300);
+        }
+
+        document.getElementById('close-payment-modal-btn').addEventListener('click', closePaymentModal);
+        document.getElementById('pay-qr-btn').addEventListener('click', () => {
+            if (selectedPaymentRunner) updatePaymentStatus(selectedPaymentRunner, 'QR');
+        });
+        document.getElementById('pay-cash-btn').addEventListener('click', () => {
+            if (selectedPaymentRunner) updatePaymentStatus(selectedPaymentRunner, 'CASH');
+        });
+        document.getElementById('pay-unpaid-btn').addEventListener('click', () => {
+            if (selectedPaymentRunner) updatePaymentStatus(selectedPaymentRunner, 'UNPAID');
+        });
+
+        // Export CSV
         document.getElementById('export-csv-btn').addEventListener('click', () => {
             if (registeredParticipants.length === 0) {
                 showToast("No data to export.", true);
                 return;
             }
-            const headers = ["Runner ID", "Full Name", "Contact Number", "Tee Size", "Emergency Contact", "Checked In", "Registered At"];
+            const headers = ["Runner ID", "Full Name", "Contact Number", "Tee Size", "Emergency Contact", "Payment Status", "Checked In", "Registered At"];
             const rows = registeredParticipants.map(p => [
                 `"${p.id}"`,
                 `"${p.fullName.replace(/"/g, '""')}"`,
                 `"${p.contactNumber}"`,
                 `"${p.tshirtSize}"`,
                 `"${p.emergencyContact.replace(/"/g, '""')}"`,
+                `"${p.paymentStatus === 'QR' ? 'Paid (QR)' : p.paymentStatus === 'CASH' ? 'Paid (Cash)' : 'Unpaid'}"`,
                 `"${p.checkedIn ? 'YES' : 'NO'}"`,
                 `"${new Date(p.createdAtMs).toISOString()}"`
             ]);
