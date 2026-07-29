@@ -482,62 +482,6 @@
             background-color: #10B981;
         }
 
-        .admin-table-container {
-            width: 100%;
-            overflow-x: auto;
-            border-radius: 1rem;
-            border: 1px solid #26262E;
-            margin-top: 1rem;
-        }
-
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.75rem;
-        }
-
-        .admin-table th {
-            background: rgba(10, 10, 12, 0.95);
-            color: #9CA3AF;
-            text-transform: uppercase;
-            font-size: 0.65rem;
-            letter-spacing: 0.05em;
-            padding: 1rem;
-            border-bottom: 1px solid #26262E;
-        }
-
-        .admin-table td {
-            padding: 1rem;
-            border-bottom: 1px solid #26262E;
-            color: #E5E7EB;
-        }
-
-        .admin-table tr:hover {
-            background-color: rgba(255, 255, 255, 0.03);
-        }
-
-        .badge-status {
-            padding: 0.25rem 0.6rem;
-            border-radius: 999px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            border: 1px solid transparent;
-            cursor: pointer;
-        }
-
-        .badge-checkedin {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34D399;
-            border-color: rgba(16, 185, 129, 0.3);
-        }
-
-        .badge-pending {
-            background: rgba(245, 158, 11, 0.15);
-            color: #FBBF24;
-            border-color: rgba(245, 158, 11, 0.3);
-        }
-
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -641,15 +585,15 @@
     <header class="no-print">
         <div class="max-width-container">
             <div class="nav-content">
-                <a href="#register" class="brand-logo">
+                <a href="/" class="brand-logo">
                     <img src="https://arleta.site/interactivelink/5674/innovation_logo_FA-removebg-preview.png" alt="Innovation Fitness Logo">
                     <span class="brand-title">INNOVATION FITNESS</span>
                 </a>
 
-                <button id="nav-admin-btn" class="admin-nav-btn">
+                <a href="admin.html" class="admin-nav-btn">
                     <i class="fa-solid fa-user-shield"></i>
                     <span>Admin Portal</span>
-                </button>
+                </a>
             </div>
         </div>
     </header>
@@ -735,6 +679,81 @@
                     </div>
                 </div>
 
+                <div class="glass-card" style="padding: 1.75rem; border: 2px solid var(--gold-accent); box-shadow: 0 0 35px rgba(245, 200, 66, 0.3); position: relative; overflow: hidden; margin-bottom: 2rem;">
+                    <div style="position: absolute; top: 0; right: 0; background: linear-gradient(135deg, #FADB43, #D4AF37); color: #000; font-size: 0.65rem; font-weight: 900; padding: 0.3rem 1rem; border-bottom-left-radius: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                        ★ Exclusive Prizes Up For Grabs ★
+                    </div>
+
+                    <div style="margin-bottom: 1.25rem;">
+                        <span style="color: var(--gold-accent); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; display: inline-flex; align-items: center; gap: 0.4rem;">
+                            <i class="fa-solid fa-trophy" style="color: #F5C842;"></i> 3rd Anniversary Fitness Showdown
+                        </span>
+                        <h2 style="font-family: 'Bebas Neue', cursive; font-size: 2.5rem; line-height: 1; color: #FFF; text-transform: uppercase; margin-top: 0.3rem;">
+                            CHALLENGE YOUR LIMITS & <span class="gold-gradient-text">CLAIM YOUR GLORY!</span>
+                        </h2>
+                        <p style="font-size: 0.85rem; color: #E5E7EB; margin-top: 0.5rem; line-height: 1.5; max-width: 900px;">
+                            Are you ready to test your strength, speed, and appetite? Push your boundaries in our special anniversary challenges after the run! Show Kelantan what you've got and walk away with exclusive gym merch and cash rewards. <strong>Don't just run—dominate the event!</strong>
+                        </p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
+                        
+                        <!-- Challenge 1 -->
+                        <div style="background: linear-gradient(180deg, rgba(20, 20, 24, 0.95) 0%, rgba(10, 10, 12, 0.95) 100%); border: 1px solid rgba(245, 200, 66, 0.35); padding: 1.25rem; border-radius: 1rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                    <div style="width: 42px; height: 42px; border-radius: 0.75rem; background: rgba(245, 200, 66, 0.15); border: 1px solid rgba(245, 200, 66, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1.35rem;">🏋️</div>
+                                    <span style="background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.4); color: var(--gold-accent); font-size: 0.65rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 0.35rem;">STRENGTH</span>
+                                </div>
+                                <h3 style="color: #FFF; font-weight: 800; font-size: 1.1rem;">Dead Hang Challenge</h3>
+                                <p style="color: #9CA3AF; font-size: 0.75rem; margin-top: 0.35rem; line-height: 1.4;">Maximum time grip hold contest. Who can hang the longest?</p>
+                            </div>
+                            <div style="margin-top: 1rem; padding-top: 0.75rem; border-t: 1px dashed rgba(255,255,255,0.15); display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.7rem; color: #9CA3AF; font-weight: 700; text-transform: uppercase;">WINNER PRIZE:</span>
+                                <span style="font-size: 0.8rem; font-weight: 900; color: #FCE082; background: rgba(245, 200, 66, 0.15); border: 1px solid rgba(245, 200, 66, 0.3); padding: 0.25rem 0.6rem; border-radius: 0.35rem;">👕 Oversize Tee</span>
+                            </div>
+                        </div>
+
+                        <!-- Challenge 2 -->
+                        <div style="background: linear-gradient(180deg, rgba(20, 20, 24, 0.95) 0%, rgba(10, 10, 12, 0.95) 100%); border: 1px solid rgba(245, 200, 66, 0.35); padding: 1.25rem; border-radius: 1rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                    <div style="width: 42px; height: 42px; border-radius: 0.75rem; background: rgba(245, 200, 66, 0.15); border: 1px solid rgba(245, 200, 66, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1.35rem;">🚣</div>
+                                    <span style="background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.4); color: var(--gold-accent); font-size: 0.65rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 0.35rem;">SPEED & POWER</span>
+                                </div>
+                                <h3 style="color: #FFF; font-weight: 800; font-size: 1.1rem;">SkiErg 250m Sprint</h3>
+                                <p style="color: #9CA3AF; font-size: 0.75rem; margin-top: 0.35rem; line-height: 1.4;">Fastest explosive 250m sprint on the SkiErg machine.</p>
+                            </div>
+                            <div style="margin-top: 1rem; padding-top: 0.75rem; border-t: 1px dashed rgba(255,255,255,0.15); display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.7rem; color: #9CA3AF; font-weight: 700; text-transform: uppercase;">WINNER PRIZE:</span>
+                                <span style="font-size: 0.8rem; font-weight: 900; color: #FCE082; background: rgba(245, 200, 66, 0.15); border: 1px solid rgba(245, 200, 66, 0.3); padding: 0.25rem 0.6rem; border-radius: 0.35rem;">👕 Oversize Tee</span>
+                            </div>
+                        </div>
+
+                        <!-- Challenge 3 -->
+                        <div style="background: linear-gradient(180deg, rgba(20, 20, 24, 0.95) 0%, rgba(10, 10, 12, 0.95) 100%); border: 1px solid rgba(52, 211, 153, 0.4); padding: 1.25rem; border-radius: 1rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                    <div style="width: 42px; height: 42px; border-radius: 0.75rem; background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1.35rem;">🍞</div>
+                                    <span style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34D399; font-size: 0.65rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 0.35rem;">SPEED EATING</span>
+                                </div>
+                                <h3 style="color: #FFF; font-weight: 800; font-size: 1.1rem;">Speed Eating Showdown</h3>
+                                <p style="color: #9CA3AF; font-size: 0.75rem; margin-top: 0.35rem; line-height: 1.4;">2-round elimination: 10pcs White Bread then 15 Eggs/Satay!</p>
+                            </div>
+                            <div style="margin-top: 1rem; padding-top: 0.75rem; border-t: 1px dashed rgba(255,255,255,0.15); display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.7rem; color: #9CA3AF; font-weight: 700; text-transform: uppercase;">WINNER PRIZE:</span>
+                                <span style="font-size: 0.85rem; font-weight: 900; color: #34D399; background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(52, 211, 153, 0.4); padding: 0.25rem 0.6rem; border-radius: 0.35rem;">💵 RM50 CASH</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div style="margin-top: 1.25rem; background: rgba(245, 200, 66, 0.1); border: 1px solid rgba(245, 200, 66, 0.3); padding: 0.85rem 1.25rem; border-radius: 0.85rem; text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.6rem;">
+                        <i class="fa-solid fa-fire" style="color: #F5C842; font-size: 1.1rem;"></i>
+                        <span style="font-size: 0.8rem; font-weight: 800; color: #FFF;">Spots are strictly limited for safety! Complete your registration below to secure your runner pass!</span>
+                    </div>
+                </div>
+
                 <div class="form-section">
                     
                     <div class="glass-card" style="padding: 1.75rem;">
@@ -746,6 +765,15 @@
                             <span style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #34D399; font-size: 0.65rem; font-weight: 800; padding: 0.25rem 0.6rem; border-radius: 999px;">
                                 ● Registration Open
                             </span>
+                        </div>
+
+                        <!-- Registration Fee Notice -->
+                        <div style="background: rgba(37, 211, 102, 0.1); border: 1px solid rgba(37, 211, 102, 0.3); border-radius: 0.85rem; padding: 0.85rem 1rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem;">
+                            <i class="fa-brands fa-whatsapp" style="font-size: 1.35rem; color: #25D366;"></i>
+                            <div>
+                                <span style="font-size: 0.75rem; font-weight: 800; color: #FFF; display: block; text-transform: uppercase;">Registration Fee Notice</span>
+                                <span style="font-size: 0.72rem; color: #D1D5DB;">Note: Registration fee will be announced via WhatsApp after submission.</span>
+                            </div>
                         </div>
 
                         <form id="registration-form">
@@ -771,7 +799,7 @@
 
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
                                 
-                                <!-- T-Shirt Size (Mandatory with S, M, L, XL options) -->
+                                <!-- T-Shirt Size -->
                                 <div class="form-group">
                                     <label class="form-label" for="tshirtSize">T-Shirt Size <span style="color: var(--gold-accent);">*</span></label>
                                     <select id="tshirtSize" required class="form-select">
@@ -827,7 +855,7 @@
                         <!-- Schedule -->
                         <div class="glass-card" style="padding: 1.25rem;">
                             <h3 style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; color: #FFF; border-bottom: 1px solid #26262E; padding-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
-                                <span>Event Schedule & Challenges</span>
+                                <span>Event Schedule</span>
                                 <i class="fa-solid fa-stopwatch" style="color: var(--gold-accent);"></i>
                             </h3>
 
@@ -862,22 +890,9 @@
                                 </li>
                                 <li class="itinerary-item">
                                     <span class="time-badge">08:30 AM</span>
-                                    <div style="width: 100%;">
-                                        <strong style="color: var(--gold-accent); text-transform: uppercase;">Anniversary Challenges:</strong>
-                                        <div style="background: rgba(10,10,12,0.8); padding: 0.6rem; border-radius: 0.5rem; border: 1px solid #26262E; margin-top: 0.35rem; font-size: 0.68rem; display: flex; flex-direction: column; gap: 0.35rem;">
-                                            <div style="display: flex; justify-content: space-between;">
-                                                <span>🏋️ <strong>Dead Hang</strong></span>
-                                                <span style="color: var(--gold-accent);">Prize: Oversize Tee</span>
-                                            </div>
-                                            <div style="display: flex; justify-content: space-between;">
-                                                <span>🚣 <strong>SkiErg 250m Sprint</strong></span>
-                                                <span style="color: var(--gold-accent);">Prize: Oversize Tee</span>
-                                            </div>
-                                            <div style="display: flex; justify-content: space-between;">
-                                                <span>🍞 <strong>Speed Eating Challenge</strong></span>
-                                                <span style="color: var(--gold-accent);">Prize: RM50</span>
-                                            </div>
-                                        </div>
+                                    <div>
+                                        <strong style="color: var(--gold-accent);">Anniversary Challenges</strong>
+                                        <p style="color: #9CA3AF; font-size: 0.68rem;">Dead Hang, SkiErg Sprint & Speed Eating Contests</p>
                                     </div>
                                 </li>
                                 <li class="itinerary-item">
@@ -917,88 +932,6 @@
 
             </section>
 
-            <section id="view-admin" style="display: none; padding: 2rem 0;">
-                
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #26262E; padding-bottom: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-                    <div>
-                        <div style="display: flex; align-items: center; gap: 0.75rem;">
-                            <h1 style="font-size: 1.75rem; font-weight: 800; color: #FFF;">Registrations Dashboard</h1>
-                            <span style="background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3); color: var(--gold-accent); font-size: 0.65rem; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 0.25rem;">Admin Mode</span>
-                        </div>
-                        <p style="font-size: 0.75rem; color: #9CA3AF; margin-top: 0.25rem;">Real-time list of participants for Innovation Fitness 3rd Anniversary Run.</p>
-                    </div>
-
-                    <div style="display: flex; gap: 0.5rem;" class="no-print">
-                        <button id="admin-export-csv" class="gold-button" style="background: #141418; color: #FFF; border: 1px solid #26262E; padding: 0.6rem 1rem; font-size: 0.75rem;">
-                            <i class="fa-solid fa-file-csv" style="color: #10B981;"></i> Export CSV
-                        </button>
-                        <button onclick="window.print()" class="gold-button" style="background: #141418; color: #FFF; border: 1px solid #26262E; padding: 0.6rem 1rem; font-size: 0.75rem;">
-                            <i class="fa-solid fa-print" style="color: #60A5FA;"></i> Print List
-                        </button>
-                        <button id="admin-lock-btn" class="gold-button" style="background: rgba(239, 68, 68, 0.1); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.2); padding: 0.6rem 1rem; font-size: 0.75rem;">
-                            <i class="fa-solid fa-lock"></i> Lock
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Admin Metrics -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-                    <div class="glass-card" style="padding: 1.25rem;">
-                        <span style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #9CA3AF;">Total Signups</span>
-                        <div id="admin-stat-total" class="gold-gradient-text" style="font-family: 'Bebas Neue', cursive; font-size: 2.5rem; line-height: 1; margin-top: 0.25rem;">0</div>
-                    </div>
-                    <div class="glass-card" style="padding: 1.25rem;">
-                        <span style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #9CA3AF;">Checked In</span>
-                        <div id="admin-stat-checkedin" style="font-family: 'Bebas Neue', cursive; font-size: 2.5rem; line-height: 1; margin-top: 0.25rem; color: #34D399;">0</div>
-                    </div>
-                    <div class="glass-card" style="padding: 1.25rem;">
-                        <span style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #9CA3AF;">Popular Shirt Size</span>
-                        <div id="admin-stat-size" class="gold-gradient-text" style="font-family: 'Bebas Neue', cursive; font-size: 2.5rem; line-height: 1; margin-top: 0.25rem;">M</div>
-                    </div>
-                </div>
-
-                <!-- Search & Filters -->
-                <div class="glass-card no-print" style="padding: 1rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-                    <input type="text" id="admin-search-input" placeholder="Search name, phone or ID..." class="form-input" style="max-width: 300px; padding-left: 1rem;">
-                    
-                    <div style="display: flex; gap: 0.75rem;">
-                        <select id="admin-filter-size" class="form-select" style="padding-left: 0.75rem; width: auto;">
-                            <option value="ALL">All Sizes</option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                        </select>
-                        <select id="admin-filter-checkin" class="form-select" style="padding-left: 0.75rem; width: auto;">
-                            <option value="ALL">All Status</option>
-                            <option value="CHECKED_IN">Checked In</option>
-                            <option value="PENDING">Pending</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Table -->
-                <div class="admin-table-container">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Runner ID</th>
-                                <th>Full Name</th>
-                                <th>Contact Number</th>
-                                <th>T-Shirt Size</th>
-                                <th>Registered At</th>
-                                <th>Status</th>
-                                <th class="no-print" style="text-align: right;">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-table-body">
-                            <!-- Rows injected via JS -->
-                        </tbody>
-                    </table>
-                </div>
-
-            </section>
-
         </div>
     </main>
 
@@ -1009,23 +942,6 @@
             <span style="display: block; font-size: 0.75rem; font-weight: 900;">WhatsApp Us</span>
         </div>
     </a>
-
-    <!-- Admin Verification Modal -->
-    <div id="admin-login-modal" class="modal-overlay">
-        <div class="glass-card modal-card">
-            <div style="width: 50px; height: 50px; border-radius: 1rem; background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3); color: var(--gold-accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; font-size: 1.25rem;">
-                <i class="fa-solid fa-lock"></i>
-            </div>
-            <h2 style="font-family: 'Bebas Neue', cursive; font-size: 1.75rem; letter-spacing: 0.05em; color: #FFF;">Admin Verification</h2>
-            <p style="font-size: 0.75rem; color: #9CA3AF; margin-bottom: 1.25rem;">Enter passcode to access participant records.</p>
-            
-            <form id="passcode-form">
-                <input type="password" id="passcode-input" maxlength="6" placeholder="• • • • • •" required style="width: 100%; text-align: center; font-size: 1.5rem; letter-spacing: 0.3em; font-family: monospace; padding: 0.75rem; background: #0A0A0C; border: 1px solid #26262E; border-radius: 0.75rem; color: var(--gold-accent); outline: none; margin-bottom: 0.75rem;">
-                <p id="passcode-error" style="color: #F87171; font-size: 0.7rem; display: none; margin-bottom: 0.75rem;">Incorrect Passcode</p>
-                <button type="submit" class="gold-button" style="width: 100%; padding: 0.75rem; font-size: 0.75rem;">Unlock Dashboard</button>
-            </form>
-        </div>
-    </div>
 
     <!-- Ticket Pass Modal -->
     <div id="ticket-modal" class="modal-overlay">
@@ -1091,6 +1007,10 @@
         <span id="toast-message">Notification message</span>
     </div>
 
+    <footer style="margin-top: 3rem; padding: 1.5rem 0; border-top: 1px solid #26262E; text-align: center;" class="no-print">
+        <p style="font-size: 0.75rem; color: #9CA3AF;">© 2023 Innovation Fitness. All rights reserved.</p>
+    </footer>
+
     <script type="module">
         
         // Initial Mock Data
@@ -1108,62 +1028,10 @@
         function saveParticipants() {
             localStorage.setItem('inno_participants', JSON.stringify(participants));
             updateCounter();
-            renderAdminTable();
         }
 
-        function handleRoute() {
-            const hash = window.location.hash || '#register';
-            const regView = document.getElementById('view-registration');
-            const adminView = document.getElementById('view-admin');
-
-            if (hash === '#admin') {
-                if (sessionStorage.getItem('inno_admin_auth') === 'true') {
-                    regView.style.display = 'none';
-                    adminView.style.display = 'block';
-                    renderAdminTable();
-                } else {
-                    document.getElementById('admin-login-modal').classList.add('active');
-                }
-            } else {
-                regView.style.display = 'block';
-                adminView.style.display = 'none';
-                document.getElementById('admin-login-modal').classList.remove('active');
-            }
-        }
-
-        window.addEventListener('hashchange', handleRoute);
         window.addEventListener('load', () => {
-            handleRoute();
             updateCounter();
-        });
-
-        document.getElementById('nav-admin-btn').addEventListener('click', () => {
-            if (sessionStorage.getItem('inno_admin_auth') === 'true') {
-                window.location.hash = '#admin';
-            } else {
-                document.getElementById('admin-login-modal').classList.add('active');
-            }
-        });
-
-        document.getElementById('passcode-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const pin = document.getElementById('passcode-input').value;
-            if (pin === '020999') {
-                sessionStorage.setItem('inno_admin_auth', 'true');
-                document.getElementById('admin-login-modal').classList.remove('active');
-                document.getElementById('passcode-error').style.display = 'none';
-                window.location.hash = '#admin';
-                showToast("Admin access granted!");
-            } else {
-                document.getElementById('passcode-error').style.display = 'block';
-                document.getElementById('passcode-input').value = '';
-            }
-        });
-
-        document.getElementById('admin-lock-btn').addEventListener('click', () => {
-            sessionStorage.removeItem('inno_admin_auth');
-            window.location.hash = '#register';
-            showToast("Admin portal locked.");
         });
 
         const regForm = document.getElementById('registration-form');
@@ -1218,109 +1086,6 @@
         document.getElementById('close-ticket-btn').addEventListener('click', closeTicketModal);
         document.getElementById('close-ticket-btn-2').addEventListener('click', closeTicketModal);
 
-        function renderAdminTable() {
-            const tableBody = document.getElementById('admin-table-body');
-            const searchInput = document.getElementById('admin-search-input').value.toLowerCase();
-            const filterSize = document.getElementById('admin-filter-size').value;
-            const filterCheckin = document.getElementById('admin-filter-checkin').value;
-
-            document.getElementById('admin-stat-total').textContent = participants.length;
-            document.getElementById('admin-stat-checkedin').textContent = participants.filter(p => p.checkedIn).length;
-
-            const sizeCounts = {};
-            participants.forEach(p => {
-                const s = p.tshirtSize;
-                sizeCounts[s] = (sizeCounts[s] || 0) + 1;
-            });
-            let popularSize = 'M';
-            let maxCount = 0;
-            Object.entries(sizeCounts).forEach(([sz, c]) => {
-                if (c > maxCount) { maxCount = c; popularSize = sz; }
-            });
-            document.getElementById('admin-stat-size').textContent = popularSize;
-
-            const filtered = participants.filter(runner => {
-                const matchesSearch = runner.fullName.toLowerCase().includes(searchInput) || runner.contactNumber.includes(searchInput) || runner.id.toLowerCase().includes(searchInput);
-                const matchesSize = filterSize === 'ALL' || runner.tshirtSize === filterSize;
-                const matchesCheckin = filterCheckin === 'ALL' || (filterCheckin === 'CHECKED_IN' ? runner.checkedIn : !runner.checkedIn);
-                return matchesSearch && matchesSize && matchesCheckin;
-            });
-
-            if (filtered.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 2rem; color: #6B7280;">No participants found matching criteria.</td></tr>`;
-                return;
-            }
-
-            tableBody.innerHTML = filtered.map(runner => `
-                <tr>
-                    <td style="font-family: monospace; font-weight: 700; color: var(--gold-accent);">${runner.id}</td>
-                    <td style="font-weight: 700; color: #FFF;">${escapeHtml(runner.fullName)}</td>
-                    <td style="font-family: monospace;">${escapeHtml(runner.contactNumber)}</td>
-                    <td><span style="background: #0A0A0C; padding: 0.2rem 0.5rem; border-radius: 0.25rem; font-family: monospace;">${escapeHtml(runner.tshirtSize)}</span></td>
-                    <td style="color: #6B7280; font-size: 0.65rem;">${new Date(runner.createdAtMs).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
-                    <td>
-                        <span data-action="toggle-checkin" data-id="${runner.id}" class="badge-status ${runner.checkedIn ? 'badge-checkedin' : 'badge-pending'}">
-                            <i class="fa-solid ${runner.checkedIn ? 'fa-circle-check' : 'fa-clock'}"></i>
-                            ${runner.checkedIn ? 'Checked In' : 'Pending'}
-                        </span>
-                    </td>
-                    <td class="no-print" style="text-align: right;">
-                        <button data-action="view-pass" data-id="${runner.id}" style="background: none; border: none; color: #9CA3AF; cursor: pointer; padding: 0.25rem;" title="View Pass"><i class="fa-solid fa-ticket"></i></button>
-                        <button data-action="delete-runner" data-id="${runner.id}" style="background: none; border: none; color: #F87171; cursor: pointer; padding: 0.25rem; margin-left: 0.5rem;" title="Delete Entry"><i class="fa-solid fa-trash-can"></i></button>
-                    </td>
-                </tr>
-            `).join('');
-
-            tableBody.querySelectorAll('[data-action]').forEach(btn => {
-                const action = btn.getAttribute('data-action');
-                const runnerId = btn.getAttribute('data-id');
-                const runner = participants.find(p => p.id === runnerId);
-                if (!runner) return;
-
-                btn.addEventListener('click', () => {
-                    if (action === 'toggle-checkin') {
-                        runner.checkedIn = !runner.checkedIn;
-                        saveParticipants();
-                        showToast(`Status updated for ${runner.fullName}`);
-                    }
-                    if (action === 'view-pass') openTicketModal(runner);
-                    if (action === 'delete-runner') {
-                        participants = participants.filter(p => p.id !== runnerId);
-                        saveParticipants();
-                        showToast(`Deleted ${runner.fullName}`);
-                    }
-                });
-            });
-        }
-
-        document.getElementById('admin-search-input').addEventListener('input', renderAdminTable);
-        document.getElementById('admin-filter-size').addEventListener('change', renderAdminTable);
-        document.getElementById('admin-filter-checkin').addEventListener('change', renderAdminTable);
-
-        document.getElementById('admin-export-csv').addEventListener('click', () => {
-            if (participants.length === 0) return showToast("No data to export.", true);
-            
-            const headers = ["Runner ID", "Full Name", "Contact Number", "T-Shirt Size", "Emergency Contact", "Checked In", "Registered At"];
-            const rows = participants.map(p => [
-                `"${p.id}"`,
-                `"${p.fullName.replace(/"/g, '""')}"`,
-                `"${p.contactNumber}"`,
-                `"${p.tshirtSize}"`,
-                `"${p.emergencyContact.replace(/"/g, '""')}"`,
-                `"${p.checkedIn ? 'YES' : 'NO'}"`,
-                `"${new Date(p.createdAtMs).toISOString()}"`
-            ]);
-
-            const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
-            const link = document.createElement("a");
-            link.setAttribute("href", encodeURI(csvContent));
-            link.setAttribute("download", `Innovation_Fitness_Run_Registrations.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showToast("CSV file exported!");
-        });
-
         function showToast(msg, isError = false) {
             const toast = document.getElementById('toast-notification');
             const icon = document.getElementById('toast-icon');
@@ -1332,10 +1097,6 @@
 
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        function escapeHtml(str) {
-            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         }
     </script>
 </body>
