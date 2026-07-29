@@ -1,0 +1,9 @@
+STREAMING_CHUNK:Configuring Cloudflare Wrangler project settings...
+
+name = "runreg"
+compatibility_date = "2024-01-01"
+
+STREAMING_CHUNK:Setting up static site asset directory...
+
+[site]
+bucket = "."
