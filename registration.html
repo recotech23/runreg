@@ -1012,30 +1012,88 @@
     </footer>
 
     <script type="module">
-        
-        // Initial Mock Data
-        let participants = [
-            { id: "INF-9012", fullName: "Muhammad Hafiz", contactNumber: "012-3456789", tshirtSize: "L", emergencyContact: "Aina - 012-9876543", checkedIn: true, createdAtMs: Date.now() - 3600000 * 5 },
-            { id: "INF-9013", fullName: "Siti Sarah Abdullah", contactNumber: "017-8899100", tshirtSize: "M", emergencyContact: "Farhan - 019-1122334", checkedIn: false, createdAtMs: Date.now() - 3600000 * 2 }
-        ];
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Load local storage if present
-        const stored = localStorage.getItem('inno_participants');
-        if (stored) {
-            try { participants = JSON.parse(stored); } catch (e) {}
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDVjFo8WAezuxlma6OfGV1dIfugqYE0_EA",
+            authDomain: "funrun-registration-25487.firebaseapp.com",
+            projectId: "funrun-registration-25487",
+            storageBucket: "funrun-registration-25487.firebasestorage.app",
+            messagingSenderId: "451223280010",
+            appId: "1:451223280010:web:1d5dd664fd748f543b5073",
+            measurementId: "G-DDKMGR2YDV"
+        };
+
+        let app, auth, db;
+        let isCloudAvailable = false;
+        let participants = [];
+
+        async function initFirebase() {
+            try {
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                isCloudAvailable = true;
+                subscribeToDatabase();
+            } catch (err) {
+                console.warn("Firestore offline fallback:", err);
+                isCloudAvailable = false;
+                loadLocalStorage();
+            }
         }
 
-        function saveParticipants() {
-            localStorage.setItem('inno_participants', JSON.stringify(participants));
+        function getCollectionRef() {
+            if (typeof __app_id !== 'undefined') {
+                return collection(db, 'artifacts', __app_id, 'public', 'data', 'registrations');
+            }
+            return collection(db, 'registrations');
+        }
+
+        function subscribeToDatabase() {
+            if (!isCloudAvailable || !db) return;
+            const colRef = getCollectionRef();
+
+            onSnapshot(colRef, (snapshot) => {
+                const list = [];
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    list.push({ docId: docSnap.id, ...data });
+                });
+                participants = list;
+                updateCounter();
+            }, (err) => {
+                console.error("Firestore onSnapshot error:", err);
+                loadLocalStorage();
+            });
+        }
+
+        function loadLocalStorage() {
+            const stored = localStorage.getItem('inno_participants');
+            if (stored) {
+                try { participants = JSON.parse(stored); } catch (e) {}
+            }
             updateCounter();
         }
 
-        window.addEventListener('load', () => {
-            updateCounter();
-        });
+        function updateCounter() {
+            const count = participants.length;
+            document.getElementById('stat-total-count').textContent = count;
+            const percentage = Math.min(100, Math.max(10, Math.round((count / 300) * 100)));
+            document.getElementById('counter-progress-bar').style.width = `${percentage}%`;
+        }
 
         const regForm = document.getElementById('registration-form');
-        regForm.addEventListener('submit', (e) => {
+        regForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const fullName = document.getElementById('fullName').value.trim();
@@ -1054,20 +1112,33 @@
                 createdAtMs: Date.now()
             };
 
-            participants.unshift(runnerObj);
-            saveParticipants();
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Submitting...`;
+
+            if (isCloudAvailable && db) {
+                try {
+                    const colRef = getCollectionRef();
+                    await addDoc(colRef, runnerObj);
+                } catch (err) {
+                    console.error("Error adding participant to Firestore:", err);
+                    participants.unshift(runnerObj);
+                    localStorage.setItem('inno_participants', JSON.stringify(participants));
+                    updateCounter();
+                }
+            } else {
+                participants.unshift(runnerObj);
+                localStorage.setItem('inno_participants', JSON.stringify(participants));
+                updateCounter();
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<i class="fa-solid fa-bolt"></i> <span>Complete Registration</span>`;
 
             regForm.reset();
             openTicketModal(runnerObj);
             showToast("Registration successful! Pass generated.");
         });
-
-        function updateCounter() {
-            const count = participants.length;
-            document.getElementById('stat-total-count').textContent = count;
-            const percentage = Math.min(100, Math.max(10, Math.round((count / 300) * 100)));
-            document.getElementById('counter-progress-bar').style.width = `${percentage}%`;
-        }
 
         function openTicketModal(runner) {
             document.getElementById('pass-name').textContent = runner.fullName;
@@ -1098,6 +1169,8 @@
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
+
+        window.addEventListener('load', initFirebase);
     </script>
 </body>
 </html>
