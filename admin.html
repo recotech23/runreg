@@ -2,7 +2,7 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Innovation Fitness - Admin Portal</title>
     <link rel="icon" type="image/png" href="https://arleta.site/interactivelink/5674/innovation_logo_FA-removebg-preview.png">
 
@@ -41,12 +41,16 @@
     </script>
 
     <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
         .gold-button {
             background: linear-gradient(135deg, #FADB43 0%, #D4AF37 50%, #B7791F 100%);
             transition: all 0.3s ease;
         }
 
-        .gold-button:hover {
+        .gold-button:hover, .gold-button:active {
             background: linear-gradient(135deg, #FFF099 0%, #FADB43 50%, #D4AF37 100%);
             box-shadow: 0 0 25px rgba(245, 200, 66, 0.5);
             transform: translateY(-1px);
@@ -60,6 +64,11 @@
             box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
         }
 
+        /* Prevents mobile zoom on text fields */
+        input, select {
+            font-size: 16px !important;
+        }
+
         @media print {
             .no-print { display: none !important; }
             body { background: white !important; color: black !important; }
@@ -71,7 +80,7 @@
 <body class="bg-[#121015] text-gray-100 min-h-screen flex flex-col antialiased selection:bg-gold-500 selection:text-black relative overflow-x-hidden">
 
     <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#121015] bg-opacity-95 backdrop-blur-md">
-        <div class="glass-card max-w-md w-full rounded-3xl p-8 border border-gold-500/30 shadow-2xl text-center space-y-6">
+        <div class="glass-card max-w-md w-full rounded-3xl p-6 sm:p-8 border border-gold-500/30 shadow-2xl text-center space-y-6">
             <div class="w-16 h-16 rounded-2xl bg-gold-500/10 border border-gold-500/30 text-gold-400 flex items-center justify-center mx-auto text-2xl shadow-inner">
                 <i class="fa-solid fa-lock"></i>
             </div>
@@ -82,10 +91,10 @@
             <form id="passcode-form" class="space-y-4">
                 <div class="relative">
                     <input type="password" id="passcode-input" maxlength="6" placeholder="• • • • • •" required autofocus
-                        class="w-full text-center text-2xl font-mono tracking-widest py-3.5 bg-darkbg border border-darkborder rounded-xl text-gold-400 placeholder-gray-600 focus:outline-none focus:border-gold-500 transition">
+                        class="w-full text-center text-2xl font-mono tracking-widest py-3 bg-darkbg border border-darkborder rounded-xl text-gold-400 placeholder-gray-600 focus:outline-none focus:border-gold-500 transition">
                 </div>
                 <p id="passcode-error" class="text-xs text-red-400 hidden font-medium"><i class="fa-solid fa-circle-exclamation mr-1"></i> Incorrect Passcode</p>
-                <button type="submit" class="w-full py-3.5 rounded-xl font-bold uppercase tracking-wider text-black gold-button text-xs shadow-lg">
+                <button type="submit" class="w-full py-3.5 rounded-xl font-bold uppercase tracking-wider text-black gold-button text-xs shadow-lg min-h-[48px]">
                     Unlock Dashboard
                 </button>
             </form>
@@ -93,19 +102,19 @@
     </div>
 
     <header class="sticky top-0 z-40 bg-[#121015]/90 backdrop-blur-md border-b border-amber-500/20 no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
             
-            <a href="/" class="flex items-center space-x-3 group">
-                <img src="https://arleta.site/interactivelink/5674/innovation_logo_FA-removebg-preview.png" alt="Innovation Fitness Logo" class="h-11 sm:h-12 w-auto max-w-[180px] object-contain transition-transform duration-200 group-hover:scale-105">
-                <span class="text-lg sm:text-2xl font-black font-display tracking-widest text-white group-hover:text-gold-400 transition">INNOVATION FITNESS</span>
+            <a href="/" class="flex items-center space-x-2 sm:space-x-3 group">
+                <img src="https://arleta.site/interactivelink/5674/innovation_logo_FA-removebg-preview.png" alt="Innovation Fitness Logo" class="h-9 sm:h-12 w-auto max-w-[140px] sm:max-w-[180px] object-contain transition-transform duration-200 group-hover:scale-105">
+                <span class="text-sm sm:text-2xl font-black font-display tracking-widest text-white group-hover:text-gold-400 transition hidden xs:inline">INNOVATION FITNESS</span>
             </a>
 
-            <nav class="flex items-center space-x-2 sm:space-x-4">
-                <a href="https://innovationfitness.my/registration" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-gold-400 hover:text-gold-300 transition flex items-center space-x-1.5 bg-gold-500/10 border border-gold-500/30">
+            <nav class="flex items-center space-x-2">
+                <a href="https://innovationfitness.my/registration" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-gold-400 hover:text-gold-300 transition flex items-center space-x-1.5 bg-gold-500/10 border border-gold-500/30 min-h-[38px]">
                     <i class="fa-solid fa-person-running text-xs"></i>
-                    <span>Registration Page</span>
+                    <span class="hidden sm:inline">Registration Page</span>
                 </a>
-                <button id="lock-portal-btn" class="px-3 py-1.5 rounded-lg text-xs font-bold text-red-400 hover:text-red-300 transition flex items-center space-x-1.5 bg-red-500/10 border border-red-500/20">
+                <button id="lock-portal-btn" class="px-3 py-1.5 rounded-lg text-xs font-bold text-red-400 hover:text-red-300 transition flex items-center space-x-1.5 bg-red-500/10 border border-red-500/20 min-h-[38px]">
                     <i class="fa-solid fa-lock text-[11px]"></i>
                     <span>Lock</span>
                 </button>
@@ -114,62 +123,64 @@
         </div>
     </header>
 
-    <main class="flex-grow py-8 md:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+    <main class="flex-grow py-6 md:py-12 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10 w-full">
         
-        <div id="admin-content" class="space-y-8">
+        <div id="admin-content" class="space-y-6 md:space-y-8">
             
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-darkborder pb-6">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-darkborder pb-4 sm:pb-6">
                 <div>
                     <div class="flex items-center space-x-3">
-                        <h1 class="text-3xl font-extrabold text-white">Registrations Dashboard</h1>
-                        <span class="px-2.5 py-0.5 rounded-md bg-gold-500/10 text-gold-400 border border-gold-500/20 text-xs font-bold">Admin Mode</span>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white">Registrations Dashboard</h1>
+                        <span class="px-2 py-0.5 rounded-md bg-gold-500/10 text-gold-400 border border-gold-500/20 text-[10px] sm:text-xs font-bold">Admin Mode</span>
                     </div>
                     <p class="text-xs text-gray-400 mt-1">Real-time list of participants for Innovation Fitness 3rd Anniversary Run.</p>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-3 no-print">
-                    <button id="export-csv-btn" class="px-4 py-2.5 rounded-xl bg-darkcard border border-darkborder text-xs font-semibold hover:border-gold-500/40 text-gray-200 hover:text-white transition flex items-center space-x-2">
+                <div class="flex items-center gap-2 no-print">
+                    <button id="export-csv-btn" class="flex-1 sm:flex-none px-3.5 py-2.5 rounded-xl bg-darkcard border border-darkborder text-xs font-semibold hover:border-gold-500/40 text-gray-200 hover:text-white transition flex items-center justify-center space-x-2 min-h-[42px]">
                         <i class="fa-solid fa-file-csv text-green-400"></i>
                         <span>Export CSV</span>
                     </button>
-                    <button id="print-list-btn" class="px-4 py-2.5 rounded-xl bg-darkcard border border-darkborder text-xs font-semibold hover:border-gold-500/40 text-gray-200 hover:text-white transition flex items-center space-x-2">
+                    <button id="print-list-btn" class="flex-1 sm:flex-none px-3.5 py-2.5 rounded-xl bg-darkcard border border-darkborder text-xs font-semibold hover:border-gold-500/40 text-gray-200 hover:text-white transition flex items-center justify-center space-x-2 min-h-[42px]">
                         <i class="fa-solid fa-print text-blue-400"></i>
                         <span>Print List</span>
                     </button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="p-5 rounded-2xl glass-card">
-                    <span class="text-xs text-gray-400 font-bold uppercase tracking-wider block">Total Signups</span>
-                    <div class="text-3xl font-bold font-display text-white mt-1" id="admin-stat-total">0</div>
-                    <span class="text-[11px] text-gray-500 mt-1 block">Registered runners</span>
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                <div class="p-4 sm:p-5 rounded-2xl glass-card">
+                    <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Total Signups</span>
+                    <div class="text-2xl sm:text-3xl font-bold font-display text-white mt-1" id="admin-stat-total">0</div>
+                    <span class="text-[10px] sm:text-[11px] text-gray-500 mt-1 block">Registered runners</span>
                 </div>
 
-                <div class="p-5 rounded-2xl glass-card">
-                    <span class="text-xs text-gray-400 font-bold uppercase tracking-wider block">Checked In</span>
-                    <div class="text-3xl font-bold font-display text-green-400 mt-1" id="admin-stat-checkedin">0</div>
-                    <span class="text-[11px] text-gray-500 mt-1 block">Race day check-ins</span>
+                <div class="p-4 sm:p-5 rounded-2xl glass-card">
+                    <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Checked In</span>
+                    <div class="text-2xl sm:text-3xl font-bold font-display text-green-400 mt-1" id="admin-stat-checkedin">0</div>
+                    <span class="text-[10px] sm:text-[11px] text-gray-500 mt-1 block">Race day check-ins</span>
                 </div>
 
-                <div class="p-5 rounded-2xl glass-card">
-                    <span class="text-xs text-gray-400 font-bold uppercase tracking-wider block">Most Popular Size</span>
-                    <div class="text-3xl font-bold font-display text-gold-400 mt-1" id="admin-stat-popular-size">M</div>
-                    <span class="text-[11px] text-gray-500 mt-1 block" id="admin-stat-size-breakdown">0 Shirts</span>
+                <div class="p-4 sm:p-5 rounded-2xl glass-card">
+                    <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Popular Size</span>
+                    <div class="text-2xl sm:text-3xl font-bold font-display text-gold-400 mt-1" id="admin-stat-popular-size">M</div>
+                    <span class="text-[10px] sm:text-[11px] text-gray-500 mt-1 block" id="admin-stat-size-breakdown">0 Shirts</span>
                 </div>
 
-                <div class="p-5 rounded-2xl glass-card">
-                    <span class="text-xs text-gray-400 font-bold uppercase tracking-wider block">Database Status</span>
-                    <div class="text-sm font-bold text-green-400 mt-2 flex items-center gap-2">
+                <div class="p-4 sm:p-5 rounded-2xl glass-card">
+                    <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Database Status</span>
+                    <div class="text-xs sm:text-sm font-bold text-green-400 mt-2 flex items-center gap-2">
                         <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
                         <span>Firestore Synced</span>
                     </div>
-                    <span class="text-[11px] text-gray-500 mt-1 block">Live real-time updates</span>
+                    <span class="text-[10px] sm:text-[11px] text-gray-500 mt-1 block">Live updates</span>
                 </div>
             </div>
 
-            <div class="glass-card rounded-2xl p-4 flex flex-col md:flex-row md:items-center gap-4 justify-between no-print">
-                <div class="relative flex-1 max-w-md">
+            <!-- Search and Filter Bar -->
+            <div class="glass-card rounded-2xl p-3.5 sm:p-4 flex flex-col md:flex-row md:items-center gap-3 justify-between no-print">
+                <div class="relative flex-1">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
                         <i class="fa-solid fa-magnifying-glass text-xs"></i>
                     </div>
@@ -177,9 +188,8 @@
                         class="w-full pl-10 pr-4 py-2.5 bg-darkbg border border-darkborder rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-gold-500">
                 </div>
 
-                <div class="flex items-center space-x-3 text-xs">
-                    <label class="text-gray-400 font-semibold whitespace-nowrap">Filter Size:</label>
-                    <select id="admin-filter-size" class="bg-darkbg border border-darkborder rounded-xl px-3 py-2 text-white focus:outline-none focus:border-gold-500">
+                <div class="flex items-center space-x-2 text-xs">
+                    <select id="admin-filter-size" class="flex-1 bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500">
                         <option value="ALL">All Sizes</option>
                         <option value="S">S</option>
                         <option value="M">M</option>
@@ -187,26 +197,27 @@
                         <option value="XL">XL</option>
                     </select>
 
-                    <select id="admin-filter-checkin" class="bg-darkbg border border-darkborder rounded-xl px-3 py-2 text-white focus:outline-none focus:border-gold-500">
+                    <select id="admin-filter-checkin" class="flex-1 bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500">
                         <option value="ALL">All Status</option>
                         <option value="CHECKED_IN">Checked In</option>
-                        <option value="NOT_CHECKED">Pending Check-in</option>
+                        <option value="NOT_CHECKED">Pending</option>
                     </select>
                 </div>
             </div>
 
-            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl border border-darkborder">
+            <!-- Table Container -->
+            <div class="glass-card rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-darkborder">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs text-gray-300">
+                    <table class="w-full text-left text-xs text-gray-300 min-w-[650px]">
                         <thead class="bg-darkbg/90 text-gray-400 uppercase tracking-wider font-bold text-[10px] border-b border-darkborder">
                             <tr>
-                                <th class="py-4 px-6">Runner ID</th>
-                                <th class="py-4 px-6">Full Name</th>
-                                <th class="py-4 px-6">Contact Number</th>
-                                <th class="py-4 px-6">Tee Size</th>
-                                <th class="py-4 px-6">Registered At</th>
-                                <th class="py-4 px-6">Check-In Status</th>
-                                <th class="py-4 px-6 text-right no-print">Actions</th>
+                                <th class="py-3.5 px-4 sm:px-6">Runner ID</th>
+                                <th class="py-3.5 px-4 sm:px-6">Full Name</th>
+                                <th class="py-3.5 px-4 sm:px-6">Contact Number</th>
+                                <th class="py-3.5 px-4 sm:px-6">Size</th>
+                                <th class="py-3.5 px-4 sm:px-6">Registered At</th>
+                                <th class="py-3.5 px-4 sm:px-6">Check-In</th>
+                                <th class="py-3.5 px-4 sm:px-6 text-right no-print">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="admin-table-body" class="divide-y divide-darkborder font-medium">
@@ -226,22 +237,22 @@
     </main>
 
     <div id="ticket-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-        <div class="glass-card max-w-md w-full rounded-3xl p-6 md:p-8 relative border border-gold-500/30 shadow-2xl space-y-6 text-center transform scale-95 transition-transform duration-300" id="ticket-card-container">
+        <div class="glass-card max-w-md w-full max-h-[90vh] overflow-y-auto rounded-3xl p-5 sm:p-8 relative border border-gold-500/30 shadow-2xl space-y-5 text-center transform scale-95 transition-transform duration-300" id="ticket-card-container">
             
             <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white w-8 h-8 rounded-full bg-darkbg flex items-center justify-center text-sm">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
             <div>
-                <h3 class="text-2xl font-bold text-white">Participant Runner Pass</h3>
-                <p class="text-xs text-gray-400 mt-1">Official digital pass for event entry verification.</p>
+                <h3 class="text-xl sm:text-2xl font-bold text-white">Participant Runner Pass</h3>
+                <p class="text-xs text-gray-400 mt-1">Digital pass for event entry verification.</p>
             </div>
 
-            <div class="p-5 rounded-2xl bg-gradient-to-b from-darkcard to-darkbg border border-gold-500/40 text-left space-y-4 relative overflow-hidden shadow-inner">
+            <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-b from-darkcard to-darkbg border border-gold-500/40 text-left space-y-3 sm:space-y-4 relative overflow-hidden shadow-inner">
                 <div class="flex justify-between items-start border-b border-darkborder pb-3">
                     <div>
                         <span class="text-[9px] font-bold tracking-widest text-gold-400 uppercase">Official Runner Pass</span>
-                        <h4 id="pass-runner-name" class="text-lg font-bold text-white uppercase tracking-wide">Alex Tan</h4>
+                        <h4 id="pass-runner-name" class="text-base sm:text-lg font-bold text-white uppercase tracking-wide">Alex Tan</h4>
                     </div>
                     <div class="text-right">
                         <span class="text-[9px] text-gray-500 uppercase font-mono block">Reg ID</span>
@@ -258,18 +269,10 @@
                         <span class="text-[10px] text-gray-400 uppercase font-semibold block">Shirt Size</span>
                         <span id="pass-runner-shirt" class="font-medium text-gold-400">M</span>
                     </div>
-                    <div>
-                        <span class="text-[10px] text-gray-400 uppercase font-semibold block">Date & Time</span>
-                        <span class="font-medium text-gray-200">11 Sept 2026, 7AM</span>
-                    </div>
-                    <div>
-                        <span class="text-[10px] text-gray-400 uppercase font-semibold block">Venue</span>
-                        <span class="font-medium text-gray-200">AEON Mall KB</span>
-                    </div>
                 </div>
 
                 <div class="pt-3 border-t border-darkborder flex flex-col items-center">
-                    <div class="h-10 w-full bg-white/10 rounded p-1 flex justify-center items-center space-x-1">
+                    <div class="h-9 w-full bg-white/10 rounded p-1 flex justify-center items-center space-x-1">
                         <div class="bg-white h-full w-1"></div>
                         <div class="bg-white h-full w-2"></div>
                         <div class="bg-white h-full w-0.5"></div>
@@ -277,24 +280,23 @@
                         <div class="bg-white h-full w-1"></div>
                         <div class="bg-white h-full w-2"></div>
                         <div class="bg-white h-full w-1.5"></div>
-                        <div class="bg-white h-full w-3"></div>
                     </div>
                     <span id="pass-barcode-text" class="text-[10px] font-mono text-gray-400 mt-1">INF-2026-3RD-RUN</span>
                 </div>
             </div>
 
             <div class="flex gap-3">
-                <button onclick="window.print()" class="flex-1 py-3 rounded-xl bg-darkcard border border-darkborder text-xs font-bold text-white hover:border-gold-500/40 transition">
-                    <i class="fa-solid fa-print mr-1.5"></i> Print Pass
+                <button onclick="window.print()" class="flex-1 py-3 rounded-xl bg-darkcard border border-darkborder text-xs font-bold text-white hover:border-gold-500/40 transition min-h-[44px]">
+                    <i class="fa-solid fa-print mr-1.5"></i> Print
                 </button>
-                <button id="modal-done-btn" class="flex-1 py-3 rounded-xl gold-button text-xs font-bold text-black uppercase tracking-wider">
+                <button id="modal-done-btn" class="flex-1 py-3 rounded-xl gold-button text-xs font-bold text-black uppercase tracking-wider min-h-[44px]">
                     Close
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="toast-notification" class="fixed bottom-6 right-6 z-50 max-w-sm px-4 py-3 rounded-2xl glass-card border border-gold-500/40 text-xs font-medium text-white shadow-2xl flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div id="toast-notification" class="fixed bottom-6 right-4 left-4 sm:left-auto sm:right-6 z-50 max-w-sm px-4 py-3 rounded-2xl glass-card border border-gold-500/40 text-xs font-medium text-white shadow-2xl flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
         <i id="toast-icon" class="fa-solid fa-circle-check text-gold-400 text-lg"></i>
         <span id="toast-message">Notification message</span>
     </div>
@@ -320,7 +322,6 @@
 
         let app, auth, db;
         let isCloudStorageAvailable = false;
-
         let localMemoryRegistrations = [];
 
         const passcodeForm = document.getElementById('passcode-form');
@@ -377,7 +378,7 @@
                 isCloudStorageAvailable = true;
                 subscribeToRegistrations();
             } catch (err) {
-                console.warn("Firestore fallback to local mode:", err);
+                console.warn("Firestore offline fallback:", err);
                 isCloudStorageAvailable = false;
                 registeredParticipants = [...localMemoryRegistrations];
                 renderAdminDashboard();
@@ -414,8 +415,7 @@
                 registeredParticipants = list;
                 renderAdminDashboard();
             }, (err) => {
-                console.error("Firestore onSnapshot error:", err);
-                registeredParticipants = [...localMemoryRegistrations];
+                console.error("Firestore error:", err);
                 renderAdminDashboard();
             });
         }
@@ -428,14 +428,14 @@
                         ? doc(db, 'artifacts', __app_id, 'public', 'data', 'registrations', runner.docId)
                         : doc(db, 'registrations', runner.docId);
                     await updateDoc(docRef, { checkedIn: newStatus });
-                    showToast(`Check-in status updated for ${runner.fullName}`);
+                    showToast(`Updated check-in for ${runner.fullName}`);
                 } catch (err) {
                     console.error("Check-in error:", err);
                 }
             } else {
                 runner.checkedIn = newStatus;
                 renderAdminDashboard();
-                showToast(`Check-in status updated for ${runner.fullName}`);
+                showToast(`Updated check-in for ${runner.fullName}`);
             }
         }
 
@@ -452,7 +452,6 @@
                 }
             } else {
                 registeredParticipants = registeredParticipants.filter(p => p.id !== runner.id);
-                localMemoryRegistrations = localMemoryRegistrations.filter(p => p.id !== runner.id);
                 renderAdminDashboard();
                 showToast(`Deleted ${runner.fullName}`);
             }
@@ -503,29 +502,29 @@
             emptyState.classList.add('hidden');
             tableBody.innerHTML = filtered.map(runner => `
                 <tr class="hover:bg-white/5 transition">
-                    <td class="py-4 px-6 font-mono font-bold text-gold-400">${runner.id}</td>
-                    <td class="py-4 px-6 text-white font-semibold">${escapeHtml(runner.fullName)}</td>
-                    <td class="py-4 px-6 text-gray-300 font-mono">${escapeHtml(runner.contactNumber)}</td>
-                    <td class="py-4 px-6">
-                        <span class="px-2.5 py-1 rounded-md bg-darkbg border border-darkborder text-gray-300 font-mono text-[11px]">
+                    <td class="py-3.5 px-4 sm:px-6 font-mono font-bold text-gold-400">${runner.id}</td>
+                    <td class="py-3.5 px-4 sm:px-6 text-white font-semibold">${escapeHtml(runner.fullName)}</td>
+                    <td class="py-3.5 px-4 sm:px-6 text-gray-300 font-mono">${escapeHtml(runner.contactNumber)}</td>
+                    <td class="py-3.5 px-4 sm:px-6">
+                        <span class="px-2 py-0.5 rounded bg-darkbg border border-darkborder text-gray-300 font-mono text-[11px]">
                             ${escapeHtml(runner.tshirtSize)}
                         </span>
                     </td>
-                    <td class="py-4 px-6 text-gray-400 text-[11px]">
+                    <td class="py-3.5 px-4 sm:px-6 text-gray-400 text-[11px]">
                         ${new Date(runner.createdAtMs).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                     </td>
-                    <td class="py-4 px-6">
-                        <button data-action="toggle-checkin" data-id="${runner.id}" class="px-3 py-1 rounded-full text-[11px] font-bold border transition ${runner.checkedIn ? 'bg-green-500/10 border-green-500/30 text-green-400 hover:bg-green-500/20' : 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400 hover:bg-yellow-500/20'}">
+                    <td class="py-3.5 px-4 sm:px-6">
+                        <button data-action="toggle-checkin" data-id="${runner.id}" class="px-2.5 py-1 rounded-full text-[10px] font-bold border transition ${runner.checkedIn ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400'}">
                             <i class="fa-solid ${runner.checkedIn ? 'fa-circle-check' : 'fa-clock'} mr-1"></i>
                             ${runner.checkedIn ? 'Checked In' : 'Pending'}
                         </button>
                     </td>
-                    <td class="py-4 px-6 text-right space-x-2 no-print">
-                        <button data-action="view-pass" data-id="${runner.id}" class="p-1.5 rounded-lg text-gray-400 hover:text-gold-400 transition" title="View Ticket Pass">
-                            <i class="fa-solid fa-ticket"></i>
+                    <td class="py-3.5 px-4 sm:px-6 text-right space-x-1.5 no-print">
+                        <button data-action="view-pass" data-id="${runner.id}" class="p-2 rounded-lg text-gray-400 hover:text-gold-400 transition" title="View Pass">
+                            <i class="fa-solid fa-ticket text-sm"></i>
                         </button>
-                        <button data-action="delete-runner" data-id="${runner.id}" class="p-1.5 rounded-lg text-gray-400 hover:text-red-400 transition" title="Delete Entry">
-                            <i class="fa-solid fa-trash-can"></i>
+                        <button data-action="delete-runner" data-id="${runner.id}" class="p-2 rounded-lg text-gray-400 hover:text-red-400 transition" title="Delete">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
                         </button>
                     </td>
                 </tr>
@@ -568,7 +567,7 @@
             const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
             const link = document.createElement("a");
             link.setAttribute("href", encodeURI(csvContent));
-            link.setAttribute("download", `Inno_Fitness_Run_Registrations_${new Date().toISOString().slice(0,10)}.csv`);
+            link.setAttribute("download", `Inno_Run_Registrations_${new Date().toISOString().slice(0,10)}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -612,12 +611,7 @@
             const message = document.getElementById('toast-message');
 
             message.textContent = msg;
-            if (icon) {
-                const iconClasses = isError 
-                    ? "fa-solid fa-circle-xmark text-red-400 text-lg" 
-                    : "fa-solid fa-circle-check text-gold-400 text-lg";
-                icon.setAttribute('class', iconClasses);
-            }
+            icon.setAttribute('class', isError ? "fa-solid fa-circle-xmark text-red-400 text-lg" : "fa-solid fa-circle-check text-gold-400 text-lg");
 
             toast.classList.remove('translate-y-20', 'opacity-0');
             setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3500);
