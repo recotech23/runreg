@@ -1,9 +1,25 @@
-STREAMING_CHUNK:Configuring Cloudflare Wrangler project settings...
+I will now generate a clean `wrangler.toml` file without any metadata or streaming headers.
 
+wrangler.toml
+
+```
 name = "runreg"
 compatibility_date = "2024-01-01"
 
-STREAMING_CHUNK:Setting up static site asset directory...
-
 [site]
 bucket = "."
+```eof
+
+### Why the error happened:
+The log showed:
+`1 │ STREAMING_CHUNK:Configuring Cloudflare Wrangler project settings...`
+
+The text `STREAMING_CHUNK:` was accidentally pasted at the very top of line 1 in your GitHub `wrangler.toml` file, which is invalid TOML syntax.
+
+### How to fix:
+1. Open `wrangler.toml` in your **GitHub repository** (`recotech23/runreg`).
+2. Replace **all** of its contents with the clean 4 lines shown in the file box above.
+3. Save/Commit changes in GitHub.
+4. Cloudflare will automatically trigger a re-deploy and build successfully!
+
+```
