@@ -392,6 +392,37 @@
             box-shadow: 0 0 0 1px var(--gold-primary);
         }
 
+        .size-chart-box {
+            margin-top: 0.75rem;
+            background: rgba(10, 10, 12, 0.85);
+            border: 1px solid rgba(245, 200, 66, 0.3);
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            overflow-x: auto;
+        }
+
+        .size-chart-table {
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+            font-size: 0.72rem;
+        }
+
+        .size-chart-table th {
+            padding: 0.4rem 0.5rem;
+            background: rgba(212, 175, 55, 0.18);
+            color: #FCE082;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .size-chart-table td {
+            padding: 0.4rem 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            color: #E5E7EB;
+            font-weight: 600;
+        }
+
         .progress-bar-bg {
             width: 100%;
             background: #0A0A0C;
@@ -690,7 +721,7 @@
                                 <span class="maps-badge"><i class="fa-solid fa-map-location-dot"></i> Maps</span>
                             </div>
                             <span class="card-label">AFTER RUN</span>
-                            <span class="card-value">Innovation Fitness</span>
+                            <span class="card-value">Innovation</span>
                             <span class="card-subtext">Gym Location</span>
                         </a>
                     </div>
@@ -778,16 +809,18 @@
                         </div>
 
                         <!-- Registration Fee Notice -->
-                        <div style="background: rgba(245, 200, 66, 0.12); border: 2px solid var(--gold-accent); border-radius: 0.85rem; padding: 0.85rem 1.15rem; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; box-shadow: 0 4px 20px rgba(245, 200, 66, 0.15);">
-                            <div>
-                                <span style="font-size: 0.7rem; font-weight: 800; color: #FCE082; display: block; text-transform: uppercase; letter-spacing: 0.05em;">Registration Fee</span>
-                                <span style="font-size: 0.72rem; color: #D1D5DB; display: block;">Includes 1x InnoFit ® Flex Cut Singlet & Breakfast</span>
-                                <span style="font-size: 0.68rem; color: #34D399; font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.25rem;">
-                                    <i class="fa-solid fa-wallet"></i> Payment Method: On-site payment upon arrival during event day registration
-                                </span>
+                        <div style="background: rgba(245, 200, 66, 0.12); border: 1px solid rgba(245, 200, 66, 0.4); border-radius: 0.85rem; padding: 1rem 1.15rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 1rem;">
+                            <div style="background: linear-gradient(135deg, #FFF099 0%, #FADB43 50%, #D4AF37 100%); color: #000; font-weight: 900; font-size: 1.75rem; padding: 0.5rem 1rem; border-radius: 0.65rem; flex-shrink: 0; text-align: center; font-family: 'Bebas Neue', cursive; letter-spacing: 0.05em; line-height: 1; box-shadow: 0 4px 15px rgba(245, 200, 66, 0.35);">
+                                RM30 ONLY
                             </div>
-                            <div style="text-align: right; flex-shrink: 0;">
-                                <span style="font-family: 'Bebas Neue', cursive; font-size: 2.2rem; line-height: 1; color: var(--gold-accent); font-weight: 900; letter-spacing: 0.03em; display: block; text-shadow: 0 0 12px rgba(245, 200, 66, 0.35);">RM30 ONLY</span>
+                            <div>
+                                <span style="font-size: 0.8rem; font-weight: 800; color: #FFF; display: block; text-transform: uppercase;">Fee Includes:</span>
+                                <p style="font-size: 0.75rem; color: #FCE082; font-weight: 700; margin-top: 0.15rem;">
+                                    🎽 1x InnoFit ® Flex Cut Singlet + 🍳 Breakfast
+                                </p>
+                                <p style="font-size: 0.68rem; color: #D1D5DB; margin-top: 0.25rem; border-top: 1px dashed rgba(245, 200, 66, 0.25); padding-top: 0.25rem;">
+                                    💳 <strong>Payment Method:</strong> On-site payment upon arrival during event day registration.
+                                </p>
                             </div>
                         </div>
 
@@ -821,6 +854,47 @@
                                         <option value="L">L</option>
                                         <option value="XL">XL</option>
                                     </select>
+
+                                    <!-- Size Chart Table Reference -->
+                                    <div class="size-chart-box">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                            <span style="font-size: 0.7rem; font-weight: 800; color: var(--gold-accent); text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.35rem;">
+                                                <i class="fa-solid fa-ruler-combined"></i> Size Chart Reference
+                                            </span>
+                                            <span style="font-size: 0.6rem; color: #9CA3AF;">± 0.5 Inch Tolerance</span>
+                                        </div>
+                                        <table class="size-chart-table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="border-radius: 0.35rem 0 0 0.35rem;">Size</th>
+                                                    <th>Chest</th>
+                                                    <th style="border-radius: 0 0.35rem 0.35rem 0;">Length</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="font-weight: 800; color: var(--gold-accent);">S</td>
+                                                    <td>38"</td>
+                                                    <td>27"</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: 800; color: var(--gold-accent);">M</td>
+                                                    <td>40"</td>
+                                                    <td>28"</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: 800; color: var(--gold-accent);">L</td>
+                                                    <td>42"</td>
+                                                    <td>29"</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight: 800; color: var(--gold-accent);">XL</td>
+                                                    <td>44"</td>
+                                                    <td>30"</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
 
                                 <!-- Emergency Contact -->
@@ -854,11 +928,11 @@
                                 <span style="width: 8px; height: 8px; background: var(--gold-primary); border-radius: 999px; display: inline-block;"></span>
                             </div>
                             <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-top: 0.25rem;">
-                                <span id="stat-total-count" class="gold-gradient-text" style="font-family: 'Bebas Neue', cursive; font-size: 3rem; line-height: 1;">0</span>
+                                <span id="stat-total-count" class="gold-gradient-text" style="font-family: 'Bebas Neue', cursive; font-size: 3rem; line-height: 1;">0/100</span>
                                 <span style="font-size: 0.75rem; color: #9CA3AF; font-weight: 700; text-transform: uppercase;">Runners Joined</span>
                             </div>
                             <div class="progress-bar-bg">
-                                <div id="counter-progress-bar" class="progress-bar-fill" style="width: 15%;"></div>
+                                <div id="counter-progress-bar" class="progress-bar-fill" style="width: 0%;"></div>
                             </div>
                         </div>
 
@@ -916,7 +990,7 @@
                                     <i class="fa-brands fa-instagram" style="font-size: 1.25rem; color: #F472B6;"></i>
                                     <div>
                                         <span style="display: block; font-size: 0.58rem; text-transform: uppercase; color: #9CA3AF;">Follow On Instagram</span>
-                                        <span style="display: block; font-size: 0.75rem; font-weight: 800; color: #FFF;">@INNOVATIONFITNESSCENTRE</span>
+                                        <span style="display: block; font-size: 0.75rem; font-weight: 800; color: #FFF;">@INNOVATIONFITNESS</span>
                                     </div>
                                 </div>
                                 <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; color: #F472B6;"></i>
@@ -1033,9 +1107,14 @@
                 auth = getAuth(app);
                 db = getFirestore(app);
 
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
+                try {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                } catch (authErr) {
+                    console.warn("Custom token auth failed, falling back to anonymous auth:", authErr);
                     await signInAnonymously(auth);
                 }
 
@@ -1083,8 +1162,8 @@
 
         function updateCounter() {
             const count = participants.length;
-            document.getElementById('stat-total-count').textContent = count;
-            const percentage = Math.min(100, Math.max(10, Math.round((count / 300) * 100)));
+            document.getElementById('stat-total-count').textContent = `${count}/100`;
+            const percentage = Math.min(100, Math.max(0, Math.round((count / 100) * 100)));
             document.getElementById('counter-progress-bar').style.width = `${percentage}%`;
         }
 
@@ -1104,6 +1183,7 @@
                 contactNumber,
                 tshirtSize,
                 emergencyContact,
+                paymentStatus: 'UNPAID',
                 checkedIn: false,
                 createdAtMs: Date.now()
             };
@@ -1170,3 +1250,4 @@
     </script>
 </body>
 </html>
+
