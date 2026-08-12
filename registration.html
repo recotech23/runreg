@@ -1161,10 +1161,10 @@
         }
 
         function updateCounter() {
-            const count = participants.length;
-            document.getElementById('stat-total-count').textContent = `${count}/100`;
-            const percentage = Math.min(100, Math.max(0, Math.round((count / 150) * 100)));
-            document.getElementById('counter-progress-bar').style.width = `${percentage}%`;
+    const count = participants.length;
+    document.getElementById('stat-total-count').textContent = `${count}/150`;
+    const percentage = Math.min(100, Math.max(0, Math.round((count / 150) * 100)));
+    document.getElementById('counter-progress-bar').style.width = `${percentage}%`;
         }
 
         const regForm = document.getElementById('registration-form');
