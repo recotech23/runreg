@@ -110,7 +110,7 @@
             </a>
 
             <nav class="flex items-center space-x-2">
-                <a href="https://www.innovationfitness.my/registration" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-gold-400 hover:text-gold-300 transition flex items-center space-x-1.5 bg-gold-500/10 border border-gold-500/30 min-h-[38px]">
+                <a href="https://innovationfitness.my/registration" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-gold-400 hover:text-gold-300 transition flex items-center space-x-1.5 bg-gold-500/10 border border-gold-500/30 min-h-[38px]">
                     <i class="fa-solid fa-person-running text-xs"></i>
                     <span class="hidden sm:inline">Registration Page</span>
                 </a>
@@ -220,6 +220,7 @@
                                 <th class="py-3.5 px-4 sm:px-6 text-center w-12">#</th>
                                 <th class="py-3.5 px-4 sm:px-6">Runner ID</th>
                                 <th class="py-3.5 px-4 sm:px-6">Full Name</th>
+                                <th class="py-3.5 px-4 sm:px-6">Gender</th>
                                 <th class="py-3.5 px-4 sm:px-6">Contact Number</th>
                                 <th class="py-3.5 px-4 sm:px-6">Emergency Contact</th>
                                 <th class="py-3.5 px-4 sm:px-6">Size</th>
@@ -463,6 +464,7 @@
                         docId: docSnap.id,
                         id: data.id || `INF-${docSnap.id.substring(0, 5).toUpperCase()}`,
                         fullName: data.fullName || 'Anonymous Runner',
+                        gender: data.gender || '-',
                         contactNumber: data.contactNumber || '-',
                         tshirtSize: data.tshirtSize || data.tShirtSize || 'M',
                         emergencyContact: data.emergencyContact || '-',
@@ -555,7 +557,10 @@
             document.getElementById('admin-stat-payment-breakdown').textContent = `${qrCount} QR • ${cashCount} Cash`;
 
             const filtered = registeredParticipants.filter(runner => {
-                const matchesSearch = runner.fullName.toLowerCase().includes(searchInput) || runner.contactNumber.includes(searchInput) || runner.id.toLowerCase().includes(searchInput);
+                const matchesSearch = runner.fullName.toLowerCase().includes(searchInput) ||
+                    (runner.gender && runner.gender.toLowerCase().includes(searchInput)) ||
+                    runner.contactNumber.includes(searchInput) ||
+                    runner.id.toLowerCase().includes(searchInput);
                 const matchesSize = filterSize === 'ALL' || runner.tshirtSize === filterSize;
                 
                 let matchesPayment = true;
@@ -579,6 +584,7 @@
                     <td class="py-3.5 px-4 sm:px-6 font-mono text-center font-bold text-gray-400">${index + 1}</td>
                     <td class="py-3.5 px-4 sm:px-6 font-mono font-bold text-gold-400">${runner.id}</td>
                     <td class="py-3.5 px-4 sm:px-6 text-white font-semibold">${escapeHtml(runner.fullName)}</td>
+                    <td class="py-3.5 px-4 sm:px-6 text-gray-300">${escapeHtml(runner.gender)}</td>
                     <td class="py-3.5 px-4 sm:px-6 text-gray-300 font-mono">${escapeHtml(runner.contactNumber)}</td>
                     <td class="py-3.5 px-4 sm:px-6 text-gray-300 font-mono">${escapeHtml(runner.emergencyContact)}</td>
                     <td class="py-3.5 px-4 sm:px-6">
@@ -688,11 +694,12 @@
                 showToast("No data to export.", true);
                 return;
             }
-            const headers = ["#", "Runner ID", "Full Name", "Contact Number", "Tee Size", "Emergency Contact", "Payment Status", "Checked In", "Registered At"];
+            const headers = ["#", "Runner ID", "Full Name", "Gender", "Contact Number", "Tee Size", "Emergency Contact", "Payment Status", "Checked In", "Registered At"];
             const rows = registeredParticipants.map((p, index) => [
                 `"${index + 1}"`,
                 `"${p.id}"`,
                 `"${p.fullName.replace(/"/g, '""')}"`,
+                `"${(p.gender || '-').replace(/"/g, '""')}"`,
                 `"${p.contactNumber}"`,
                 `"${p.tshirtSize}"`,
                 `"${p.emergencyContact.replace(/"/g, '""')}"`,
