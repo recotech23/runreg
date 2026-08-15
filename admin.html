@@ -110,7 +110,7 @@
             </a>
 
             <nav class="flex items-center space-x-2">
-                <a href="https://www.innovationfitness.my/registration" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-gold-400 hover:text-gold-300 transition flex items-center space-x-1.5 bg-gold-500/10 border border-gold-500/30 min-h-[38px]">
+                <a href="https://innovationfitness.my/registration" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-gold-400 hover:text-gold-300 transition flex items-center space-x-1.5 bg-gold-500/10 border border-gold-500/30 min-h-[38px]">
                     <i class="fa-solid fa-person-running text-xs"></i>
                     <span class="hidden sm:inline">Registration Page</span>
                 </a>
@@ -511,6 +511,23 @@
             }
         }
 
+        async function updateGender(runner, newGender) {
+            if (isCloudStorageAvailable && db && runner.docId) {
+                try {
+                    const docRef = getDocRef(runner.docId);
+                    await updateDoc(docRef, { gender: newGender });
+                    showToast(`Updated gender for ${runner.fullName} to ${newGender}`);
+                } catch (err) {
+                    console.error("Gender update error:", err);
+                    showToast("Failed to update gender.", true);
+                }
+            } else {
+                runner.gender = newGender;
+                renderAdminDashboard();
+                showToast(`Updated gender for ${runner.fullName} to ${newGender}`);
+            }
+        }
+
         async function updatePaymentStatus(runner, newStatus) {
             closePaymentModal();
             if (isCloudStorageAvailable && db && runner.docId) {
@@ -608,7 +625,13 @@
                     <td class="py-3.5 px-4 sm:px-6 font-mono text-center font-bold text-gray-400">${index + 1}</td>
                     <td class="py-3.5 px-4 sm:px-6 font-mono font-bold text-gold-400">${runner.id}</td>
                     <td class="py-3.5 px-4 sm:px-6 text-white font-semibold">${escapeHtml(runner.fullName)}</td>
-                    <td class="py-3.5 px-4 sm:px-6 text-gray-300">${escapeHtml(runner.gender)}</td>
+                    <td class="py-3.5 px-4 sm:px-6">
+                        <select data-action="update-gender" data-id="${runner.id}" class="bg-darkbg border border-darkborder rounded-lg px-2 py-1 text-xs text-white focus:outline-none focus:border-gold-500 cursor-pointer">
+                            <option value="Male" ${runner.gender === 'Male' ? 'selected' : ''}>Male</option>
+                            <option value="Female" ${runner.gender === 'Female' ? 'selected' : ''}>Female</option>
+                            <option value="Unassigned" ${!runner.gender || runner.gender === '-' || runner.gender === 'Unassigned' ? 'selected' : ''}>Unassigned</option>
+                        </select>
+                    </td>
                     <td class="py-3.5 px-4 sm:px-6 text-gray-300 font-mono">${escapeHtml(runner.contactNumber)}</td>
                     <td class="py-3.5 px-4 sm:px-6 text-gray-300 font-mono">${escapeHtml(runner.emergencyContact)}</td>
                     <td class="py-3.5 px-4 sm:px-6">
@@ -665,6 +688,16 @@
                     if (action === 'toggle-checkin') toggleCheckIn(runner);
                     if (action === 'view-pass') openPassModal(runner);
                     if (action === 'delete-runner') deleteRunner(runner);
+                });
+            });
+
+            tableBody.querySelectorAll('select[data-action="update-gender"]').forEach(select => {
+                const runnerId = select.getAttribute('data-id');
+                const runner = registeredParticipants.find(p => p.id === runnerId);
+                if (!runner) return;
+
+                select.addEventListener('change', (e) => {
+                    updateGender(runner, e.target.value);
                 });
             });
         }
