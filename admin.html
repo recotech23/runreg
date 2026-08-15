@@ -149,11 +149,23 @@
             </div>
 
             <!-- Stats Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
                 <div class="p-4 sm:p-5 rounded-2xl glass-card">
                     <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Total Signups</span>
                     <div class="text-2xl sm:text-3xl font-bold font-display text-white mt-1" id="admin-stat-total">0</div>
                     <span class="text-[10px] sm:text-[11px] text-gray-500 mt-1 block">Registered runners</span>
+                </div>
+
+                <div class="p-4 sm:p-5 rounded-2xl glass-card">
+                    <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Gender</span>
+                    <div class="text-lg sm:text-2xl font-bold font-display text-white mt-1" id="admin-stat-gender"><span class="text-blue-400">0 M</span> • <span class="text-pink-400">0 F</span></div>
+                    <span class="text-[10px] sm:text-[11px] text-gray-500 mt-1 block">Male & Female</span>
+                </div>
+
+                <div class="p-4 sm:p-5 rounded-2xl glass-card">
+                    <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">T-Shirt Sizes</span>
+                    <div class="text-xs sm:text-sm font-bold font-mono text-gold-300 mt-1" id="admin-stat-tshirts">S: 0 • M: 0<br>L: 0 • XL: 0</div>
+                    <span class="text-[10px] sm:text-[11px] text-gray-500 mt-1 block">Size breakdown</span>
                 </div>
 
                 <div class="p-4 sm:p-5 rounded-2xl glass-card">
@@ -548,6 +560,18 @@
             document.getElementById('admin-stat-total').textContent = registeredParticipants.length;
             const checkedInCount = registeredParticipants.filter(p => p.checkedIn).length;
             document.getElementById('admin-stat-checkedin').textContent = checkedInCount;
+
+            // Gender statistics
+            const maleCount = registeredParticipants.filter(p => (p.gender || '').toLowerCase() === 'male').length;
+            const femaleCount = registeredParticipants.filter(p => (p.gender || '').toLowerCase() === 'female').length;
+            document.getElementById('admin-stat-gender').innerHTML = `<span class="text-blue-400">${maleCount} M</span> • <span class="text-pink-400">${femaleCount} F</span>`;
+
+            // T-Shirt size statistics
+            const sCount = registeredParticipants.filter(p => p.tshirtSize === 'S').length;
+            const mCount = registeredParticipants.filter(p => p.tshirtSize === 'M').length;
+            const lCount = registeredParticipants.filter(p => p.tshirtSize === 'L').length;
+            const xlCount = registeredParticipants.filter(p => p.tshirtSize === 'XL').length;
+            document.getElementById('admin-stat-tshirts').innerHTML = `S:${sCount} • M:${mCount}<br>L:${lCount} • XL:${xlCount}`;
 
             // Payment statistics
             const qrCount = registeredParticipants.filter(p => p.paymentStatus === 'QR').length;
