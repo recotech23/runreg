@@ -621,6 +621,31 @@
             opacity: 1;
         }
 
+        /* Image Preview Gallery Styles */
+        .preview-img-container {
+            position: relative;
+            border-radius: 0.85rem;
+            border: 1px solid rgba(245, 200, 66, 0.35);
+            overflow: hidden;
+            background: #0A0A0C;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .preview-img-container:hover {
+            transform: translateY(-3px);
+            border-color: var(--gold-accent);
+        }
+
+        .preview-img-container img {
+            width: 100%;
+            height: 100%;
+            max-height: 480px;
+            object-fit: cover;
+            display: block;
+            border-radius: 0.85rem;
+        }
+
         @media print {
             .no-print { display: none !important; }
             body { background: #FFF !important; color: #000 !important; }
@@ -778,7 +803,7 @@
                                     <span style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34D399; font-size: 0.6rem; font-weight: 800; padding: 0.15rem 0.5rem; border-radius: 0.35rem;">EATING</span>
                                 </div>
                                 <h3 style="color: #FFF; font-weight: 800; font-size: 1rem;">Speed Eating Showdown</h3>
-                                <p style="color: #9CA3AF; font-size: 0.72rem; margin-top: 0.25rem;">2-round elimination: 10pcs White Bread then 15 Eggs/Satay!</p>
+                                <p style="color: #9CA3AF; font-size: 0.72rem; margin-top: 0.25rem;">3-round elimination</p>
                             </div>
                             <div style="margin-top: 0.85rem; padding-top: 0.5rem; border-top: 1px dashed rgba(255,255,255,0.15); display: flex; justify-content: space-between; align-items: center;">
                                 <span style="font-size: 0.65rem; color: #9CA3AF; font-weight: 700; text-transform: uppercase;">PRIZE:</span>
@@ -858,26 +883,6 @@
                                         <option value="XL">XL</option>
                                     </select>
 
-                                    <!-- Official Apparel Preview -->
-                                    <div style="margin-top: 0.75rem; background: rgba(10, 10, 12, 0.85); border: 1px solid rgba(245, 200, 66, 0.3); border-radius: 0.75rem; padding: 0.75rem;">
-                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
-                                            <span style="font-size: 0.7rem; font-weight: 800; color: var(--gold-accent); text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.35rem;">
-                                                <i class="fa-solid fa-shirt"></i> Official Apparel Preview
-                                            </span>
-                                            <span style="font-size: 0.6rem; color: #9CA3AF;">InnoFit ® 3rd Anniversary Kit</span>
-                                        </div>
-                                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;">
-                                            <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.5rem; overflow: hidden; background: #000; text-align: center;">
-                                                <img src="IMG_20260815_212400.jpg.jpg" alt="Unisex Singlet Preview" style="width: 100%; height: 150px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/400x400/1a1a1a/D4AF37?text=Singlet+Preview';">
-                                                <div style="padding: 0.35rem; font-size: 0.62rem; font-weight: 700; color: #FCE082; background: rgba(20,20,24,0.9);">Flex Cut Singlet</div>
-                                            </div>
-                                            <div style="border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.5rem; overflow: hidden; background: #000; text-align: center;">
-                                                <img src="IMG_20260815_212527.jpg.jpg" alt="Women's Crop Tee Preview" style="width: 100%; height: 150px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/400x400/1a1a1a/F472B6?text=Crop+Tee+Preview';">
-                                                <div style="padding: 0.35rem; font-size: 0.62rem; font-weight: 700; color: #F472B6; background: rgba(20,20,24,0.9);">Women's Crop Tee</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <!-- Size Chart Table Reference -->
                                     <div class="size-chart-box">
                                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
@@ -917,6 +922,39 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                    </div>
+
+                                    <!-- Apparel Preview Grid -->
+                                    <div style="margin-top: 0.85rem;">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                            <span style="font-size: 0.7rem; font-weight: 800; color: var(--gold-accent); text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.35rem;">
+                                                <i class="fa-solid fa-shirt"></i> Apparel Preview
+                                            </span>
+                                        </div>
+                                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
+                                            <!-- Flex Cut Singlet -->
+                                            <div class="preview-img-container">
+                                                <div style="position: absolute; top: 0.4rem; left: 0.4rem; z-index: 2; background: rgba(0,0,0,0.85); border: 1px solid rgba(245,200,66,0.5); color: #FCE082; font-size: 0.6rem; font-weight: 800; padding: 0.15rem 0.45rem; border-radius: 0.35rem; backdrop-filter: blur(4px);">
+                                                    Flex Cut Singlet
+                                                </div>
+                                                <a href="https://github.com/recotech23/runreg/blob/media/IMG_20260815_212400.jpg.jpeg" target="_blank" rel="noopener noreferrer">
+                                                    <img src="https://raw.githubusercontent.com/recotech23/runreg/media/IMG_20260815_212400.jpg.jpeg" 
+                                                         onerror="this.onerror=null; this.src='https://github.com/recotech23/runreg/raw/media/IMG_20260815_212400.jpg.jpeg';"
+                                                         alt="Flex Cut Singlet">
+                                                </a>
+                                            </div>
+                                            <!-- Women's Crop Top -->
+                                            <div class="preview-img-container">
+                                                <div style="position: absolute; top: 0.4rem; left: 0.4rem; z-index: 2; background: rgba(0,0,0,0.85); border: 1px solid rgba(245,200,66,0.5); color: #FCE082; font-size: 0.6rem; font-weight: 800; padding: 0.15rem 0.45rem; border-radius: 0.35rem; backdrop-filter: blur(4px);">
+                                                    Women's Crop Top
+                                                </div>
+                                                <a href="https://github.com/recotech23/runreg/blob/media/IMG_20260815_212527.jpg.jpeg" target="_blank" rel="noopener noreferrer">
+                                                    <img src="https://raw.githubusercontent.com/recotech23/runreg/media/IMG_20260815_212527.jpg.jpeg" 
+                                                         onerror="this.onerror=null; this.src='https://github.com/recotech23/runreg/raw/media/IMG_20260815_212527.jpg.jpeg';"
+                                                         alt="Women's Crop Top">
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
