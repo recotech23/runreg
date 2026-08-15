@@ -214,12 +214,14 @@
 
             <div class="glass-card rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-darkborder">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs text-gray-300 min-w-[750px]">
+                    <table class="w-full text-left text-xs text-gray-300 min-w-[850px]">
                         <thead class="bg-darkbg/90 text-gray-400 uppercase tracking-wider font-bold text-[10px] border-b border-darkborder">
                             <tr>
+                                <th class="py-3.5 px-4 sm:px-6 text-center w-12">#</th>
                                 <th class="py-3.5 px-4 sm:px-6">Runner ID</th>
                                 <th class="py-3.5 px-4 sm:px-6">Full Name</th>
                                 <th class="py-3.5 px-4 sm:px-6">Contact Number</th>
+                                <th class="py-3.5 px-4 sm:px-6">Emergency Contact</th>
                                 <th class="py-3.5 px-4 sm:px-6">Size</th>
                                 <th class="py-3.5 px-4 sm:px-6">Registered At</th>
                                 <th class="py-3.5 px-4 sm:px-6">Payment</th>
@@ -572,11 +574,13 @@
             }
 
             emptyState.classList.add('hidden');
-            tableBody.innerHTML = filtered.map(runner => `
+            tableBody.innerHTML = filtered.map((runner, index) => `
                 <tr class="hover:bg-white/5 transition">
+                    <td class="py-3.5 px-4 sm:px-6 font-mono text-center font-bold text-gray-400">${index + 1}</td>
                     <td class="py-3.5 px-4 sm:px-6 font-mono font-bold text-gold-400">${runner.id}</td>
                     <td class="py-3.5 px-4 sm:px-6 text-white font-semibold">${escapeHtml(runner.fullName)}</td>
                     <td class="py-3.5 px-4 sm:px-6 text-gray-300 font-mono">${escapeHtml(runner.contactNumber)}</td>
+                    <td class="py-3.5 px-4 sm:px-6 text-gray-300 font-mono">${escapeHtml(runner.emergencyContact)}</td>
                     <td class="py-3.5 px-4 sm:px-6">
                         <span class="px-2 py-0.5 rounded bg-darkbg border border-darkborder text-gray-300 font-mono text-[11px]">
                             ${escapeHtml(runner.tshirtSize)}
@@ -684,8 +688,9 @@
                 showToast("No data to export.", true);
                 return;
             }
-            const headers = ["Runner ID", "Full Name", "Contact Number", "Tee Size", "Emergency Contact", "Payment Status", "Checked In", "Registered At"];
-            const rows = registeredParticipants.map(p => [
+            const headers = ["#", "Runner ID", "Full Name", "Contact Number", "Tee Size", "Emergency Contact", "Payment Status", "Checked In", "Registered At"];
+            const rows = registeredParticipants.map((p, index) => [
+                `"${index + 1}"`,
                 `"${p.id}"`,
                 `"${p.fullName.replace(/"/g, '""')}"`,
                 `"${p.contactNumber}"`,
