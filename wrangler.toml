@@ -3,3 +3,10 @@ compatibility_date = "2024-01-01"
 
 [assets]
 directory = "."
+
+#staging environment
+[env.staging]
+name = "runreg-staging"
+
+[env.staging.assets]
+directory = "."
