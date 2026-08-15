@@ -201,6 +201,13 @@
                 </div>
 
                 <div class="flex items-center space-x-2 text-xs flex-wrap sm:flex-nowrap gap-2">
+                    <select id="admin-filter-gender" class="flex-1 bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500">
+                        <option value="ALL">All Genders</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Unassigned">Unassigned</option>
+                    </select>
+
                     <select id="admin-filter-size" class="flex-1 bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500">
                         <option value="ALL">All Sizes</option>
                         <option value="S">S</option>
@@ -570,6 +577,7 @@
             const tableBody = document.getElementById('admin-table-body');
             const emptyState = document.getElementById('admin-empty-state');
             const searchInput = document.getElementById('admin-search-input').value.toLowerCase();
+            const filterGender = document.getElementById('admin-filter-gender').value;
             const filterSize = document.getElementById('admin-filter-size').value;
             const filterPayment = document.getElementById('admin-filter-payment').value;
             const filterCheckin = document.getElementById('admin-filter-checkin').value;
@@ -602,6 +610,12 @@
                     (runner.gender && runner.gender.toLowerCase().includes(searchInput)) ||
                     runner.contactNumber.includes(searchInput) ||
                     runner.id.toLowerCase().includes(searchInput);
+                
+                let matchesGender = true;
+                if (filterGender === 'Male') matchesGender = runner.gender === 'Male';
+                if (filterGender === 'Female') matchesGender = runner.gender === 'Female';
+                if (filterGender === 'Unassigned') matchesGender = !runner.gender || runner.gender === '-' || runner.gender === 'Unassigned';
+
                 const matchesSize = filterSize === 'ALL' || runner.tshirtSize === filterSize;
                 
                 let matchesPayment = true;
@@ -610,7 +624,7 @@
                 if (filterPayment === 'UNPAID') matchesPayment = !runner.paymentStatus || runner.paymentStatus === 'UNPAID';
 
                 const matchesCheckin = filterCheckin === 'ALL' || (filterCheckin === 'CHECKED_IN' ? runner.checkedIn : !runner.checkedIn);
-                return matchesSearch && matchesSize && matchesPayment && matchesCheckin;
+                return matchesSearch && matchesGender && matchesSize && matchesPayment && matchesCheckin;
             });
 
             if (filtered.length === 0) {
@@ -703,6 +717,7 @@
         }
 
         document.getElementById('admin-search-input').addEventListener('input', renderAdminDashboard);
+        document.getElementById('admin-filter-gender').addEventListener('change', renderAdminDashboard);
         document.getElementById('admin-filter-size').addEventListener('change', renderAdminDashboard);
         document.getElementById('admin-filter-payment').addEventListener('change', renderAdminDashboard);
         document.getElementById('admin-filter-checkin').addEventListener('change', renderAdminDashboard);
