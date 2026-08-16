@@ -233,6 +233,7 @@
                         <option value="ALL">All Payments</option>
                         <option value="PAID_QR">Paid (QR)</option>
                         <option value="PAID_CASH">Paid (Cash)</option>
+                        <option value="PAID_TRANSFER">Paid (Online Transfer)</option>
                         <option value="UNPAID">Unpaid</option>
                     </select>
 
@@ -304,6 +305,11 @@
                 <button id="pay-cash-btn" class="w-full py-3 px-4 rounded-xl bg-green-500/10 border border-green-500/30 text-green-400 hover:bg-green-500/20 font-bold text-xs flex items-center justify-center space-x-2 transition min-h-[44px]">
                     <i class="fa-solid fa-money-bill-wave text-sm"></i>
                     <span>Paid via Cash (RM30)</span>
+                </button>
+
+                <button id="pay-transfer-btn" class="w-full py-3 px-4 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 hover:bg-blue-500/20 font-bold text-xs flex items-center justify-center space-x-2 transition min-h-[44px]">
+                    <i class="fa-solid fa-money-bill-transfer text-sm"></i>
+                    <span>Paid via Online Transfer (RM30)</span>
                 </button>
 
                 <button id="pay-unpaid-btn" class="w-full py-3 px-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 font-bold text-xs flex items-center justify-center space-x-2 transition min-h-[44px]">
@@ -590,7 +596,7 @@
                 try {
                     const docRef = getDocRef(runner.docId);
                     await updateDoc(docRef, { paymentStatus: newStatus });
-                    let label = newStatus === 'QR' ? 'Paid (QR)' : newStatus === 'CASH' ? 'Paid (Cash)' : 'Unpaid';
+                    let label = newStatus === 'QR' ? 'Paid (QR)' : newStatus === 'CASH' ? 'Paid (Cash)' : (newStatus === 'TRANSFER' || newStatus === 'ONLINE') ? 'Paid (Online Transfer)' : 'Unpaid';
                     showToast(`Payment for ${runner.fullName} updated to ${label}`);
                 } catch (err) {
                     console.error("Payment status update error:", err);
@@ -599,7 +605,7 @@
             } else {
                 runner.paymentStatus = newStatus;
                 renderAdminDashboard();
-                let label = newStatus === 'QR' ? 'Paid (QR)' : newStatus === 'CASH' ? 'Paid (Cash)' : 'Unpaid';
+                let label = newStatus === 'QR' ? 'Paid (QR)' : newStatus === 'CASH' ? 'Paid (Cash)' : (newStatus === 'TRANSFER' || newStatus === 'ONLINE') ? 'Paid (Online Transfer)' : 'Unpaid';
                 showToast(`Payment for ${runner.fullName} updated to ${label}`);
             }
         }
@@ -668,11 +674,18 @@
             `;
 
             // Payment statistics
+            const fee = 30;
             const qrCount = registeredParticipants.filter(p => p.paymentStatus === 'QR').length;
             const cashCount = registeredParticipants.filter(p => p.paymentStatus === 'CASH').length;
-            const totalPaid = qrCount + cashCount;
-            document.getElementById('admin-stat-paid').textContent = totalPaid;
-            document.getElementById('admin-stat-payment-breakdown').textContent = `${qrCount} QR • ${cashCount} Cash`;
+            const transferCount = registeredParticipants.filter(p => p.paymentStatus === 'TRANSFER' || p.paymentStatus === 'ONLINE').length;
+            
+            const qrAmount = qrCount * fee;
+            const cashAmount = cashCount * fee;
+            const transferAmount = transferCount * fee;
+            const totalPaidAmount = qrAmount + cashAmount + transferAmount;
+
+            document.getElementById('admin-stat-paid').textContent = `RM ${totalPaidAmount}`;
+            document.getElementById('admin-stat-payment-breakdown').innerHTML = `QR: RM ${qrAmount} • Cash: RM ${cashAmount} • Online: RM ${transferAmount}`;
 
             const filtered = registeredParticipants.filter(runner => {
                 const matchesSearch = runner.fullName.toLowerCase().includes(searchInput) ||
@@ -694,6 +707,7 @@
                 let matchesPayment = true;
                 if (filterPayment === 'PAID_QR') matchesPayment = runner.paymentStatus === 'QR';
                 if (filterPayment === 'PAID_CASH') matchesPayment = runner.paymentStatus === 'CASH';
+                if (filterPayment === 'PAID_TRANSFER') matchesPayment = runner.paymentStatus === 'TRANSFER' || runner.paymentStatus === 'ONLINE';
                 if (filterPayment === 'UNPAID') matchesPayment = !runner.paymentStatus || runner.paymentStatus === 'UNPAID';
 
                 const matchesCheckin = filterCheckin === 'ALL' || (filterCheckin === 'CHECKED_IN' ? runner.checkedIn : !runner.checkedIn);
@@ -742,16 +756,19 @@
                         <button data-action="open-payment" data-id="${runner.id}" class="px-2.5 py-1 rounded-full text-[10px] font-bold border transition ${
                             runner.paymentStatus === 'QR' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20' :
                             runner.paymentStatus === 'CASH' ? 'bg-green-500/10 border-green-500/30 text-green-400 hover:bg-green-500/20' :
+                            (runner.paymentStatus === 'TRANSFER' || runner.paymentStatus === 'ONLINE') ? 'bg-blue-500/10 border-blue-500/30 text-blue-400 hover:bg-blue-500/20' :
                             'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20'
                         }">
                             <i class="fa-solid ${
                                 runner.paymentStatus === 'QR' ? 'fa-qrcode' :
                                 runner.paymentStatus === 'CASH' ? 'fa-money-bill-wave' :
+                                (runner.paymentStatus === 'TRANSFER' || runner.paymentStatus === 'ONLINE') ? 'fa-money-bill-transfer' :
                                 'fa-circle-xmark'
                             } mr-1"></i>
                             ${
                                 runner.paymentStatus === 'QR' ? 'Paid (QR)' :
                                 runner.paymentStatus === 'CASH' ? 'Paid (Cash)' :
+                                (runner.paymentStatus === 'TRANSFER' || runner.paymentStatus === 'ONLINE') ? 'Paid (Transfer)' :
                                 'Unpaid'
                             }
                         </button>
@@ -859,6 +876,9 @@
         document.getElementById('pay-cash-btn').addEventListener('click', () => {
             if (selectedPaymentRunner) updatePaymentStatus(selectedPaymentRunner, 'CASH');
         });
+        document.getElementById('pay-transfer-btn').addEventListener('click', () => {
+            if (selectedPaymentRunner) updatePaymentStatus(selectedPaymentRunner, 'TRANSFER');
+        });
         document.getElementById('pay-unpaid-btn').addEventListener('click', () => {
             if (selectedPaymentRunner) updatePaymentStatus(selectedPaymentRunner, 'UNPAID');
         });
@@ -878,7 +898,7 @@
                 `"${p.apparelType || 'Singlet'}"`,
                 `"${p.tshirtSize}"`,
                 `"${p.emergencyContact.replace(/"/g, '""')}"`,
-                `"${p.paymentStatus === 'QR' ? 'Paid (QR)' : p.paymentStatus === 'CASH' ? 'Paid (Cash)' : 'Unpaid'}"`,
+                `"${p.paymentStatus === 'QR' ? 'Paid (QR)' : p.paymentStatus === 'CASH' ? 'Paid (Cash)' : (p.paymentStatus === 'TRANSFER' || p.paymentStatus === 'ONLINE') ? 'Paid (Online Transfer)' : 'Unpaid'}"`,
                 `"${p.checkedIn ? 'YES' : 'NO'}"`,
                 `"${new Date(p.createdAtMs).toISOString()}"`
             ]);
