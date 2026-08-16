@@ -164,7 +164,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2.5 sm:gap-4">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-4">
                 <div class="p-3.5 sm:p-5 rounded-2xl glass-card flex flex-col justify-between">
                     <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Total Signups</span>
                     <div class="text-xl sm:text-3xl font-bold font-display text-white mt-1" id="admin-stat-total">0</div>
@@ -175,12 +175,6 @@
                     <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Gender</span>
                     <div class="text-base sm:text-2xl font-bold font-display text-white mt-1" id="admin-stat-gender"><span class="text-blue-400">0 M</span> • <span class="text-pink-400">0 F</span></div>
                     <span class="text-[9px] sm:text-[11px] text-gray-500 mt-1 block truncate">Male & Female</span>
-                </div>
-
-                <div class="p-3.5 sm:p-5 rounded-2xl glass-card flex flex-col justify-between">
-                    <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">T-Shirt Sizes</span>
-                    <div class="text-[11px] sm:text-sm font-bold font-mono text-gold-300 mt-1" id="admin-stat-tshirts">S: 0 • M: 0<br>L: 0 • XL: 0</div>
-                    <span class="text-[9px] sm:text-[11px] text-gray-500 mt-1 block truncate">Size breakdown</span>
                 </div>
 
                 <!-- DASHBOARD SLOT: Singlet & Crop Top Breakdown with Sizes -->
@@ -667,13 +661,6 @@
             const maleCount = registeredParticipants.filter(p => (p.gender || '').toLowerCase() === 'male').length;
             const femaleCount = registeredParticipants.filter(p => (p.gender || '').toLowerCase() === 'female').length;
             document.getElementById('admin-stat-gender').innerHTML = `<span class="text-blue-400">${maleCount} M</span> • <span class="text-pink-400">${femaleCount} F</span>`;
-
-            // T-Shirt size statistics
-            const sCount = registeredParticipants.filter(p => p.tshirtSize === 'S').length;
-            const mCount = registeredParticipants.filter(p => p.tshirtSize === 'M').length;
-            const lCount = registeredParticipants.filter(p => p.tshirtSize === 'L').length;
-            const xlCount = registeredParticipants.filter(p => p.tshirtSize === 'XL').length;
-            document.getElementById('admin-stat-tshirts').innerHTML = `S:${sCount} • M:${mCount}<br>L:${lCount} • XL:${xlCount}`;
 
             // Apparel & Size breakdown calculation for Dashboard Slot
             const singletRunners = registeredParticipants.filter(p => (p.apparelType || '').toLowerCase() === 'singlet');
