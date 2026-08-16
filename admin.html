@@ -64,7 +64,6 @@
             box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
         }
 
-        /* Prevents mobile zoom on text fields */
         input, select {
             font-size: 16px !important;
         }
@@ -104,13 +103,13 @@
     <header class="sticky top-0 z-40 bg-[#121015]/90 backdrop-blur-md border-b border-amber-500/20 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
             
-            <a href="/" class="flex items-center space-x-2 sm:space-x-3 group">
+            <a href="registration.html" class="flex items-center space-x-2 sm:space-x-3 group">
                 <img src="https://arleta.site/interactivelink/5674/innovation_logo_FA-removebg-preview.png" alt="Innovation Fitness Logo" class="h-9 sm:h-12 w-auto max-w-[140px] sm:max-w-[180px] object-contain transition-transform duration-200 group-hover:scale-105">
                 <span class="text-sm sm:text-2xl font-black font-display tracking-widest text-white group-hover:text-gold-400 transition hidden xs:inline">INNOVATION FITNESS</span>
             </a>
 
             <nav class="flex items-center space-x-2">
-                <a href="https://innovationfitness.my/registration" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-gold-400 hover:text-gold-300 transition flex items-center space-x-1.5 bg-gold-500/10 border border-gold-500/30 min-h-[38px]">
+                <a href="registration.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-gold-400 hover:text-gold-300 transition flex items-center space-x-1.5 bg-gold-500/10 border border-gold-500/30 min-h-[38px]">
                     <i class="fa-solid fa-person-running text-xs"></i>
                     <span class="hidden sm:inline">Registration Page</span>
                 </a>
@@ -148,8 +147,8 @@
                 </div>
             </div>
 
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+            <!-- Stats Grid (Includes New Slot for Singlet/Crop Top & Sizes) -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
                 <div class="p-4 sm:p-5 rounded-2xl glass-card">
                     <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Total Signups</span>
                     <div class="text-2xl sm:text-3xl font-bold font-display text-white mt-1" id="admin-stat-total">0</div>
@@ -166,6 +165,16 @@
                     <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">T-Shirt Sizes</span>
                     <div class="text-xs sm:text-sm font-bold font-mono text-gold-300 mt-1" id="admin-stat-tshirts">S: 0 • M: 0<br>L: 0 • XL: 0</div>
                     <span class="text-[10px] sm:text-[11px] text-gray-500 mt-1 block">Size breakdown</span>
+                </div>
+
+                <!-- DASHBOARD SLOT: Singlet & Crop Top Breakdown with Sizes -->
+                <div class="p-4 sm:p-5 rounded-2xl glass-card col-span-2 sm:col-span-1 border border-gold-500/40">
+                    <span class="text-[10px] sm:text-xs text-gold-400 font-bold uppercase tracking-wider block">Apparel & Sizes</span>
+                    <div class="text-[11px] sm:text-xs font-bold font-mono text-gray-200 mt-1 space-y-1" id="admin-stat-apparel-breakdown">
+                        <div><span class="text-gold-300">🎽 Singlet (0):</span> S:0 M:0 L:0 XL:0</div>
+                        <div><span class="text-pink-300">✂️ Crop Top (0):</span> S:0 M:0 L:0 XL:0</div>
+                    </div>
+                    <span class="text-[10px] sm:text-[11px] text-gray-500 mt-1 block">Singlet vs Crop Top breakdown</span>
                 </div>
 
                 <div class="p-4 sm:p-5 rounded-2xl glass-card">
@@ -190,7 +199,6 @@
                 </div>
             </div>
 
-            <!-- Search and Filter Bar -->
             <div class="glass-card rounded-2xl p-3.5 sm:p-4 flex flex-col md:flex-row md:items-center gap-3 justify-between no-print">
                 <div class="relative flex-1">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
@@ -201,6 +209,12 @@
                 </div>
 
                 <div class="flex items-center space-x-2 text-xs flex-wrap sm:flex-nowrap gap-2">
+                    <select id="admin-filter-apparel" class="flex-1 bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500">
+                        <option value="ALL">All Apparel</option>
+                        <option value="Singlet">Singlet</option>
+                        <option value="Crop Top">Crop Top</option>
+                    </select>
+
                     <select id="admin-filter-gender" class="flex-1 bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500">
                         <option value="ALL">All Genders</option>
                         <option value="Male">Male</option>
@@ -233,7 +247,7 @@
 
             <div class="glass-card rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-darkborder">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs text-gray-300 min-w-[850px]">
+                    <table class="w-full text-left text-xs text-gray-300 min-w-[950px]">
                         <thead class="bg-darkbg/90 text-gray-400 uppercase tracking-wider font-bold text-[10px] border-b border-darkborder">
                             <tr>
                                 <th class="py-3.5 px-4 sm:px-6 text-center w-12">#</th>
@@ -242,7 +256,7 @@
                                 <th class="py-3.5 px-4 sm:px-6">Gender</th>
                                 <th class="py-3.5 px-4 sm:px-6">Contact Number</th>
                                 <th class="py-3.5 px-4 sm:px-6">Emergency Contact</th>
-                                <th class="py-3.5 px-4 sm:px-6">Size</th>
+                                <th class="py-3.5 px-4 sm:px-6">Apparel & Size</th>
                                 <th class="py-3.5 px-4 sm:px-6">Registered At</th>
                                 <th class="py-3.5 px-4 sm:px-6">Payment</th>
                                 <th class="py-3.5 px-4 sm:px-6">Check-In</th>
@@ -265,9 +279,9 @@
 
     </main>
 
+    <!-- Payment Update Modal -->
     <div id="payment-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
         <div class="glass-card max-w-sm w-full rounded-3xl p-5 sm:p-6 relative border border-gold-500/30 shadow-2xl space-y-4 text-center transform scale-95 transition-transform duration-300" id="payment-card-container">
-            
             <button id="close-payment-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white w-8 h-8 rounded-full bg-darkbg flex items-center justify-center text-sm">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -301,6 +315,7 @@
         </div>
     </div>
 
+    <!-- Ticket Modal -->
     <div id="ticket-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
         <div class="glass-card max-w-md w-full max-h-[90vh] overflow-y-auto rounded-3xl p-5 sm:p-8 relative border border-gold-500/30 shadow-2xl space-y-5 text-center transform scale-95 transition-transform duration-300" id="ticket-card-container">
             
@@ -331,8 +346,8 @@
                         <span id="pass-runner-phone" class="font-medium text-gray-200">010-250 5902</span>
                     </div>
                     <div>
-                        <span class="text-[10px] text-gray-400 uppercase font-semibold block">Shirt Size</span>
-                        <span id="pass-runner-shirt" class="font-medium text-gold-400">M</span>
+                        <span class="text-[10px] text-gray-400 uppercase font-semibold block">Apparel & Size</span>
+                        <span id="pass-runner-shirt" class="font-medium text-gold-400">Singlet (M)</span>
                     </div>
                 </div>
 
@@ -485,10 +500,11 @@
                         fullName: data.fullName || 'Anonymous Runner',
                         gender: data.gender || '-',
                         contactNumber: data.contactNumber || '-',
+                        apparelType: data.apparelType || data.apparel || 'Singlet',
                         tshirtSize: data.tshirtSize || data.tShirtSize || 'M',
                         emergencyContact: data.emergencyContact || '-',
                         checkedIn: !!data.checkedIn,
-                        paymentStatus: data.paymentStatus || 'UNPAID', // 'UNPAID', 'QR', 'CASH'
+                        paymentStatus: data.paymentStatus || 'UNPAID',
                         createdAtMs: data.createdAtMs || (data.createdAt ? new Date(data.createdAt).getTime() : Date.now())
                     });
                 });
@@ -577,6 +593,7 @@
             const tableBody = document.getElementById('admin-table-body');
             const emptyState = document.getElementById('admin-empty-state');
             const searchInput = document.getElementById('admin-search-input').value.toLowerCase();
+            const filterApparel = document.getElementById('admin-filter-apparel').value;
             const filterGender = document.getElementById('admin-filter-gender').value;
             const filterSize = document.getElementById('admin-filter-size').value;
             const filterPayment = document.getElementById('admin-filter-payment').value;
@@ -598,6 +615,25 @@
             const xlCount = registeredParticipants.filter(p => p.tshirtSize === 'XL').length;
             document.getElementById('admin-stat-tshirts').innerHTML = `S:${sCount} • M:${mCount}<br>L:${lCount} • XL:${xlCount}`;
 
+            // Apparel & Size breakdown calculation for Dashboard Slot
+            const singletRunners = registeredParticipants.filter(p => (p.apparelType || '').toLowerCase() === 'singlet');
+            const cropTopRunners = registeredParticipants.filter(p => (p.apparelType || '').toLowerCase() === 'crop top');
+
+            const singletS = singletRunners.filter(p => p.tshirtSize === 'S').length;
+            const singletM = singletRunners.filter(p => p.tshirtSize === 'M').length;
+            const singletL = singletRunners.filter(p => p.tshirtSize === 'L').length;
+            const singletXL = singletRunners.filter(p => p.tshirtSize === 'XL').length;
+
+            const cropS = cropTopRunners.filter(p => p.tshirtSize === 'S').length;
+            const cropM = cropTopRunners.filter(p => p.tshirtSize === 'M').length;
+            const cropL = cropTopRunners.filter(p => p.tshirtSize === 'L').length;
+            const cropXL = cropTopRunners.filter(p => p.tshirtSize === 'XL').length;
+
+            document.getElementById('admin-stat-apparel-breakdown').innerHTML = `
+                <div><span class="text-gold-300 font-bold">🎽 Singlet (${singletRunners.length}):</span> <span class="text-gray-300">S:${singletS} M:${singletM} L:${singletL} XL:${singletXL}</span></div>
+                <div><span class="text-pink-300 font-bold">✂️ Crop Top (${cropTopRunners.length}):</span> <span class="text-gray-300">S:${cropS} M:${cropM} L:${cropL} XL:${cropXL}</span></div>
+            `;
+
             // Payment statistics
             const qrCount = registeredParticipants.filter(p => p.paymentStatus === 'QR').length;
             const cashCount = registeredParticipants.filter(p => p.paymentStatus === 'CASH').length;
@@ -611,6 +647,10 @@
                     runner.contactNumber.includes(searchInput) ||
                     runner.id.toLowerCase().includes(searchInput);
                 
+                let matchesApparel = true;
+                if (filterApparel === 'Singlet') matchesApparel = (runner.apparelType || '').toLowerCase() === 'singlet';
+                if (filterApparel === 'Crop Top') matchesApparel = (runner.apparelType || '').toLowerCase() === 'crop top';
+
                 let matchesGender = true;
                 if (filterGender === 'Male') matchesGender = runner.gender === 'Male';
                 if (filterGender === 'Female') matchesGender = runner.gender === 'Female';
@@ -624,7 +664,7 @@
                 if (filterPayment === 'UNPAID') matchesPayment = !runner.paymentStatus || runner.paymentStatus === 'UNPAID';
 
                 const matchesCheckin = filterCheckin === 'ALL' || (filterCheckin === 'CHECKED_IN' ? runner.checkedIn : !runner.checkedIn);
-                return matchesSearch && matchesGender && matchesSize && matchesPayment && matchesCheckin;
+                return matchesSearch && matchesApparel && matchesGender && matchesSize && matchesPayment && matchesCheckin;
             });
 
             if (filtered.length === 0) {
@@ -635,7 +675,7 @@
 
             emptyState.classList.add('hidden');
             tableBody.innerHTML = filtered.map((runner, index) => `
-                <tr class="hover:bg-white/5 transition">
+                <tr class="hover:bg-white/5 transition border-b border-darkborder">
                     <td class="py-3.5 px-4 sm:px-6 font-mono text-center font-bold text-gray-400">${index + 1}</td>
                     <td class="py-3.5 px-4 sm:px-6 font-mono font-bold text-gold-400">${runner.id}</td>
                     <td class="py-3.5 px-4 sm:px-6 text-white font-semibold">${escapeHtml(runner.fullName)}</td>
@@ -649,8 +689,8 @@
                     <td class="py-3.5 px-4 sm:px-6 text-gray-300 font-mono">${escapeHtml(runner.contactNumber)}</td>
                     <td class="py-3.5 px-4 sm:px-6 text-gray-300 font-mono">${escapeHtml(runner.emergencyContact)}</td>
                     <td class="py-3.5 px-4 sm:px-6">
-                        <span class="px-2 py-0.5 rounded bg-darkbg border border-darkborder text-gray-300 font-mono text-[11px]">
-                            ${escapeHtml(runner.tshirtSize)}
+                        <span class="px-2.5 py-1 rounded-lg bg-darkbg border border-darkborder text-gold-300 font-mono text-[11px] inline-block font-semibold">
+                            ${escapeHtml(runner.apparelType || 'Singlet')} (${escapeHtml(runner.tshirtSize)})
                         </span>
                     </td>
                     <td class="py-3.5 px-4 sm:px-6 text-gray-400 text-[11px]">
@@ -717,6 +757,7 @@
         }
 
         document.getElementById('admin-search-input').addEventListener('input', renderAdminDashboard);
+        document.getElementById('admin-filter-apparel').addEventListener('change', renderAdminDashboard);
         document.getElementById('admin-filter-gender').addEventListener('change', renderAdminDashboard);
         document.getElementById('admin-filter-size').addEventListener('change', renderAdminDashboard);
         document.getElementById('admin-filter-payment').addEventListener('change', renderAdminDashboard);
@@ -760,19 +801,19 @@
             if (selectedPaymentRunner) updatePaymentStatus(selectedPaymentRunner, 'UNPAID');
         });
 
-        // Export CSV
         document.getElementById('export-csv-btn').addEventListener('click', () => {
             if (registeredParticipants.length === 0) {
                 showToast("No data to export.", true);
                 return;
             }
-            const headers = ["#", "Runner ID", "Full Name", "Gender", "Contact Number", "Tee Size", "Emergency Contact", "Payment Status", "Checked In", "Registered At"];
+            const headers = ["#", "Runner ID", "Full Name", "Gender", "Contact Number", "Apparel Type", "Tee Size", "Emergency Contact", "Payment Status", "Checked In", "Registered At"];
             const rows = registeredParticipants.map((p, index) => [
                 `"${index + 1}"`,
                 `"${p.id}"`,
                 `"${p.fullName.replace(/"/g, '""')}"`,
                 `"${(p.gender || '-').replace(/"/g, '""')}"`,
                 `"${p.contactNumber}"`,
+                `"${p.apparelType || 'Singlet'}"`,
                 `"${p.tshirtSize}"`,
                 `"${p.emergencyContact.replace(/"/g, '""')}"`,
                 `"${p.paymentStatus === 'QR' ? 'Paid (QR)' : p.paymentStatus === 'CASH' ? 'Paid (Cash)' : 'Unpaid'}"`,
@@ -796,7 +837,7 @@
             document.getElementById('pass-runner-name').textContent = runner.fullName;
             document.getElementById('pass-runner-id').textContent = `#${runner.id}`;
             document.getElementById('pass-runner-phone').textContent = runner.contactNumber;
-            document.getElementById('pass-runner-shirt').textContent = runner.tshirtSize;
+            document.getElementById('pass-runner-shirt').textContent = `${runner.apparelType || 'Singlet'} (${runner.tshirtSize})`;
             document.getElementById('pass-barcode-text').textContent = `${runner.id}-INNO-2026`;
 
             const modal = document.getElementById('ticket-modal');
