@@ -264,8 +264,13 @@
                     <span class="text-gray-400">11 columns</span>
                 </div>
 
-                <div class="overflow-x-auto smooth-touch-scroll custom-scrollbar">
-                    <table class="w-full text-left text-xs text-gray-300 min-w-[1000px]">
+                <!-- Top Horizontal Scrollbar Wrapper -->
+                <div id="top-scrollbar-wrapper" class="overflow-x-auto custom-scrollbar border-b border-darkborder/50 bg-darkbg/50">
+                    <div id="top-scrollbar-dummy" class="h-2"></div>
+                </div>
+
+                <div id="table-scrollbar-wrapper" class="overflow-x-auto smooth-touch-scroll custom-scrollbar">
+                    <table id="admin-table" class="w-full text-left text-xs text-gray-300 min-w-[1000px] lg:min-w-0">
                         <thead class="bg-darkbg/90 text-gray-400 uppercase tracking-wider font-bold text-[10px] border-b border-darkborder">
                             <tr>
                                 <th class="py-3.5 px-3 sm:px-6 text-center w-12">#</th>
@@ -841,6 +846,45 @@
                     updateTshirtSize(runner, e.target.value);
                 });
             });
+
+            syncScrollWidth();
+        }
+
+        function syncScrollWidth() {
+            const topScroll = document.getElementById('top-scrollbar-wrapper');
+            const dummy = document.getElementById('top-scrollbar-dummy');
+            const table = document.getElementById('admin-table');
+
+            if (table && dummy && topScroll) {
+                dummy.style.width = `${table.scrollWidth}px`;
+                topScroll.scrollLeft = document.getElementById('table-scrollbar-wrapper')?.scrollLeft || 0;
+            }
+        }
+
+        const topScroll = document.getElementById('top-scrollbar-wrapper');
+        const tableScroll = document.getElementById('table-scrollbar-wrapper');
+
+        if (topScroll && tableScroll) {
+            let isSyncingTop = false;
+            let isSyncingTable = false;
+
+            topScroll.addEventListener('scroll', () => {
+                if (!isSyncingTop) {
+                    isSyncingTable = true;
+                    tableScroll.scrollLeft = topScroll.scrollLeft;
+                }
+                isSyncingTop = false;
+            });
+
+            tableScroll.addEventListener('scroll', () => {
+                if (!isSyncingTable) {
+                    isSyncingTop = true;
+                    topScroll.scrollLeft = tableScroll.scrollLeft;
+                }
+                isSyncingTable = false;
+            });
+
+            window.addEventListener('resize', syncScrollWidth);
         }
 
         document.getElementById('admin-search-input').addEventListener('input', renderAdminDashboard);
