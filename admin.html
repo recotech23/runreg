@@ -270,20 +270,20 @@
                 </div>
 
                 <div id="table-scrollbar-wrapper" class="overflow-x-auto smooth-touch-scroll custom-scrollbar">
-                    <table id="admin-table" class="w-full text-left text-xs text-gray-300 min-w-[1000px] lg:min-w-0">
-                        <thead class="bg-darkbg/90 text-gray-400 uppercase tracking-wider font-bold text-[10px] border-b border-darkborder">
+                    <table id="admin-table" class="w-full text-left text-xs text-gray-300 min-w-[1180px]">
+                        <thead class="bg-darkbg/90 text-gray-400 uppercase tracking-wider font-bold text-[10px] border-b border-darkborder whitespace-nowrap">
                             <tr>
-                                <th class="py-3.5 px-3 sm:px-6 text-center w-12">#</th>
-                                <th class="py-3.5 px-3 sm:px-6">Date Registered</th>
-                                <th class="py-3.5 px-3 sm:px-6">Runner ID</th>
-                                <th class="py-3.5 px-3 sm:px-6">Full Name</th>
-                                <th class="py-3.5 px-3 sm:px-6">Gender</th>
-                                <th class="py-3.5 px-3 sm:px-6">Contact Number</th>
-                                <th class="py-3.5 px-3 sm:px-6">Emergency Contact</th>
-                                <th class="py-3.5 px-3 sm:px-6">Apparel & Size</th>
-                                <th class="py-3.5 px-3 sm:px-6">Payment</th>
-                                <th class="py-3.5 px-3 sm:px-6">Check-In</th>
-                                <th class="py-3.5 px-3 sm:px-6 text-right no-print">Actions</th>
+                                <th class="py-3.5 px-3 sm:px-4 text-center w-12">#</th>
+                                <th class="py-3.5 px-3 sm:px-4">Date Registered</th>
+                                <th class="py-3.5 px-3 sm:px-4">Runner ID</th>
+                                <th class="py-3.5 px-3 sm:px-4">Full Name</th>
+                                <th class="py-3.5 px-3 sm:px-4">Gender</th>
+                                <th class="py-3.5 px-3 sm:px-4">Contact Number</th>
+                                <th class="py-3.5 px-3 sm:px-4">Emergency Contact</th>
+                                <th class="py-3.5 px-3 sm:px-4">Apparel & Size</th>
+                                <th class="py-3.5 px-3 sm:px-4">Payment</th>
+                                <th class="py-3.5 px-3 sm:px-4">Check-In</th>
+                                <th class="py-3.5 px-3 sm:px-4 text-right no-print">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="admin-table-body" class="divide-y divide-darkborder font-medium">
@@ -847,17 +847,18 @@
                 });
             });
 
-            syncScrollWidth();
+            setTimeout(syncScrollWidth, 50);
         }
 
         function syncScrollWidth() {
             const topScroll = document.getElementById('top-scrollbar-wrapper');
             const dummy = document.getElementById('top-scrollbar-dummy');
             const table = document.getElementById('admin-table');
+            const wrapper = document.getElementById('table-scrollbar-wrapper');
 
-            if (table && dummy && topScroll) {
-                dummy.style.width = `${table.scrollWidth}px`;
-                topScroll.scrollLeft = document.getElementById('table-scrollbar-wrapper')?.scrollLeft || 0;
+            if (table && dummy && topScroll && wrapper) {
+                const scrollW = Math.max(table.scrollWidth, wrapper.scrollWidth);
+                dummy.style.width = `${scrollW}px`;
             }
         }
 
