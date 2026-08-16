@@ -147,7 +147,6 @@
                 </div>
             </div>
 
-            <!-- Stats Grid (Includes New Slot for Singlet/Crop Top & Sizes) -->
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
                 <div class="p-4 sm:p-5 rounded-2xl glass-card">
                     <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Total Signups</span>
@@ -251,13 +250,13 @@
                         <thead class="bg-darkbg/90 text-gray-400 uppercase tracking-wider font-bold text-[10px] border-b border-darkborder">
                             <tr>
                                 <th class="py-3.5 px-4 sm:px-6 text-center w-12">#</th>
+                                <th class="py-3.5 px-4 sm:px-6">Date Registered</th>
                                 <th class="py-3.5 px-4 sm:px-6">Runner ID</th>
                                 <th class="py-3.5 px-4 sm:px-6">Full Name</th>
                                 <th class="py-3.5 px-4 sm:px-6">Gender</th>
                                 <th class="py-3.5 px-4 sm:px-6">Contact Number</th>
                                 <th class="py-3.5 px-4 sm:px-6">Emergency Contact</th>
                                 <th class="py-3.5 px-4 sm:px-6">Apparel & Size</th>
-                                <th class="py-3.5 px-4 sm:px-6">Registered At</th>
                                 <th class="py-3.5 px-4 sm:px-6">Payment</th>
                                 <th class="py-3.5 px-4 sm:px-6">Check-In</th>
                                 <th class="py-3.5 px-4 sm:px-6 text-right no-print">Actions</th>
@@ -551,6 +550,40 @@
             }
         }
 
+        async function updateApparelType(runner, newApparel) {
+            if (isCloudStorageAvailable && db && runner.docId) {
+                try {
+                    const docRef = getDocRef(runner.docId);
+                    await updateDoc(docRef, { apparelType: newApparel, apparel: newApparel });
+                    showToast(`Updated apparel for ${runner.fullName} to ${newApparel}`);
+                } catch (err) {
+                    console.error("Apparel update error:", err);
+                    showToast("Failed to update apparel.", true);
+                }
+            } else {
+                runner.apparelType = newApparel;
+                renderAdminDashboard();
+                showToast(`Updated apparel for ${runner.fullName} to ${newApparel}`);
+            }
+        }
+
+        async function updateTshirtSize(runner, newSize) {
+            if (isCloudStorageAvailable && db && runner.docId) {
+                try {
+                    const docRef = getDocRef(runner.docId);
+                    await updateDoc(docRef, { tshirtSize: newSize, tShirtSize: newSize });
+                    showToast(`Updated size for ${runner.fullName} to ${newSize}`);
+                } catch (err) {
+                    console.error("Size update error:", err);
+                    showToast("Failed to update size.", true);
+                }
+            } else {
+                runner.tshirtSize = newSize;
+                renderAdminDashboard();
+                showToast(`Updated size for ${runner.fullName} to ${newSize}`);
+            }
+        }
+
         async function updatePaymentStatus(runner, newStatus) {
             closePaymentModal();
             if (isCloudStorageAvailable && db && runner.docId) {
@@ -677,6 +710,9 @@
             tableBody.innerHTML = filtered.map((runner, index) => `
                 <tr class="hover:bg-white/5 transition border-b border-darkborder">
                     <td class="py-3.5 px-4 sm:px-6 font-mono text-center font-bold text-gray-400">${index + 1}</td>
+                    <td class="py-3.5 px-4 sm:px-6 text-gray-400 text-[11px]">
+                        ${new Date(runner.createdAtMs).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                    </td>
                     <td class="py-3.5 px-4 sm:px-6 font-mono font-bold text-gold-400">${runner.id}</td>
                     <td class="py-3.5 px-4 sm:px-6 text-white font-semibold">${escapeHtml(runner.fullName)}</td>
                     <td class="py-3.5 px-4 sm:px-6">
@@ -689,12 +725,18 @@
                     <td class="py-3.5 px-4 sm:px-6 text-gray-300 font-mono">${escapeHtml(runner.contactNumber)}</td>
                     <td class="py-3.5 px-4 sm:px-6 text-gray-300 font-mono">${escapeHtml(runner.emergencyContact)}</td>
                     <td class="py-3.5 px-4 sm:px-6">
-                        <span class="px-2.5 py-1 rounded-lg bg-darkbg border border-darkborder text-gold-300 font-mono text-[11px] inline-block font-semibold">
-                            ${escapeHtml(runner.apparelType || 'Singlet')} (${escapeHtml(runner.tshirtSize)})
-                        </span>
-                    </td>
-                    <td class="py-3.5 px-4 sm:px-6 text-gray-400 text-[11px]">
-                        ${new Date(runner.createdAtMs).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                        <div class="flex items-center space-x-1.5">
+                            <select data-action="update-apparel" data-id="${runner.id}" class="bg-darkbg border border-darkborder rounded-lg px-2 py-1 text-xs text-gold-300 font-mono focus:outline-none focus:border-gold-500 cursor-pointer">
+                                <option value="Singlet" ${(runner.apparelType || 'Singlet') === 'Singlet' ? 'selected' : ''}>Singlet</option>
+                                <option value="Crop Top" ${(runner.apparelType || '') === 'Crop Top' ? 'selected' : ''}>Crop Top</option>
+                            </select>
+                            <select data-action="update-size" data-id="${runner.id}" class="bg-darkbg border border-darkborder rounded-lg px-2 py-1 text-xs text-gold-300 font-mono focus:outline-none focus:border-gold-500 cursor-pointer">
+                                <option value="S" ${runner.tshirtSize === 'S' ? 'selected' : ''}>S</option>
+                                <option value="M" ${runner.tshirtSize === 'M' ? 'selected' : ''}>M</option>
+                                <option value="L" ${runner.tshirtSize === 'L' ? 'selected' : ''}>L</option>
+                                <option value="XL" ${runner.tshirtSize === 'XL' ? 'selected' : ''}>XL</option>
+                            </select>
+                        </div>
                     </td>
                     <td class="py-3.5 px-4 sm:px-6">
                         <button data-action="open-payment" data-id="${runner.id}" class="px-2.5 py-1 rounded-full text-[10px] font-bold border transition ${
@@ -752,6 +794,26 @@
 
                 select.addEventListener('change', (e) => {
                     updateGender(runner, e.target.value);
+                });
+            });
+
+            tableBody.querySelectorAll('select[data-action="update-apparel"]').forEach(select => {
+                const runnerId = select.getAttribute('data-id');
+                const runner = registeredParticipants.find(p => p.id === runnerId);
+                if (!runner) return;
+
+                select.addEventListener('change', (e) => {
+                    updateApparelType(runner, e.target.value);
+                });
+            });
+
+            tableBody.querySelectorAll('select[data-action="update-size"]').forEach(select => {
+                const runnerId = select.getAttribute('data-id');
+                const runner = registeredParticipants.find(p => p.id === runnerId);
+                if (!runner) return;
+
+                select.addEventListener('change', (e) => {
+                    updateTshirtSize(runner, e.target.value);
                 });
             });
         }
