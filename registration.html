@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -11,6 +11,34 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            300: '#FCE082',
+                            400: '#F3C044',
+                            500: '#D4AF37',
+                            600: '#B8860B',
+                            700: '#8B6508',
+                        },
+                        darkbg: '#0A0A0C',
+                        darkcard: '#141418',
+                        darkborder: '#26262E'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Bebas Neue"', 'cursive', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
         :root {
@@ -663,7 +691,7 @@
     <header class="no-print">
         <div class="max-width-container">
             <div class="nav-content">
-                <a href="/" class="brand-logo">
+                <a href="registration.html" class="brand-logo">
                     <img src="https://arleta.site/interactivelink/5674/innovation_logo_FA-removebg-preview.png" alt="Innovation Fitness Logo">
                     <span class="brand-title">INNOVATION FITNESS</span>
                 </a>
@@ -872,6 +900,16 @@
                             </div>
 
                             <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                                <!-- Apparel Type Selection (Mandatory Choice: Singlet or Crop Top) -->
+                                <div class="form-group">
+                                    <label class="form-label" for="apparelType">Apparel Type <span style="color: var(--gold-accent);">*</span></label>
+                                    <select id="apparelType" required class="form-select">
+                                        <option value="" disabled selected>Select Apparel Type (Singlet / Crop Top)</option>
+                                        <option value="Singlet">Flex Cut Singlet</option>
+                                        <option value="Crop Top">Women's Crop Top</option>
+                                    </select>
+                                </div>
+
                                 <!-- T-Shirt Size -->
                                 <div class="form-group">
                                     <label class="form-label" for="tshirtSize">T-Shirt Size <span style="color: var(--gold-accent);">*</span></label>
@@ -883,7 +921,6 @@
                                         <option value="XL">XL</option>
                                     </select>
 
-                                    <!-- Size Chart Table Reference -->
                                     <div class="size-chart-box">
                                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                                             <span style="font-size: 0.7rem; font-weight: 800; color: var(--gold-accent); text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.35rem;">
@@ -1075,6 +1112,7 @@
         </div>
     </a>
 
+    <!-- Ticket Pass Modal -->
     <div id="ticket-modal" class="modal-overlay">
         <div class="glass-card modal-card">
             <button id="close-ticket-btn" style="position: absolute; top: 0.85rem; right: 0.85rem; background: #0A0A0C; border: none; color: #9CA3AF; width: 32px; height: 32px; border-radius: 999px; cursor: pointer;">
@@ -1106,8 +1144,8 @@
                         <span id="pass-phone" style="color: #E5E7EB;">010-250 5902</span>
                     </div>
                     <div>
-                        <span style="color: #6B7280; display: block; font-size: 0.58rem;">T-Shirt Size</span>
-                        <span id="pass-shirt" style="color: var(--gold-accent); font-weight: 700;">M</span>
+                        <span style="color: #6B7280; display: block; font-size: 0.58rem;">Apparel & Size</span>
+                        <span id="pass-shirt" style="color: var(--gold-accent); font-weight: 700;">Singlet (M)</span>
                     </div>
                 </div>
 
@@ -1235,15 +1273,22 @@
             const fullName = document.getElementById('fullName').value.trim();
             const gender = document.getElementById('gender').value;
             const contactNumber = document.getElementById('contactNumber').value.trim();
+            const apparelType = document.getElementById('apparelType').value;
             const tshirtSize = document.getElementById('tshirtSize').value;
             const emergencyContact = document.getElementById('emergencyContact').value.trim() || '-';
             const runnerId = `INF-${Math.floor(1000 + Math.random() * 9000)}`;
+
+            if (!apparelType) {
+                showToast("Please select an Apparel Type (Singlet or Crop Top).", true);
+                return;
+            }
 
             const runnerObj = {
                 id: runnerId,
                 fullName,
                 gender,
                 contactNumber,
+                apparelType,
                 tshirtSize,
                 emergencyContact,
                 paymentStatus: 'UNPAID',
@@ -1283,7 +1328,7 @@
             document.getElementById('pass-name').textContent = runner.fullName;
             document.getElementById('pass-id').textContent = `#${runner.id}`;
             document.getElementById('pass-phone').textContent = runner.contactNumber;
-            document.getElementById('pass-shirt').textContent = runner.tshirtSize;
+            document.getElementById('pass-shirt').textContent = `${runner.apparelType || 'Singlet'} (${runner.tshirtSize})`;
             document.getElementById('pass-barcode-text').textContent = `${runner.id}-INNO-2026`;
 
             document.getElementById('ticket-modal').classList.add('active');
