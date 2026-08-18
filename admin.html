@@ -126,6 +126,11 @@
             </a>
 
             <nav class="flex items-center space-x-1.5 sm:space-x-2">
+                <!-- Registration Toggle Button -->
+                <button id="toggle-reg-status-btn" class="px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition flex items-center space-x-1.5 bg-emerald-500/10 border border-emerald-500/30 min-h-[38px] active:scale-95">
+                    <i class="fa-solid fa-toggle-on text-xs" id="reg-status-toggle-icon"></i>
+                    <span id="reg-status-toggle-text">Reg: Open</span>
+                </button>
                 <a href="registration.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-semibold text-gold-400 hover:text-gold-300 transition flex items-center space-x-1.5 bg-gold-500/10 border border-gold-500/30 min-h-[38px] active:scale-95">
                     <i class="fa-solid fa-person-running text-xs"></i>
                     <span>Register</span>
@@ -164,7 +169,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2.5 sm:gap-4">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-4">
                 <div class="p-3.5 sm:p-5 rounded-2xl glass-card flex flex-col justify-between">
                     <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Total Signups</span>
                     <div class="text-xl sm:text-3xl font-bold font-display text-white mt-1" id="admin-stat-total">0</div>
@@ -175,12 +180,6 @@
                     <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Gender</span>
                     <div class="text-base sm:text-2xl font-bold font-display text-white mt-1" id="admin-stat-gender"><span class="text-blue-400">0 M</span> • <span class="text-pink-400">0 F</span></div>
                     <span class="text-[9px] sm:text-[11px] text-gray-500 mt-1 block truncate">Male & Female</span>
-                </div>
-
-                <div class="p-3.5 sm:p-5 rounded-2xl glass-card flex flex-col justify-between">
-                    <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">T-Shirt Sizes</span>
-                    <div class="text-[11px] sm:text-sm font-bold font-mono text-gold-300 mt-1" id="admin-stat-tshirts">S: 0 • M: 0<br>L: 0 • XL: 0</div>
-                    <span class="text-[9px] sm:text-[11px] text-gray-500 mt-1 block truncate">Size breakdown</span>
                 </div>
 
                 <!-- DASHBOARD SLOT: Singlet & Crop Top Breakdown with Sizes -->
@@ -270,21 +269,26 @@
                     <span class="text-gray-400">11 columns</span>
                 </div>
 
-                <div class="overflow-x-auto smooth-touch-scroll custom-scrollbar">
-                    <table class="w-full text-left text-xs text-gray-300 min-w-[1000px]">
-                        <thead class="bg-darkbg/90 text-gray-400 uppercase tracking-wider font-bold text-[10px] border-b border-darkborder">
+                <!-- Top Horizontal Scrollbar Wrapper -->
+                <div id="top-scrollbar-wrapper" class="overflow-x-auto custom-scrollbar border-b border-darkborder/50 bg-darkbg/50">
+                    <div id="top-scrollbar-dummy" class="h-2"></div>
+                </div>
+
+                <div id="table-scrollbar-wrapper" class="overflow-x-auto smooth-touch-scroll custom-scrollbar">
+                    <table id="admin-table" class="w-full text-left text-xs text-gray-300 min-w-[1180px]">
+                        <thead class="bg-darkbg/90 text-gray-400 uppercase tracking-wider font-bold text-[10px] border-b border-darkborder whitespace-nowrap">
                             <tr>
-                                <th class="py-3.5 px-3 sm:px-6 text-center w-12">#</th>
-                                <th class="py-3.5 px-3 sm:px-6">Date Registered</th>
-                                <th class="py-3.5 px-3 sm:px-6">Runner ID</th>
-                                <th class="py-3.5 px-3 sm:px-6">Full Name</th>
-                                <th class="py-3.5 px-3 sm:px-6">Gender</th>
-                                <th class="py-3.5 px-3 sm:px-6">Contact Number</th>
-                                <th class="py-3.5 px-3 sm:px-6">Emergency Contact</th>
-                                <th class="py-3.5 px-3 sm:px-6">Apparel & Size</th>
-                                <th class="py-3.5 px-3 sm:px-6">Payment</th>
-                                <th class="py-3.5 px-3 sm:px-6">Check-In</th>
-                                <th class="py-3.5 px-3 sm:px-6 text-right no-print">Actions</th>
+                                <th class="py-3.5 px-3 sm:px-4 text-center w-12">#</th>
+                                <th class="py-3.5 px-3 sm:px-4">Date Registered</th>
+                                <th class="py-3.5 px-3 sm:px-4">Runner ID</th>
+                                <th class="py-3.5 px-3 sm:px-4">Full Name</th>
+                                <th class="py-3.5 px-3 sm:px-4">Gender</th>
+                                <th class="py-3.5 px-3 sm:px-4">Contact Number</th>
+                                <th class="py-3.5 px-3 sm:px-4">Emergency Contact</th>
+                                <th class="py-3.5 px-3 sm:px-4">Apparel & Size</th>
+                                <th class="py-3.5 px-3 sm:px-4">Payment</th>
+                                <th class="py-3.5 px-3 sm:px-4">Check-In</th>
+                                <th class="py-3.5 px-3 sm:px-4 text-right no-print">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="admin-table-body" class="divide-y divide-darkborder font-medium">
@@ -411,11 +415,12 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, doc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, doc, setDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         let isAdminAuthenticated = false;
         let registeredParticipants = [];
         let selectedPaymentRunner = null;
+        let isRegistrationOpen = true;
 
         // Web app's Firebase configuration
         const firebaseConfig = {
@@ -437,6 +442,7 @@
         const passcodeError = document.getElementById('passcode-error');
         const loginScreen = document.getElementById('login-screen');
         const lockPortalBtn = document.getElementById('lock-portal-btn');
+        const toggleRegStatusBtn = document.getElementById('toggle-reg-status-btn');
 
         function checkPasscodeAuth() {
             if (sessionStorage.getItem('inno_admin_auth') === 'true') {
@@ -490,10 +496,14 @@
 
                 isCloudStorageAvailable = true;
                 subscribeToRegistrations();
+                subscribeToSettings();
             } catch (err) {
                 console.warn("Firestore offline fallback:", err);
                 isCloudStorageAvailable = false;
                 registeredParticipants = [...localMemoryRegistrations];
+                const localStatus = localStorage.getItem('inno_reg_open');
+                isRegistrationOpen = localStatus === null ? true : localStatus === 'true';
+                updateRegStatusButtonUI();
                 renderAdminDashboard();
             }
         }
@@ -511,6 +521,72 @@
             }
             return doc(db, 'registrations', docId);
         }
+
+        function getSettingsDocRef() {
+            if (typeof __app_id !== 'undefined') {
+                return doc(db, 'artifacts', __app_id, 'public', 'data', 'settings', 'config');
+            }
+            return doc(db, 'settings', 'config');
+        }
+
+        function subscribeToSettings() {
+            if (!isCloudStorageAvailable || !db) return;
+            const settingsDocRef = getSettingsDocRef();
+
+            onSnapshot(settingsDocRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    isRegistrationOpen = data.isOpen !== undefined ? data.isOpen : true;
+                } else {
+                    isRegistrationOpen = true;
+                }
+                updateRegStatusButtonUI();
+            }, (err) => {
+                console.warn("Settings fetch error:", err);
+                const localStatus = localStorage.getItem('inno_reg_open');
+                isRegistrationOpen = localStatus === null ? true : localStatus === 'true';
+                updateRegStatusButtonUI();
+            });
+        }
+
+        function updateRegStatusButtonUI() {
+            const icon = document.getElementById('reg-status-toggle-icon');
+            const text = document.getElementById('reg-status-toggle-text');
+
+            if (isRegistrationOpen) {
+                toggleRegStatusBtn.className = "px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition flex items-center space-x-1.5 bg-emerald-500/10 border border-emerald-500/30 min-h-[38px] active:scale-95";
+                if (icon) icon.className = "fa-solid fa-toggle-on text-xs";
+                if (text) text.textContent = "Reg: Open";
+            } else {
+                toggleRegStatusBtn.className = "px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-semibold text-red-400 hover:text-red-300 transition flex items-center space-x-1.5 bg-red-500/10 border border-red-500/30 min-h-[38px] active:scale-95";
+                if (icon) icon.className = "fa-solid fa-toggle-off text-xs";
+                if (text) text.textContent = "Reg: Closed";
+            }
+        }
+
+        async function toggleRegistrationStatus() {
+            const nextStatus = !isRegistrationOpen;
+            if (isCloudStorageAvailable && db) {
+                try {
+                    const settingsDocRef = getSettingsDocRef();
+                    await setDoc(settingsDocRef, { isOpen: nextStatus }, { merge: true });
+                    isRegistrationOpen = nextStatus;
+                    localStorage.setItem('inno_reg_open', String(nextStatus));
+                    updateRegStatusButtonUI();
+                    showToast(`Registration is now ${nextStatus ? 'OPEN' : 'CLOSED'}.`);
+                } catch (err) {
+                    console.error("Failed to update status:", err);
+                    showToast("Failed to change registration status.", true);
+                }
+            } else {
+                isRegistrationOpen = nextStatus;
+                localStorage.setItem('inno_reg_open', String(nextStatus));
+                updateRegStatusButtonUI();
+                showToast(`Registration is now ${nextStatus ? 'OPEN' : 'CLOSED'}.`);
+            }
+        }
+
+        toggleRegStatusBtn.addEventListener('click', toggleRegistrationStatus);
 
         function subscribeToRegistrations() {
             if (!isCloudStorageAvailable || !db) return;
@@ -667,13 +743,6 @@
             const maleCount = registeredParticipants.filter(p => (p.gender || '').toLowerCase() === 'male').length;
             const femaleCount = registeredParticipants.filter(p => (p.gender || '').toLowerCase() === 'female').length;
             document.getElementById('admin-stat-gender').innerHTML = `<span class="text-blue-400">${maleCount} M</span> • <span class="text-pink-400">${femaleCount} F</span>`;
-
-            // T-Shirt size statistics
-            const sCount = registeredParticipants.filter(p => p.tshirtSize === 'S').length;
-            const mCount = registeredParticipants.filter(p => p.tshirtSize === 'M').length;
-            const lCount = registeredParticipants.filter(p => p.tshirtSize === 'L').length;
-            const xlCount = registeredParticipants.filter(p => p.tshirtSize === 'XL').length;
-            document.getElementById('admin-stat-tshirts').innerHTML = `S:${sCount} • M:${mCount}<br>L:${lCount} • XL:${xlCount}`;
 
             // Apparel & Size breakdown calculation for Dashboard Slot
             const singletRunners = registeredParticipants.filter(p => (p.apparelType || '').toLowerCase() === 'singlet');
@@ -854,6 +923,46 @@
                     updateTshirtSize(runner, e.target.value);
                 });
             });
+
+            setTimeout(syncScrollWidth, 50);
+        }
+
+        function syncScrollWidth() {
+            const topScroll = document.getElementById('top-scrollbar-wrapper');
+            const dummy = document.getElementById('top-scrollbar-dummy');
+            const table = document.getElementById('admin-table');
+            const wrapper = document.getElementById('table-scrollbar-wrapper');
+
+            if (table && dummy && topScroll && wrapper) {
+                const scrollW = Math.max(table.scrollWidth, wrapper.scrollWidth);
+                dummy.style.width = `${scrollW}px`;
+            }
+        }
+
+        const topScroll = document.getElementById('top-scrollbar-wrapper');
+        const tableScroll = document.getElementById('table-scrollbar-wrapper');
+
+        if (topScroll && tableScroll) {
+            let isSyncingTop = false;
+            let isSyncingTable = false;
+
+            topScroll.addEventListener('scroll', () => {
+                if (!isSyncingTop) {
+                    isSyncingTable = true;
+                    tableScroll.scrollLeft = topScroll.scrollLeft;
+                }
+                isSyncingTop = false;
+            });
+
+            tableScroll.addEventListener('scroll', () => {
+                if (!isSyncingTable) {
+                    isSyncingTop = true;
+                    topScroll.scrollLeft = tableScroll.scrollLeft;
+                }
+                isSyncingTable = false;
+            });
+
+            window.addEventListener('resize', syncScrollWidth);
         }
 
         document.getElementById('admin-search-input').addEventListener('input', renderAdminDashboard);
