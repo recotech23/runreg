@@ -831,7 +831,7 @@
                                     <span style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34D399; font-size: 0.6rem; font-weight: 800; padding: 0.15rem 0.5rem; border-radius: 0.35rem;">EATING</span>
                                 </div>
                                 <h3 style="color: #FFF; font-weight: 800; font-size: 1rem;">Speed Eating Showdown</h3>
-                                <p style="color: #9CA3AF; font-size: 0.72rem; margin-top: 0.25rem;">3-round elimination</p>
+                                <p style="color: #9CA3AF; font-size: 0.72rem; margin-top: 0.25rem;">3 rounds elimination</p>
                             </div>
                             <div style="margin-top: 0.85rem; padding-top: 0.5rem; border-top: 1px dashed rgba(255,255,255,0.15); display: flex; justify-content: space-between; align-items: center;">
                                 <span style="font-size: 0.65rem; color: #9CA3AF; font-weight: 700; text-transform: uppercase;">PRIZE:</span>
@@ -847,9 +847,9 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #26262E; padding-bottom: 0.85rem; margin-bottom: 1rem;">
                             <div>
                                 <h2 style="font-size: 1.25rem; font-weight: 800; color: #FFF;">Runner Registration</h2>
-                                <p style="font-size: 0.72rem; color: #9CA3AF; margin-top: 0.15rem;">Fill in your details below for instant entry confirmation.</p>
+                                <p id="reg-status-subtext" style="font-size: 0.72rem; color: #9CA3AF; margin-top: 0.15rem;">Fill in your details below for instant entry confirmation.</p>
                             </div>
-                            <span style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #34D399; font-size: 0.6rem; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 999px;">
+                            <span id="reg-status-badge" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #34D399; font-size: 0.6rem; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 999px;">
                                 ● Open
                             </span>
                         </div>
@@ -865,7 +865,8 @@
                                     🎽 1x InnoFit ® Apparel + 🍳 Breakfast
                                 </p>
                                 <p style="font-size: 0.68rem; color: #D1D5DB; margin-top: 0.25rem; border-top: 1px dashed rgba(245, 200, 66, 0.25); padding-top: 0.25rem;">
-                                    💳 <strong>Payment Method:</strong> On-site payment upon arrival during event day registration.
+                                    💳 <strong>Payment Method:</strong> You will hear from us shortly once you have completed your sign-up.
+                                    🎒 <strong>Kit Collection:</strong> Starting from 2/9/2026 (Wed) at Innovation Fitness.
                                 </p>
                             </div>
                         </div>
@@ -1183,7 +1184,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, doc, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Web app's Firebase configuration
         const firebaseConfig = {
@@ -1199,6 +1200,7 @@
         let app, auth, db;
         let isCloudAvailable = false;
         let participants = [];
+        let isRegistrationOpen = true;
 
         async function initFirebase() {
             try {
@@ -1219,6 +1221,7 @@
 
                 isCloudAvailable = true;
                 subscribeToDatabase();
+                subscribeToSettings();
             } catch (err) {
                 console.warn("Firestore offline fallback mode:", err);
                 isCloudAvailable = false;
@@ -1231,6 +1234,72 @@
                 return collection(db, 'artifacts', __app_id, 'public', 'data', 'registrations');
             }
             return collection(db, 'registrations');
+        }
+
+        function getSettingsDocRef() {
+            if (typeof __app_id !== 'undefined') {
+                return doc(db, 'artifacts', __app_id, 'public', 'data', 'settings', 'config');
+            }
+            return doc(db, 'settings', 'config');
+        }
+
+        function subscribeToSettings() {
+            if (!isCloudAvailable || !db) return;
+            const settingsDocRef = getSettingsDocRef();
+
+            onSnapshot(settingsDocRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    isRegistrationOpen = data.isOpen !== undefined ? data.isOpen : true;
+                } else {
+                    isRegistrationOpen = true;
+                }
+                updateRegistrationStatusUI();
+            }, (err) => {
+                console.warn("Settings fetch error:", err);
+                const localStatus = localStorage.getItem('inno_reg_open');
+                isRegistrationOpen = localStatus === null ? true : localStatus === 'true';
+                updateRegistrationStatusUI();
+            });
+        }
+
+        function updateRegistrationStatusUI() {
+            const badge = document.getElementById('reg-status-badge');
+            const subtext = document.getElementById('reg-status-subtext');
+            const submitBtn = document.getElementById('submit-btn');
+            const formInputs = document.querySelectorAll('#registration-form input, #registration-form select');
+
+            if (isRegistrationOpen) {
+                if (badge) {
+                    badge.textContent = '● Open';
+                    badge.style.background = 'rgba(16, 185, 129, 0.1)';
+                    badge.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+                    badge.style.color = '#34D399';
+                }
+                if (subtext) subtext.textContent = 'Fill in your details below for instant entry confirmation.';
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                    submitBtn.style.cursor = 'pointer';
+                    submitBtn.innerHTML = `<i class="fa-solid fa-bolt"></i> <span>Complete Registration</span>`;
+                }
+                formInputs.forEach(input => input.disabled = false);
+            } else {
+                if (badge) {
+                    badge.textContent = '● Closed';
+                    badge.style.background = 'rgba(239, 68, 68, 0.15)';
+                    badge.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+                    badge.style.color = '#F87171';
+                }
+                if (subtext) subtext.textContent = 'Registration is currently closed. Contact admin for inquiries.';
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.style.opacity = '0.5';
+                    submitBtn.style.cursor = 'not-allowed';
+                    submitBtn.innerHTML = `<i class="fa-solid fa-lock"></i> <span>Registration Closed</span>`;
+                }
+                formInputs.forEach(input => input.disabled = true);
+            }
         }
 
         function subscribeToDatabase() {
@@ -1256,6 +1325,9 @@
             if (stored) {
                 try { participants = JSON.parse(stored); } catch (e) {}
             }
+            const localStatus = localStorage.getItem('inno_reg_open');
+            isRegistrationOpen = localStatus === null ? true : localStatus === 'true';
+            updateRegistrationStatusUI();
             updateCounter();
         }
 
@@ -1269,6 +1341,11 @@
         const regForm = document.getElementById('registration-form');
         regForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            if (!isRegistrationOpen) {
+                showToast("Registration is currently closed.", true);
+                return;
+            }
 
             const fullName = document.getElementById('fullName').value.trim();
             const gender = document.getElementById('gender').value;
