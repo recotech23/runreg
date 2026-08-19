@@ -182,7 +182,7 @@
                     <span class="text-[9px] sm:text-[11px] text-gray-500 mt-1 block truncate">Male & Female</span>
                 </div>
 
-                <!-- DASHBOARD SLOT: Singlet & Crop Top Breakdown with Sizes -->
+                <!-- Singlet & Crop Top Breakdown with Sizes -->
                 <div class="p-3.5 sm:p-5 rounded-2xl glass-card col-span-2 sm:col-span-3 lg:col-span-1 border border-gold-500/40 flex flex-col justify-between">
                     <span class="text-[10px] sm:text-xs text-gold-400 font-bold uppercase tracking-wider block">Apparel & Sizes</span>
                     <div class="text-[10px] sm:text-xs font-bold font-mono text-gray-200 mt-1 space-y-1" id="admin-stat-apparel-breakdown">
@@ -619,6 +619,10 @@
             });
         }
 
+        function findRunnerByIdOrDocId(idOrDocId) {
+            return registeredParticipants.find(p => (p.docId && p.docId === idOrDocId) || p.id === idOrDocId);
+        }
+
         async function toggleCheckIn(runner) {
             const newStatus = !runner.checkedIn;
             if (isCloudStorageAvailable && db && runner.docId) {
@@ -717,7 +721,7 @@
                     console.error("Delete error:", err);
                 }
             } else {
-                registeredParticipants = registeredParticipants.filter(p => p.id !== runner.id);
+                registeredParticipants = registeredParticipants.filter(p => (p.docId && runner.docId ? p.docId !== runner.docId : p.id !== runner.id));
                 renderAdminDashboard();
                 showToast(`Deleted ${runner.fullName}`);
             }
@@ -744,7 +748,7 @@
             const femaleCount = registeredParticipants.filter(p => (p.gender || '').toLowerCase() === 'female').length;
             document.getElementById('admin-stat-gender').innerHTML = `<span class="text-blue-400">${maleCount} M</span> • <span class="text-pink-400">${femaleCount} F</span>`;
 
-            // Apparel & Size breakdown calculation for Dashboard Slot
+            // Apparel & Size breakdown calculation
             const singletRunners = registeredParticipants.filter(p => (p.apparelType || '').toLowerCase() === 'singlet');
             const cropTopRunners = registeredParticipants.filter(p => (p.apparelType || '').toLowerCase() === 'crop top');
 
@@ -811,7 +815,9 @@
             }
 
             emptyState.classList.add('hidden');
-            tableBody.innerHTML = filtered.map((runner, index) => `
+            tableBody.innerHTML = filtered.map((runner, index) => {
+                const key = runner.docId || runner.id;
+                return `
                 <tr class="hover:bg-white/5 transition border-b border-darkborder">
                     <td class="py-3 px-3 sm:px-6 font-mono text-center font-bold text-gray-400">${index + 1}</td>
                     <td class="py-3 px-3 sm:px-6 text-gray-400 text-[11px] whitespace-nowrap">
@@ -820,7 +826,7 @@
                     <td class="py-3 px-3 sm:px-6 font-mono font-bold text-gold-400 whitespace-nowrap">${runner.id}</td>
                     <td class="py-3 px-3 sm:px-6 text-white font-semibold whitespace-nowrap">${escapeHtml(runner.fullName)}</td>
                     <td class="py-3 px-3 sm:px-6">
-                        <select data-action="update-gender" data-id="${runner.id}" class="bg-darkbg border border-darkborder rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-gold-500 cursor-pointer min-h-[36px]">
+                        <select data-action="update-gender" data-id="${key}" class="bg-darkbg border border-darkborder rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-gold-500 cursor-pointer min-h-[36px]">
                             <option value="Male" ${runner.gender === 'Male' ? 'selected' : ''}>Male</option>
                             <option value="Female" ${runner.gender === 'Female' ? 'selected' : ''}>Female</option>
                             <option value="Unassigned" ${!runner.gender || runner.gender === '-' || runner.gender === 'Unassigned' ? 'selected' : ''}>Unassigned</option>
@@ -830,11 +836,11 @@
                     <td class="py-3 px-3 sm:px-6 text-gray-300 font-mono whitespace-nowrap">${escapeHtml(runner.emergencyContact)}</td>
                     <td class="py-3 px-3 sm:px-6 whitespace-nowrap">
                         <div class="flex items-center space-x-1.5">
-                            <select data-action="update-apparel" data-id="${runner.id}" class="bg-darkbg border border-darkborder rounded-lg px-2 py-1.5 text-xs text-gold-300 font-mono focus:outline-none focus:border-gold-500 cursor-pointer min-h-[36px]">
+                            <select data-action="update-apparel" data-id="${key}" class="bg-darkbg border border-darkborder rounded-lg px-2 py-1.5 text-xs text-gold-300 font-mono focus:outline-none focus:border-gold-500 cursor-pointer min-h-[36px]">
                                 <option value="Singlet" ${(runner.apparelType || 'Singlet') === 'Singlet' ? 'selected' : ''}>Singlet</option>
                                 <option value="Crop Top" ${(runner.apparelType || '') === 'Crop Top' ? 'selected' : ''}>Crop Top</option>
                             </select>
-                            <select data-action="update-size" data-id="${runner.id}" class="bg-darkbg border border-darkborder rounded-lg px-2 py-1.5 text-xs text-gold-300 font-mono focus:outline-none focus:border-gold-500 cursor-pointer min-h-[36px]">
+                            <select data-action="update-size" data-id="${key}" class="bg-darkbg border border-darkborder rounded-lg px-2 py-1.5 text-xs text-gold-300 font-mono focus:outline-none focus:border-gold-500 cursor-pointer min-h-[36px]">
                                 <option value="S" ${runner.tshirtSize === 'S' ? 'selected' : ''}>S</option>
                                 <option value="M" ${runner.tshirtSize === 'M' ? 'selected' : ''}>M</option>
                                 <option value="L" ${runner.tshirtSize === 'L' ? 'selected' : ''}>L</option>
@@ -843,7 +849,7 @@
                         </div>
                     </td>
                     <td class="py-3 px-3 sm:px-6 whitespace-nowrap">
-                        <button data-action="open-payment" data-id="${runner.id}" class="px-2.5 py-1.5 rounded-full text-[10px] font-bold border transition active:scale-95 ${
+                        <button data-action="open-payment" data-id="${key}" class="px-2.5 py-1.5 rounded-full text-[10px] font-bold border transition active:scale-95 ${
                             runner.paymentStatus === 'QR' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20' :
                             runner.paymentStatus === 'CASH' ? 'bg-green-500/10 border-green-500/30 text-green-400 hover:bg-green-500/20' :
                             (runner.paymentStatus === 'TRANSFER' || runner.paymentStatus === 'ONLINE') ? 'bg-blue-500/10 border-blue-500/30 text-blue-400 hover:bg-blue-500/20' :
@@ -864,26 +870,27 @@
                         </button>
                     </td>
                     <td class="py-3 px-3 sm:px-6 whitespace-nowrap">
-                        <button data-action="toggle-checkin" data-id="${runner.id}" class="px-2.5 py-1.5 rounded-full text-[10px] font-bold border transition active:scale-95 ${runner.checkedIn ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400'}">
+                        <button data-action="toggle-checkin" data-id="${key}" class="px-2.5 py-1.5 rounded-full text-[10px] font-bold border transition active:scale-95 ${runner.checkedIn ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400'}">
                             <i class="fa-solid ${runner.checkedIn ? 'fa-circle-check' : 'fa-clock'} mr-1"></i>
                             ${runner.checkedIn ? 'Checked In' : 'Pending'}
                         </button>
                     </td>
                     <td class="py-3 px-3 sm:px-6 text-right space-x-1 no-print whitespace-nowrap">
-                        <button data-action="view-pass" data-id="${runner.id}" class="p-2 rounded-lg text-gray-400 hover:text-gold-400 transition active:scale-90" title="View Pass">
+                        <button data-action="view-pass" data-id="${key}" class="p-2 rounded-lg text-gray-400 hover:text-gold-400 transition active:scale-90" title="View Pass">
                             <i class="fa-solid fa-ticket text-sm"></i>
                         </button>
-                        <button data-action="delete-runner" data-id="${runner.id}" class="p-2 rounded-lg text-gray-400 hover:text-red-400 transition active:scale-90" title="Delete">
+                        <button data-action="delete-runner" data-id="${key}" class="p-2 rounded-lg text-gray-400 hover:text-red-400 transition active:scale-90" title="Delete">
                             <i class="fa-solid fa-trash-can text-sm"></i>
                         </button>
                     </td>
                 </tr>
-            `).join('');
+                `;
+            }).join('');
 
             tableBody.querySelectorAll('button[data-action]').forEach(btn => {
                 const action = btn.getAttribute('data-action');
-                const runnerId = btn.getAttribute('data-id');
-                const runner = registeredParticipants.find(p => p.id === runnerId);
+                const runnerKey = btn.getAttribute('data-id');
+                const runner = findRunnerByIdOrDocId(runnerKey);
                 if (!runner) return;
 
                 btn.addEventListener('click', () => {
@@ -895,8 +902,8 @@
             });
 
             tableBody.querySelectorAll('select[data-action="update-gender"]').forEach(select => {
-                const runnerId = select.getAttribute('data-id');
-                const runner = registeredParticipants.find(p => p.id === runnerId);
+                const runnerKey = select.getAttribute('data-id');
+                const runner = findRunnerByIdOrDocId(runnerKey);
                 if (!runner) return;
 
                 select.addEventListener('change', (e) => {
@@ -905,8 +912,8 @@
             });
 
             tableBody.querySelectorAll('select[data-action="update-apparel"]').forEach(select => {
-                const runnerId = select.getAttribute('data-id');
-                const runner = registeredParticipants.find(p => p.id === runnerId);
+                const runnerKey = select.getAttribute('data-id');
+                const runner = findRunnerByIdOrDocId(runnerKey);
                 if (!runner) return;
 
                 select.addEventListener('change', (e) => {
@@ -915,8 +922,8 @@
             });
 
             tableBody.querySelectorAll('select[data-action="update-size"]').forEach(select => {
-                const runnerId = select.getAttribute('data-id');
-                const runner = registeredParticipants.find(p => p.id === runnerId);
+                const runnerKey = select.getAttribute('data-id');
+                const runner = findRunnerByIdOrDocId(runnerKey);
                 if (!runner) return;
 
                 select.addEventListener('change', (e) => {
@@ -972,7 +979,6 @@
         document.getElementById('admin-filter-payment').addEventListener('change', renderAdminDashboard);
         document.getElementById('admin-filter-checkin').addEventListener('change', renderAdminDashboard);
 
-        // Payment Modal Controls
         function openPaymentModal(runner) {
             selectedPaymentRunner = runner;
             document.getElementById('payment-modal-runner-name').textContent = `Runner: ${runner.fullName} (#${runner.id})`;
