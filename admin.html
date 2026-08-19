@@ -182,7 +182,6 @@
                     <span class="text-[9px] sm:text-[11px] text-gray-500 mt-1 block truncate">Male & Female</span>
                 </div>
 
-                <!-- Singlet & Crop Top Breakdown with Sizes -->
                 <div class="p-3.5 sm:p-5 rounded-2xl glass-card col-span-2 sm:col-span-3 lg:col-span-1 border border-gold-500/40 flex flex-col justify-between">
                     <span class="text-[10px] sm:text-xs text-gold-400 font-bold uppercase tracking-wider block">Apparel & Sizes</span>
                     <div class="text-[10px] sm:text-xs font-bold font-mono text-gray-200 mt-1 space-y-1" id="admin-stat-apparel-breakdown">
@@ -201,7 +200,11 @@
                 <div class="p-3.5 sm:p-5 rounded-2xl glass-card flex flex-col justify-between">
                     <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Payments Collected</span>
                     <div class="text-lg sm:text-3xl font-bold font-display text-emerald-400 mt-1" id="admin-stat-paid">RM 0</div>
-                    <span class="text-[9px] sm:text-[11px] text-gray-500 mt-1 block truncate" id="admin-stat-payment-breakdown">QR: RM 0 • Cash: RM 0 • Online: RM 0</span>
+                    <div class="text-[9px] sm:text-[10px] font-mono text-gray-300 mt-1 space-y-0.5" id="admin-stat-payment-breakdown">
+                        <div><span class="text-emerald-400 font-semibold">QR:</span> RM 0</div>
+                        <div><span class="text-green-400 font-semibold">Cash:</span> RM 0</div>
+                        <div><span class="text-blue-400 font-semibold">Online:</span> RM 0</div>
+                    </div>
                 </div>
 
                 <div class="p-3.5 sm:p-5 rounded-2xl glass-card flex flex-col justify-between">
@@ -253,23 +256,29 @@
                         <option value="UNPAID">Unpaid</option>
                     </select>
 
-                    <select id="admin-filter-checkin" class="w-full col-span-2 sm:col-span-1 bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500 min-h-[42px] cursor-pointer">
+                    <select id="admin-filter-checkin" class="w-full bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500 min-h-[42px] cursor-pointer">
                         <option value="ALL">All Status</option>
                         <option value="CHECKED_IN">Checked In</option>
                         <option value="NOT_CHECKED">Pending</option>
+                    </select>
+
+                    <!-- Option to Sort by Payment Date & Reg Date -->
+                    <select id="admin-sort-by" class="w-full col-span-2 sm:col-span-1 bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500 min-h-[42px] cursor-pointer">
+                        <option value="REG_DESC">Sort: Reg Date (Newest)</option>
+                        <option value="REG_ASC">Sort: Reg Date (Oldest)</option>
+                        <option value="PAID_DESC">Sort: Payment Date (Newest)</option>
+                        <option value="PAID_ASC">Sort: Payment Date (Oldest)</option>
                     </select>
                 </div>
             </div>
 
             <div class="glass-card rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-darkborder relative">
                 
-                <!-- Mobile Horizontal Scroll Hint Indicator -->
                 <div class="sm:hidden px-4 py-2 bg-gold-500/10 border-b border-darkborder text-[10px] text-gold-400 flex items-center justify-between font-semibold">
                     <span><i class="fa-solid fa-arrows-left-right mr-1"></i> Swipe horizontally to view all fields</span>
                     <span class="text-gray-400">11 columns</span>
                 </div>
 
-                <!-- Top Horizontal Scrollbar Wrapper -->
                 <div id="top-scrollbar-wrapper" class="overflow-x-auto custom-scrollbar border-b border-darkborder/50 bg-darkbg/50">
                     <div id="top-scrollbar-dummy" class="h-2"></div>
                 </div>
@@ -596,6 +605,7 @@
                 const list = [];
                 snapshot.forEach(docSnap => {
                     const data = docSnap.data();
+                    const createdAtMs = data.createdAtMs || (data.createdAt ? new Date(data.createdAt).getTime() : Date.now());
                     list.push({
                         docId: docSnap.id,
                         id: data.id || `INF-${docSnap.id.substring(0, 5).toUpperCase()}`,
@@ -607,10 +617,10 @@
                         emergencyContact: data.emergencyContact || '-',
                         checkedIn: !!data.checkedIn,
                         paymentStatus: data.paymentStatus || 'UNPAID',
-                        createdAtMs: data.createdAtMs || (data.createdAt ? new Date(data.createdAt).getTime() : Date.now())
+                        paidAtMs: data.paidAtMs || (data.paymentStatus && data.paymentStatus !== 'UNPAID' ? createdAtMs : 0),
+                        createdAtMs: createdAtMs
                     });
                 });
-                list.sort((a, b) => b.createdAtMs - a.createdAtMs);
                 registeredParticipants = list;
                 renderAdminDashboard();
             }, (err) => {
@@ -693,10 +703,11 @@
 
         async function updatePaymentStatus(runner, newStatus) {
             closePaymentModal();
+            const paidAt = newStatus !== 'UNPAID' ? (runner.paidAtMs || Date.now()) : 0;
             if (isCloudStorageAvailable && db && runner.docId) {
                 try {
                     const docRef = getDocRef(runner.docId);
-                    await updateDoc(docRef, { paymentStatus: newStatus });
+                    await updateDoc(docRef, { paymentStatus: newStatus, paidAtMs: paidAt });
                     let label = newStatus === 'QR' ? 'Paid (QR)' : newStatus === 'CASH' ? 'Paid (Cash)' : (newStatus === 'TRANSFER' || newStatus === 'ONLINE') ? 'Paid (Online Transfer)' : 'Unpaid';
                     showToast(`Payment for ${runner.fullName} updated to ${label}`);
                 } catch (err) {
@@ -705,6 +716,7 @@
                 }
             } else {
                 runner.paymentStatus = newStatus;
+                runner.paidAtMs = paidAt;
                 renderAdminDashboard();
                 let label = newStatus === 'QR' ? 'Paid (QR)' : newStatus === 'CASH' ? 'Paid (Cash)' : (newStatus === 'TRANSFER' || newStatus === 'ONLINE') ? 'Paid (Online Transfer)' : 'Unpaid';
                 showToast(`Payment for ${runner.fullName} updated to ${label}`);
@@ -738,6 +750,7 @@
             const filterSize = document.getElementById('admin-filter-size').value;
             const filterPayment = document.getElementById('admin-filter-payment').value;
             const filterCheckin = document.getElementById('admin-filter-checkin').value;
+            const sortBy = document.getElementById('admin-sort-by') ? document.getElementById('admin-sort-by').value : 'REG_DESC';
 
             document.getElementById('admin-stat-total').textContent = registeredParticipants.length;
             const checkedInCount = registeredParticipants.filter(p => p.checkedIn).length;
@@ -779,9 +792,13 @@
             const totalPaidAmount = qrAmount + cashAmount + transferAmount;
 
             document.getElementById('admin-stat-paid').textContent = `RM ${totalPaidAmount}`;
-            document.getElementById('admin-stat-payment-breakdown').innerHTML = `QR: RM ${qrAmount} • Cash: RM ${cashAmount} • Online: RM ${transferAmount}`;
+            document.getElementById('admin-stat-payment-breakdown').innerHTML = `
+                <div><span class="text-emerald-400 font-semibold">QR:</span> RM ${qrAmount}</div>
+                <div><span class="text-green-400 font-semibold">Cash:</span> RM ${cashAmount}</div>
+                <div><span class="text-blue-400 font-semibold">Online:</span> RM ${transferAmount}</div>
+            `;
 
-            const filtered = registeredParticipants.filter(runner => {
+            let filtered = registeredParticipants.filter(runner => {
                 const matchesSearch = runner.fullName.toLowerCase().includes(searchInput) ||
                     (runner.gender && runner.gender.toLowerCase().includes(searchInput)) ||
                     runner.contactNumber.includes(searchInput) ||
@@ -807,6 +824,22 @@
                 const matchesCheckin = filterCheckin === 'ALL' || (filterCheckin === 'CHECKED_IN' ? runner.checkedIn : !runner.checkedIn);
                 return matchesSearch && matchesApparel && matchesGender && matchesSize && matchesPayment && matchesCheckin;
             });
+
+            // Sorting logic
+            if (sortBy === 'PAID_DESC') {
+                filtered.sort((a, b) => (b.paidAtMs || 0) - (a.paidAtMs || 0));
+            } else if (sortBy === 'PAID_ASC') {
+                filtered.sort((a, b) => {
+                    if (!a.paidAtMs && !b.paidAtMs) return 0;
+                    if (!a.paidAtMs) return 1;
+                    if (!b.paidAtMs) return -1;
+                    return a.paidAtMs - b.paidAtMs;
+                });
+            } else if (sortBy === 'REG_ASC') {
+                filtered.sort((a, b) => a.createdAtMs - b.createdAtMs);
+            } else { // REG_DESC
+                filtered.sort((a, b) => b.createdAtMs - a.createdAtMs);
+            }
 
             if (filtered.length === 0) {
                 tableBody.innerHTML = '';
@@ -868,6 +901,7 @@
                                 'Unpaid'
                             }
                         </button>
+                        ${runner.paidAtMs ? `<div class="text-[9px] text-gray-500 font-mono mt-1 text-center">Paid: ${new Date(runner.paidAtMs).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>` : ''}
                     </td>
                     <td class="py-3 px-3 sm:px-6 whitespace-nowrap">
                         <button data-action="toggle-checkin" data-id="${key}" class="px-2.5 py-1.5 rounded-full text-[10px] font-bold border transition active:scale-95 ${runner.checkedIn ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400'}">
@@ -978,6 +1012,7 @@
         document.getElementById('admin-filter-size').addEventListener('change', renderAdminDashboard);
         document.getElementById('admin-filter-payment').addEventListener('change', renderAdminDashboard);
         document.getElementById('admin-filter-checkin').addEventListener('change', renderAdminDashboard);
+        document.getElementById('admin-sort-by').addEventListener('change', renderAdminDashboard);
 
         function openPaymentModal(runner) {
             selectedPaymentRunner = runner;
