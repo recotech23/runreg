@@ -201,7 +201,11 @@
                 <div class="p-3.5 sm:p-5 rounded-2xl glass-card flex flex-col justify-between">
                     <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Payments Collected</span>
                     <div class="text-lg sm:text-3xl font-bold font-display text-emerald-400 mt-1" id="admin-stat-paid">RM 0</div>
-                    <span class="text-[9px] sm:text-[11px] text-gray-500 mt-1 block truncate" id="admin-stat-payment-breakdown">QR: RM 0 • Cash: RM 0 • Online: RM 0</span>
+                    <div class="text-[9px] sm:text-[10px] font-mono text-gray-300 mt-1 space-y-0.5" id="admin-stat-payment-breakdown">
+                        <div><span class="text-emerald-400 font-semibold">QR:</span> RM 0</div>
+                        <div><span class="text-green-400 font-semibold">Cash:</span> RM 0</div>
+                        <div><span class="text-blue-400 font-semibold">Online:</span> RM 0</div>
+                    </div>
                 </div>
 
                 <div class="p-3.5 sm:p-5 rounded-2xl glass-card flex flex-col justify-between">
@@ -779,7 +783,11 @@
             const totalPaidAmount = qrAmount + cashAmount + transferAmount;
 
             document.getElementById('admin-stat-paid').textContent = `RM ${totalPaidAmount}`;
-            document.getElementById('admin-stat-payment-breakdown').innerHTML = `QR: RM ${qrAmount} • Cash: RM ${cashAmount} • Online: RM ${transferAmount}`;
+            document.getElementById('admin-stat-payment-breakdown').innerHTML = `
+                <div><span class="text-emerald-400 font-semibold">QR:</span> RM ${qrAmount}</div>
+                <div><span class="text-green-400 font-semibold">Cash:</span> RM ${cashAmount}</div>
+                <div><span class="text-blue-400 font-semibold">Online:</span> RM ${transferAmount}</div>
+            `;
 
             const filtered = registeredParticipants.filter(runner => {
                 const matchesSearch = runner.fullName.toLowerCase().includes(searchInput) ||
