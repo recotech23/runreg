@@ -617,7 +617,7 @@
                         emergencyContact: data.emergencyContact || '-',
                         checkedIn: !!data.checkedIn,
                         paymentStatus: data.paymentStatus || 'UNPAID',
-                        paidAtMs: data.paidAtMs || (data.paymentStatus && data.paymentStatus !== 'UNPAID' ? createdAtMs : 0),
+                        paidAtMs: data.paidAtMs || 0,
                         createdAtMs: createdAtMs
                     });
                 });
@@ -703,7 +703,7 @@
 
         async function updatePaymentStatus(runner, newStatus) {
             closePaymentModal();
-            const paidAt = newStatus !== 'UNPAID' ? (runner.paidAtMs || Date.now()) : 0;
+            const paidAt = newStatus !== 'UNPAID' ? Date.now() : 0;
             if (isCloudStorageAvailable && db && runner.docId) {
                 try {
                     const docRef = getDocRef(runner.docId);
