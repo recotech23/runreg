@@ -259,10 +259,14 @@
                 </p>
 
                 <!-- Action Buttons -->
-                <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                <div class="flex flex-col sm:flex-row flex-wrap gap-4 pt-2">
                     <button onclick="openBookingModal('Hero Primary CTA')" class="gold-gradient-bg hover:gold-gradient-bg-hover text-black font-extrabold text-sm uppercase tracking-wider px-8 py-4 rounded-md transition-all shadow-lg hover:shadow-gold/25 flex items-center justify-center gap-3 group">
                         <span>Claim 1 Free PT Trial Session</span>
                         <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                    <button onclick="openPassModal('Hero 3-Day Pass')" class="px-8 py-4 rounded-md border border-gold/60 hover:bg-gold hover:text-black text-gold font-bold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 bg-dark-card/50 hover:bg-dark-card">
+                        <i class="fa-solid fa-gift text-lg"></i>
+                        <span>First timer? Claim your 3-days pass now!</span>
                     </button>
                     <a href="https://wa.me/60102505902?text=Hi%20Innovation%20Fitness!%20I%20want%20to%20inquire%20about%20gym%20membership%20/%20walk-in%20rates." target="_blank" class="px-8 py-4 rounded-md border border-neutral-700 hover:border-gold/60 text-white font-semibold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 bg-dark-card/50 hover:bg-dark-card">
                         <i class="fa-brands fa-whatsapp text-emerald-400 text-lg"></i>
@@ -1196,6 +1200,55 @@
         </div>
     </div>
 
+    <div id="pass-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity duration-300">
+        <div class="bg-dark-card border border-gold/40 rounded-2xl w-full max-w-lg p-6 sm:p-8 relative shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+            <button onclick="closePassModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl" aria-label="Close Modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Modal Form State -->
+            <div id="pass-form-container">
+                <div class="mb-6">
+                    <span class="text-[10px] font-bold text-gold uppercase tracking-widest bg-gold/10 px-2 py-0.5 rounded border border-gold/20">First-Timer Exclusive</span>
+                    <h3 class="font-display text-2xl font-extrabold text-white uppercase mt-2">Claim Free 3-Day Pass</h3>
+                    <p class="text-xs text-gray-400 mt-1">Experience Innovation Fitness for 3 consecutive days on us! Simply enter your details below.</p>
+                </div>
+
+                <form id="pass-form" onsubmit="handlePassSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 mb-1">Full Name *</label>
+                        <input id="pass-name" type="text" required placeholder="e.g. Farhan Imran" class="w-full bg-black border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 mb-1">Contact Number *</label>
+                        <input id="pass-phone" type="tel" required placeholder="e.g. 012-3456789" class="w-full bg-black border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold">
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="submit" class="w-full gold-gradient-bg hover:gold-gradient-bg-hover text-black font-extrabold text-xs uppercase tracking-widest py-3.5 rounded-lg transition-all shadow-lg">
+                            Claim Free 3-Day Pass
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal Success State -->
+            <div id="pass-success-container" class="hidden text-center py-8 space-y-4">
+                <div class="w-16 h-16 rounded-full bg-gold/10 border border-gold text-gold flex items-center justify-center text-2xl mx-auto">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h3 class="font-display text-2xl font-extrabold text-white uppercase">Pass Request Received!</h3>
+                <p class="text-xs text-gray-300 max-w-xs mx-auto leading-relaxed">
+                    Thank you! Our crew will reach out to your WhatsApp shortly to confirm your 3-day pass. Show up & start training!
+                </p>
+                <button onclick="closePassModal()" class="px-6 py-2.5 bg-neutral-800 text-white font-semibold text-xs rounded hover:bg-neutral-700 transition-colors">
+                    Close Window
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -1288,6 +1341,44 @@
                 nav.classList.remove('py-2.5');
             }
         });
+
+        const passModal = document.getElementById('pass-modal');
+        const passFormContainer = document.getElementById('pass-form-container');
+        const passSuccessContainer = document.getElementById('pass-success-container');
+
+        function openPassModal(source = '') {
+            passFormContainer.classList.remove('hidden');
+            passSuccessContainer.classList.add('hidden');
+            passModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePassModal() {
+            passModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        passModal.addEventListener('click', (e) => {
+            if (e.target === passModal) {
+                closePassModal();
+            }
+        });
+
+        function handlePassSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('pass-name').value;
+            const phone = document.getElementById('pass-phone').value;
+
+            const message = `Hi Innovation Fitness! I am a first timer and I would like to claim my Free 3-Day Pass!%0A%0A` +
+                `*Name:* ${encodeURIComponent(name)}%0A` +
+                `*Contact:* ${encodeURIComponent(phone)}`;
+
+            window.open(`https://wa.me/60102505902?text=${message}`, '_blank');
+
+            passFormContainer.classList.add('hidden');
+            passSuccessContainer.classList.remove('hidden');
+        }
     </script>
 </body>
 </html>
