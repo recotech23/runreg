@@ -1176,7 +1176,12 @@
             updateLiveGymStatus();
         }
 
-        // Dynamic Live Status Indicator & Today's Hours Calculator
+        // Dynamic 4-State Live Status Indicator & Schedule Calculator
+        // Statuses: 
+        // 1. OPEN (Open Now)
+        // 2. CLOSING_SOON (within 30m before closing)
+        // 3. OPENING_SOON (within 30m before opening)
+        // 4. CLOSED (Closed Now)
         function updateLiveGymStatus() {
             const statusDot = document.getElementById('status-dot');
             const statusText = document.getElementById('status-text');
@@ -1201,24 +1206,34 @@
             };
 
             const todaySched = schedule[day];
-            let isOpen = false;
+            let statusKey = 'CLOSED';
 
             if (currentMin >= todaySched.open && currentMin < todaySched.close) {
-                isOpen = true;
+                // Gym is operating today
+                if (todaySched.close - currentMin <= 30) {
+                    statusKey = 'CLOSING_SOON'; // Within 30 minutes of closing
+                } else {
+                    statusKey = 'OPEN'; // Open normal
+                }
+            } else if (currentMin < todaySched.open && (todaySched.open - currentMin <= 30)) {
+                statusKey = 'OPENING_SOON'; // Within 30 minutes before opening
+            } else {
+                statusKey = 'CLOSED'; // Closed now
             }
 
-            if (isOpen) {
+            // Apply 4 status visual states & bilingual descriptions
+            if (statusKey === 'OPEN') {
                 statusDot.className = "inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0";
                 statusText.textContent = currentLang === 'EN' ? "Gym Open Now" : "Gim Buka Sekarang";
-            } else {
-                statusDot.className = "inline-block w-2 h-2 rounded-full bg-amber-500 shrink-0";
-                if (currentMin < todaySched.open) {
-                    statusText.textContent = currentLang === 'EN' ? `Opening at ${todaySched.openStr}` : `Buka jam ${todaySched.openStr}`;
-                } else {
-                    const nextDay = (day + 1) % 7;
-                    const nextSched = schedule[nextDay];
-                    statusText.textContent = currentLang === 'EN' ? `Opening at ${nextSched.openStr}` : `Buka jam ${nextSched.openStr}`;
-                }
+            } else if (statusKey === 'CLOSING_SOON') {
+                statusDot.className = "inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse shrink-0";
+                statusText.textContent = currentLang === 'EN' ? "Closing Soon (30m)" : "Tutup Tak Lama Lagi";
+            } else if (statusKey === 'OPENING_SOON') {
+                statusDot.className = "inline-block w-2 h-2 rounded-full bg-sky-400 animate-pulse shrink-0";
+                statusText.textContent = currentLang === 'EN' ? "Opening Soon (30m)" : "Buka Tak Lama Lagi";
+            } else { // CLOSED
+                statusDot.className = "inline-block w-2 h-2 rounded-full bg-rose-500 shrink-0";
+                statusText.textContent = currentLang === 'EN' ? "Gym Closed Now" : "Gim Ditutup Sekarang";
             }
 
             if (mobileTodayHours) {
