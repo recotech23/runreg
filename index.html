@@ -181,21 +181,32 @@
 </head>
 <body class="antialiased selection:bg-gold selection:text-black pb-16 md:pb-0">
 
-    <!-- Header Top Bar -->
-    <div class="bg-gradient-to-r from-neutral-900 via-black to-neutral-900 border-b border-gold/20 text-xs py-2 px-4 text-center text-gray-300">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
-            <div class="flex items-center gap-2">
-                <span id="status-dot" class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span id="status-text" class="font-semibold text-white">Checking status...</span>
-                <span class="text-gray-400 hidden sm:inline">• Walk-ins & Memberships Welcome</span>
+    <!-- Minimalist & Tidy Header Top Bar -->
+    <div class="bg-gradient-to-r from-neutral-900 via-black to-neutral-900 border-b border-gold/20 py-2 px-3 sm:px-6 text-gray-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-2 text-[11px] sm:text-xs">
+            <!-- Left: Live Status + Dynamic Today's Hours -->
+            <div class="flex items-center gap-1.5 sm:gap-2 truncate">
+                <span id="status-dot" class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+                <span id="status-text" class="font-semibold text-white shrink-0">Gym Open Now</span>
+                <span class="text-gray-500 font-normal shrink-0">•</span>
+                <span id="mobile-today-hours" class="text-gray-300 truncate">Today: 7:00 AM - 12:00 AM</span>
+                <span class="text-gray-500 hidden lg:inline">•</span>
+                <span class="text-gray-400 hidden lg:inline">Walk-ins & Memberships Welcome</span>
             </div>
-            <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[11px]">
-                <span class="text-gray-200"><i class="fa-solid fa-clock text-gold mr-1"></i> Sun - Thu: 7:00 AM - 12:00 AM</span>
-                <span class="text-gray-600 hidden sm:inline">•</span>
-                <span class="text-gray-200">Friday: 2:00 PM - 10:00 PM</span>
-                <span class="text-gray-600 hidden sm:inline">•</span>
-                <span class="text-gray-200">Saturday: 9:00 AM - 10:00 PM</span>
-                <a href="tel:+60102505902" class="hover:text-gold transition-colors font-semibold ml-1"><i class="fa-solid fa-phone text-gold mr-1"></i> +60 10-250 5902</a>
+
+            <!-- Right: Full Weekly Hours on Desktop & Phone Link -->
+            <div class="flex items-center gap-3 shrink-0">
+                <div class="hidden xl:flex items-center gap-2.5 text-[11px] text-gray-300 border-r border-neutral-800 pr-3">
+                    <span><i class="fa-solid fa-clock text-gold mr-1"></i> Sun-Thu: 7 AM-12 AM</span>
+                    <span class="text-neutral-700">•</span>
+                    <span>Fri: 2 PM-10 PM</span>
+                    <span class="text-neutral-700">•</span>
+                    <span>Sat: 9 AM-10 PM</span>
+                </div>
+                <a href="tel:+60102505902" class="hover:text-gold transition-colors font-semibold text-white flex items-center gap-1.5 text-[11px] sm:text-xs">
+                    <i class="fa-solid fa-phone text-gold"></i>
+                    <span>+60 10-250 5902</span>
+                </a>
             </div>
         </div>
     </div>
@@ -1144,10 +1155,11 @@
     </div>
 
     <script>
-        // Dynamic Live Status Indicator (Gym Open Now / Opening at X:XX AM/PM)
+        // Dynamic Live Status Indicator & Today's Hours Calculator
         function updateLiveGymStatus() {
             const statusDot = document.getElementById('status-dot');
             const statusText = document.getElementById('status-text');
+            const mobileTodayHours = document.getElementById('mobile-today-hours');
             if (!statusDot || !statusText) return;
 
             const now = new Date();
@@ -1156,18 +1168,15 @@
             const minutes = now.getMinutes();
             const currentMin = hours * 60 + minutes;
 
-            // Schedule definitions in minutes from midnight
-            // Sun-Thu (0-4): 7:00 (420) to 24:00 (1440)
-            // Fri (5): 14:00 (840) to 22:00 (1320)
-            // Sat (6): 9:00 (540) to 22:00 (1320)
+            // Schedule definitions in minutes from midnight & format strings
             const schedule = {
-                0: { open: 420, close: 1440, openStr: '7:00 AM' },
-                1: { open: 420, close: 1440, openStr: '7:00 AM' },
-                2: { open: 420, close: 1440, openStr: '7:00 AM' },
-                3: { open: 420, close: 1440, openStr: '7:00 AM' },
-                4: { open: 420, close: 1440, openStr: '7:00 AM' },
-                5: { open: 840, close: 1320, openStr: '2:00 PM' },
-                6: { open: 540, close: 1320, openStr: '9:00 AM' }
+                0: { open: 420, close: 1440, openStr: '7:00 AM', hoursStr: 'Today: 7:00 AM - 12:00 AM' },
+                1: { open: 420, close: 1440, openStr: '7:00 AM', hoursStr: 'Today: 7:00 AM - 12:00 AM' },
+                2: { open: 420, close: 1440, openStr: '7:00 AM', hoursStr: 'Today: 7:00 AM - 12:00 AM' },
+                3: { open: 420, close: 1440, openStr: '7:00 AM', hoursStr: 'Today: 7:00 AM - 12:00 AM' },
+                4: { open: 420, close: 1440, openStr: '7:00 AM', hoursStr: 'Today: 7:00 AM - 12:00 AM' },
+                5: { open: 840, close: 1320, openStr: '2:00 PM', hoursStr: 'Today: 2:00 PM - 10:00 PM' },
+                6: { open: 540, close: 1320, openStr: '9:00 AM', hoursStr: 'Today: 9:00 AM - 10:00 PM' }
             };
 
             const todaySched = schedule[day];
@@ -1178,10 +1187,10 @@
             }
 
             if (isOpen) {
-                statusDot.className = "inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+                statusDot.className = "inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0";
                 statusText.textContent = "Gym Open Now";
             } else {
-                statusDot.className = "inline-block w-2 h-2 rounded-full bg-amber-500";
+                statusDot.className = "inline-block w-2 h-2 rounded-full bg-amber-500 shrink-0";
                 if (currentMin < todaySched.open) {
                     statusText.textContent = `Opening at ${todaySched.openStr}`;
                 } else {
@@ -1189,6 +1198,10 @@
                     const nextSched = schedule[nextDay];
                     statusText.textContent = `Opening at ${nextSched.openStr}`;
                 }
+            }
+
+            if (mobileTodayHours) {
+                mobileTodayHours.textContent = todaySched.hoursStr;
             }
         }
 
