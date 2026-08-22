@@ -177,20 +177,20 @@
 </head>
 <body class="antialiased selection:bg-gold selection:text-black pb-16 md:pb-0">
 
-    <div class="bg-gradient-to-r from-neutral-900 via-black to-neutral-900 border-b border-gold/20 py-2 px-3 sm:px-6 text-gray-300">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-2 text-[11px] sm:text-xs">
-            <!-- Left: Live Status + Dynamic Today's Hours -->
-            <div class="flex items-center gap-1.5 sm:gap-2 truncate">
+    <div class="bg-gradient-to-r from-neutral-900 via-black to-neutral-900 border-b border-gold/20 py-1.5 sm:py-2 px-3 sm:px-6 text-gray-300">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-2 text-[11px] sm:text-xs">
+            <!-- Left / Top line on mobile: Live Status + Today's Operating Hours -->
+            <div class="flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 w-full sm:w-auto text-center sm:text-left">
                 <span id="status-dot" class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
                 <span id="status-text" class="font-semibold text-white shrink-0" data-en="Gym Open Now" data-bm="Gim Buka Sekarang">Gym Open Now</span>
                 <span class="text-gray-500 font-normal shrink-0">•</span>
-                <span id="mobile-today-hours" class="text-gray-300 truncate">Today: 7:00 AM - 12:00 AM</span>
+                <span id="mobile-today-hours" class="text-gray-200 font-medium whitespace-nowrap">Today: 7:00 AM - 12:00 AM</span>
                 <span class="text-gray-500 hidden lg:inline">•</span>
                 <span class="text-gray-400 hidden lg:inline" data-en="Walk-ins & Memberships Welcome" data-bm="Walk-in & Keahlian Dialu-alukan">Walk-ins & Memberships Welcome</span>
             </div>
 
-            <!-- Right: Full Weekly Hours on Desktop & Phone Link + Lang Switcher -->
-            <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+            <!-- Right / Bottom line on mobile: Full Weekly Hours (Desktop) + Lang Switcher & Phone -->
+            <div class="flex items-center justify-center sm:justify-end gap-2.5 sm:gap-3 shrink-0 w-full sm:w-auto">
                 <div class="hidden xl:flex items-center gap-2.5 text-[11px] text-gray-300 border-r border-neutral-800 pr-3">
                     <span><i class="fa-solid fa-clock text-gold mr-1"></i> Sun-Thu: 7 AM-12 AM</span>
                     <span class="text-neutral-700">•</span>
@@ -993,6 +993,7 @@
         </button>
     </div>
 
+    <!-- Booking Modal -->
     <div id="booking-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity duration-300">
         <div class="bg-dark-card border border-gold/40 rounded-2xl w-full max-w-lg p-5 sm:p-8 relative shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
             <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl" aria-label="Close Modal">
@@ -1073,6 +1074,7 @@
         </div>
     </div>
 
+    <!-- 3-Day Pass Modal -->
     <div id="pass-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-opacity duration-300">
         <div class="bg-dark-card border border-gold/40 rounded-2xl w-full max-w-lg p-5 sm:p-8 relative shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
             <button onclick="closePassModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl" aria-label="Close Modal">
@@ -1122,6 +1124,7 @@
         </div>
     </div>
 
+    <!-- Gallery Lightbox Modal -->
     <div id="gallery-lightbox" class="fixed inset-0 z-50 hidden flex flex-col justify-between p-4 sm:p-8 bg-black/95 backdrop-blur-lg select-none">
         <!-- Lightbox Top Controls -->
         <div class="flex items-center justify-between z-10">
