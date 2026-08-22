@@ -106,6 +106,7 @@
             }
         }
     </script>
+
     <style>
         body {
             background-color: #080808;
@@ -144,6 +145,24 @@
             -webkit-backdrop-filter: blur(12px);
         }
 
+        /* Enhanced Pure CSS Scroll Reveal Fade Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px) scale(0.98);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
@@ -162,16 +181,21 @@
 </head>
 <body class="antialiased selection:bg-gold selection:text-black pb-16 md:pb-0">
 
+    <!-- Header Top Bar -->
     <div class="bg-gradient-to-r from-neutral-900 via-black to-neutral-900 border-b border-gold/20 text-xs py-2 px-4 text-center text-gray-300">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-2">
-                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span class="font-semibold text-white">OPEN FOR TRAINING TODAY</span>
+                <span id="status-dot" class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span id="status-text" class="font-semibold text-white">Checking status...</span>
                 <span class="text-gray-400 hidden sm:inline">• Walk-ins & Memberships Welcome</span>
             </div>
-            <div class="flex items-center gap-4 text-[11px]">
-                <span><i class="fa-solid fa-clock text-gold mr-1"></i> Sun - Thu: 7 AM - 12 AM</span>
-                <a href="tel:+60102505902" class="hover:text-gold transition-colors font-semibold"><i class="fa-solid fa-phone text-gold mr-1"></i> +60 10-250 5902</a>
+            <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[11px]">
+                <span class="text-gray-200"><i class="fa-solid fa-clock text-gold mr-1"></i> Sun - Thu: 7:00 AM - 12:00 AM</span>
+                <span class="text-gray-600 hidden sm:inline">•</span>
+                <span class="text-gray-200">Friday: 2:00 PM - 10:00 PM</span>
+                <span class="text-gray-600 hidden sm:inline">•</span>
+                <span class="text-gray-200">Saturday: 9:00 AM - 10:00 PM</span>
+                <a href="tel:+60102505902" class="hover:text-gold transition-colors font-semibold ml-1"><i class="fa-solid fa-phone text-gold mr-1"></i> +60 10-250 5902</a>
             </div>
         </div>
     </div>
@@ -231,7 +255,6 @@
         </div>
     </nav>
 
-    <!-- ABOVE THE FOLD SECTION -->
     <section class="relative min-h-[85vh] sm:min-h-[90vh] flex items-center py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-12 overflow-hidden">
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-neutral-900 via-dark-base to-dark-base opacity-80 -z-10"></div>
         <div class="absolute -top-40 -right-40 w-96 h-96 bg-gold/10 rounded-full blur-[120px] pointer-events-none"></div>
@@ -239,7 +262,7 @@
 
         <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <!-- Left Copy Column -->
-            <div class="lg:col-span-7 space-y-6 sm:space-y-8">
+            <div class="lg:col-span-7 space-y-6 sm:space-y-8 reveal">
                 <!-- Tagline Badge -->
                 <div class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-dark-card border border-gold/30 text-gold text-xs font-semibold tracking-wider uppercase">
                     <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
@@ -257,7 +280,7 @@
                     At Innovation Fitness, we welcome everyone—whether you're dropping in for a daily walk-in workout, securing a flexible monthly gym membership, or working 1-on-1 with a personal coach.
                 </p>
 
-                <!-- Action Buttons: Claim Free Trial & WhatsApp Us -->
+                <!-- Action Buttons -->
                 <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-2">
                     <button onclick="openBookingModal('Hero Primary CTA')" class="gold-gradient-bg hover:gold-gradient-bg-hover text-black font-extrabold text-xs sm:text-sm uppercase tracking-wider px-6 sm:px-8 py-3.5 sm:py-4 rounded-md transition-all shadow-lg hover:shadow-gold/25 flex items-center justify-center gap-3 group">
                         <span>Claim Free Trial</span>
@@ -291,9 +314,9 @@
             </div>
 
             <!-- Right Hero Visual Card -->
-            <div class="lg:col-span-5 relative mt-4 lg:mt-0">
+            <div class="lg:col-span-5 relative mt-4 lg:mt-0 reveal reveal-delay-2">
                 <div class="relative z-10 rounded-2xl overflow-hidden gold-border-glow bg-dark-surface p-1.5 sm:p-2">
-                    <div class="relative h-80 sm:h-[420px] lg:h-[480px] rounded-xl overflow-hidden group">
+                    <div class="relative h-80 sm:h-[420px] lg:h-[480px] rounded-xl overflow-hidden group cursor-pointer" onclick="openLightbox(0)">
                         <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1000&auto=format&fit=crop" alt="Innovation Fitness Center Facility" class="w-full h-full object-cover object-center grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
                         
@@ -320,10 +343,9 @@
         </div>
     </section>
 
-    <!-- SECTION 2: WHY INNOVATION FITNESS (3-4 STRONGEST DIFFERENTIATORS) -->
     <section id="why-us" class="py-12 sm:py-20 px-4 sm:px-6 lg:px-12 bg-dark-surface border-y border-neutral-800/60 relative">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-3xl mx-auto space-y-2 sm:space-y-3 mb-10 sm:mb-16">
+            <div class="text-center max-w-3xl mx-auto space-y-2 sm:space-y-3 mb-10 sm:mb-16 reveal">
                 <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold">Key Differentiators</span>
                 <h2 class="font-display text-2xl sm:text-4xl font-extrabold uppercase text-white">
                     Why <span class="gold-gradient-text">Innovation Fitness?</span>
@@ -336,7 +358,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 <!-- Differentiator 1 -->
-                <div class="bg-dark-card border border-neutral-800 p-4.5 sm:p-6 rounded-xl hover:border-gold/40 transition-all duration-300 group">
+                <div class="bg-dark-card border border-neutral-800 p-4.5 sm:p-6 rounded-xl hover:border-gold/40 transition-all duration-300 group reveal reveal-delay-1">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-black border border-gold/30 flex items-center justify-center text-gold text-lg sm:text-xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-dumbbell"></i>
                     </div>
@@ -347,7 +369,7 @@
                 </div>
 
                 <!-- Differentiator 2 -->
-                <div class="bg-dark-card border border-neutral-800 p-4.5 sm:p-6 rounded-xl hover:border-gold/40 transition-all duration-300 group">
+                <div class="bg-dark-card border border-neutral-800 p-4.5 sm:p-6 rounded-xl hover:border-gold/40 transition-all duration-300 group reveal reveal-delay-2">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-black border border-gold/30 flex items-center justify-center text-gold text-lg sm:text-xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-heart-pulse"></i>
                     </div>
@@ -358,7 +380,7 @@
                 </div>
 
                 <!-- Differentiator 3 -->
-                <div class="bg-dark-card border border-neutral-800 p-4.5 sm:p-6 rounded-xl hover:border-gold/40 transition-all duration-300 group">
+                <div class="bg-dark-card border border-neutral-800 p-4.5 sm:p-6 rounded-xl hover:border-gold/40 transition-all duration-300 group reveal reveal-delay-3">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-black border border-gold/30 flex items-center justify-center text-gold text-lg sm:text-xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-person-running"></i>
                     </div>
@@ -369,7 +391,7 @@
                 </div>
 
                 <!-- Differentiator 4 -->
-                <div class="bg-dark-card border border-neutral-800 p-4.5 sm:p-6 rounded-xl hover:border-gold/40 transition-all duration-300 group">
+                <div class="bg-dark-card border border-neutral-800 p-4.5 sm:p-6 rounded-xl hover:border-gold/40 transition-all duration-300 group reveal reveal-delay-4">
                     <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-black border border-gold/30 flex items-center justify-center text-gold text-lg sm:text-xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-sliders"></i>
                     </div>
@@ -382,53 +404,55 @@
         </div>
     </section>
 
-    <!-- SECTION 3: SEE THE ACTUAL GYM (REAL PHOTOS GALLERY) -->
     <section id="gallery" class="py-12 sm:py-20 px-4 sm:px-6 lg:px-12 bg-dark-base border-b border-neutral-800">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3 mb-8 sm:mb-12">
+            <div class="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3 mb-8 sm:mb-12 reveal">
                 <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold">Inside Innovation Fitness</span>
                 <h2 class="font-display text-2xl sm:text-4xl font-extrabold uppercase text-white">
                     See The <span class="gold-gradient-text">Actual Gym</span>
                 </h2>
                 <div class="w-16 h-1 bg-gold mx-auto rounded-full"></div>
                 <p class="text-gray-400 text-xs sm:text-sm">
-                    Explore our modern training space, heavy lifting platforms, athletic turf, and cardio padwork station.
+                    Explore our modern training space, heavy lifting platforms, athletic turf, and cardio padwork station. Tap any photo to expand!
                 </p>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-                <div class="relative h-36 sm:h-52 rounded-xl overflow-hidden group border border-neutral-800">
+                <div class="relative h-36 sm:h-52 rounded-xl overflow-hidden group border border-neutral-800 cursor-pointer reveal reveal-delay-1" onclick="openLightbox(0)">
                     <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop" alt="Gym Floor" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 group-hover:opacity-100 transition-opacity flex items-end p-2.5 sm:p-4 text-[11px] sm:text-xs font-bold text-white uppercase">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 group-hover:opacity-100 transition-opacity flex items-end p-2.5 sm:p-4 text-[11px] sm:text-xs font-bold text-white uppercase justify-between">
                         <span><i class="fa-solid fa-dumbbell text-gold mr-1.5"></i> Gym Floor</span>
+                        <i class="fa-solid fa-expand text-gold/80 text-xs"></i>
                     </div>
                 </div>
-                <div class="relative h-36 sm:h-52 rounded-xl overflow-hidden group border border-neutral-800">
+                <div class="relative h-36 sm:h-52 rounded-xl overflow-hidden group border border-neutral-800 cursor-pointer reveal reveal-delay-2" onclick="openLightbox(1)">
                     <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=600&auto=format&fit=crop" alt="Lifting Platform" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 group-hover:opacity-100 transition-opacity flex items-end p-2.5 sm:p-4 text-[11px] sm:text-xs font-bold text-white uppercase">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 group-hover:opacity-100 transition-opacity flex items-end p-2.5 sm:p-4 text-[11px] sm:text-xs font-bold text-white uppercase justify-between">
                         <span><i class="fa-solid fa-layer-group text-gold mr-1.5"></i> Olympic Platforms</span>
+                        <i class="fa-solid fa-expand text-gold/80 text-xs"></i>
                     </div>
                 </div>
-                <div class="relative h-36 sm:h-52 rounded-xl overflow-hidden group border border-neutral-800">
+                <div class="relative h-36 sm:h-52 rounded-xl overflow-hidden group border border-neutral-800 cursor-pointer reveal reveal-delay-3" onclick="openLightbox(2)">
                     <img src="https://images.unsplash.com/photo-1517931524326-bdd55a541177?q=80&w=600&auto=format&fit=crop" alt="Functional Turf" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 group-hover:opacity-100 transition-opacity flex items-end p-2.5 sm:p-4 text-[11px] sm:text-xs font-bold text-white uppercase">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 group-hover:opacity-100 transition-opacity flex items-end p-2.5 sm:p-4 text-[11px] sm:text-xs font-bold text-white uppercase justify-between">
                         <span><i class="fa-solid fa-person-running text-gold mr-1.5"></i> Athletic Turf</span>
+                        <i class="fa-solid fa-expand text-gold/80 text-xs"></i>
                     </div>
                 </div>
-                <div class="relative h-36 sm:h-52 rounded-xl overflow-hidden group border border-neutral-800">
+                <div class="relative h-36 sm:h-52 rounded-xl overflow-hidden group border border-neutral-800 cursor-pointer reveal reveal-delay-4" onclick="openLightbox(3)">
                     <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop" alt="Boxing Station" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 group-hover:opacity-100 transition-opacity flex items-end p-2.5 sm:p-4 text-[11px] sm:text-xs font-bold text-white uppercase">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90 group-hover:opacity-100 transition-opacity flex items-end p-2.5 sm:p-4 text-[11px] sm:text-xs font-bold text-white uppercase justify-between">
                         <span><i class="fa-solid fa-heart-pulse text-gold mr-1.5"></i> Cardio Padwork</span>
+                        <i class="fa-solid fa-expand text-gold/80 text-xs"></i>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 4: PRICING (WALK-IN / MEMBERSHIP / PT) -->
     <section id="pricing" class="py-12 sm:py-20 px-4 sm:px-6 lg:px-12 bg-dark-surface relative border-b border-neutral-800">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-3xl mx-auto space-y-2 sm:space-y-3 mb-10 sm:mb-16">
+            <div class="text-center max-w-3xl mx-auto space-y-2 sm:space-y-3 mb-10 sm:mb-16 reveal">
                 <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold">Flexible Membership Options</span>
                 <h2 class="font-display text-2xl sm:text-4xl font-extrabold uppercase text-white">
                     Transparent <span class="gold-gradient-text">Pricing & Access Plans</span>
@@ -442,7 +466,7 @@
             <!-- Pricing Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
                 <!-- Plan 1: Walk-In -->
-                <div class="bg-dark-card border border-neutral-800 rounded-2xl p-5 sm:p-8 flex flex-col justify-between hover:border-gold/40 transition-all">
+                <div class="bg-dark-card border border-neutral-800 rounded-2xl p-5 sm:p-8 flex flex-col justify-between hover:border-gold/40 transition-all reveal reveal-delay-1">
                     <div>
                         <div class="flex justify-between items-center mb-3 sm:mb-4">
                             <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-gold bg-gold/10 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded border border-gold/20">Daily Pass</span>
@@ -470,7 +494,7 @@
                 </div>
 
                 <!-- Plan 2: Gym Membership (Featured) -->
-                <div class="bg-dark-card border-2 border-gold rounded-2xl p-5 sm:p-8 flex flex-col justify-between relative shadow-xl shadow-gold/5 z-10">
+                <div class="bg-dark-card border-2 border-gold rounded-2xl p-5 sm:p-8 flex flex-col justify-between relative shadow-xl shadow-gold/5 z-10 reveal reveal-delay-2">
                     <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gold text-black font-extrabold text-[10px] uppercase tracking-widest px-4 py-1 rounded-full shadow">
                         Most Popular Choice
                     </div>
@@ -502,7 +526,7 @@
                 </div>
 
                 <!-- Plan 3: Personal Coaching -->
-                <div class="bg-dark-card border border-neutral-800 rounded-2xl p-5 sm:p-8 flex flex-col justify-between hover:border-gold/40 transition-all">
+                <div class="bg-dark-card border border-neutral-800 rounded-2xl p-5 sm:p-8 flex flex-col justify-between hover:border-gold/40 transition-all reveal reveal-delay-3">
                     <div>
                         <div class="flex justify-between items-center mb-3 sm:mb-4">
                             <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-gold bg-gold/10 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded border border-gold/20">1-on-1 Coaching</span>
@@ -532,10 +556,9 @@
         </div>
     </section>
 
-    <!-- FACILITIES & SPECIALIZED ZONES -->
     <section id="facilities" class="py-12 sm:py-20 px-4 sm:px-6 lg:px-12 bg-dark-base border-b border-neutral-800">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-4 sm:gap-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-4 sm:gap-6 reveal">
                 <div>
                     <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold">Fully Equipped for Your Goals</span>
                     <h2 class="font-display text-2xl sm:text-4xl font-extrabold uppercase text-white mt-2">
@@ -550,8 +573,8 @@
             <!-- Main Zones Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
                 <!-- Zone 1 -->
-                <div class="bg-dark-card rounded-2xl overflow-hidden gold-border-glow flex flex-col justify-between group">
-                    <div class="relative h-48 sm:h-60 overflow-hidden">
+                <div class="bg-dark-card rounded-2xl overflow-hidden gold-border-glow flex flex-col justify-between group reveal reveal-delay-1">
+                    <div class="relative h-48 sm:h-60 overflow-hidden cursor-pointer" onclick="openLightbox(1)">
                         <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1000&auto=format&fit=crop" alt="Strength & Iron Lab" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105">
                         <div class="absolute inset-0 bg-gradient-to-t from-dark-card via-transparent to-transparent"></div>
                         <span class="absolute top-3 left-3 sm:top-4 sm:left-4 bg-black/80 border border-gold/40 text-gold text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full">Zone 01</span>
@@ -570,8 +593,8 @@
                 </div>
 
                 <!-- Zone 2 -->
-                <div class="bg-dark-card rounded-2xl overflow-hidden gold-border-glow flex flex-col justify-between group">
-                    <div class="relative h-48 sm:h-60 overflow-hidden">
+                <div class="bg-dark-card rounded-2xl overflow-hidden gold-border-glow flex flex-col justify-between group reveal reveal-delay-2">
+                    <div class="relative h-48 sm:h-60 overflow-hidden cursor-pointer" onclick="openLightbox(2)">
                         <img src="https://images.unsplash.com/photo-1517931524326-bdd55a541177?q=80&w=1000&auto=format&fit=crop" alt="Functional Turf & Recovery Area" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105">
                         <div class="absolute inset-0 bg-gradient-to-t from-dark-card via-transparent to-transparent"></div>
                         <span class="absolute top-3 left-3 sm:top-4 sm:left-4 bg-black/80 border border-gold/40 text-gold text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full">Zone 02</span>
@@ -590,8 +613,8 @@
                 </div>
 
                 <!-- Zone 3 -->
-                <div class="bg-dark-card rounded-2xl overflow-hidden gold-border-glow flex flex-col justify-between group">
-                    <div class="relative h-48 sm:h-60 overflow-hidden">
+                <div class="bg-dark-card rounded-2xl overflow-hidden gold-border-glow flex flex-col justify-between group reveal reveal-delay-3">
+                    <div class="relative h-48 sm:h-60 overflow-hidden cursor-pointer" onclick="openLightbox(3)">
                         <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1000&auto=format&fit=crop" alt="Cardio & Boxing Padwork Station" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105">
                         <div class="absolute inset-0 bg-gradient-to-t from-dark-card via-transparent to-transparent"></div>
                         <span class="absolute top-3 left-3 sm:top-4 sm:left-4 bg-black/80 border border-gold/40 text-gold text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full">Zone 03</span>
@@ -611,7 +634,7 @@
             </div>
 
             <!-- Facility Amenities Bar -->
-            <div class="bg-dark-card border border-neutral-800 rounded-xl p-4 sm:p-6 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
+            <div class="bg-dark-card border border-neutral-800 rounded-xl p-4 sm:p-6 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center reveal">
                 <div class="space-y-1.5 sm:space-y-2">
                     <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black border border-gold/30 mx-auto flex items-center justify-center text-gold text-sm sm:text-base"><i class="fa-solid fa-shower"></i></div>
                     <h4 class="font-display font-bold text-xs text-white uppercase">Clean Hot Showers</h4>
@@ -636,10 +659,9 @@
         </div>
     </section>
 
-    <!-- SECTION 5: REAL REVIEWS -->
     <section id="reviews" class="py-12 sm:py-20 px-4 sm:px-6 lg:px-12 bg-dark-surface border-b border-neutral-800">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3 mb-10 sm:mb-16">
+            <div class="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3 mb-10 sm:mb-16 reveal">
                 <div class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black border border-gold/30 text-gold text-xs sm:text-sm font-bold uppercase tracking-wider mb-2">
                     <i class="fa-brands fa-google text-red-500 text-sm sm:text-base"></i>
                     <span>⭐ 5.0 on Google</span>
@@ -657,7 +679,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
                 <!-- Google Review Card 1 -->
-                <div class="bg-dark-card p-5 sm:p-6 rounded-xl border border-neutral-800 flex flex-col justify-between hover:border-gold/40 transition-all">
+                <div class="bg-dark-card p-5 sm:p-6 rounded-xl border border-neutral-800 flex flex-col justify-between hover:border-gold/40 transition-all reveal reveal-delay-1">
                     <div>
                         <div class="flex items-center justify-between mb-3 sm:mb-4">
                             <div class="flex text-gold text-xs gap-1">
@@ -681,7 +703,7 @@
                 </div>
 
                 <!-- Google Review Card 2 -->
-                <div class="bg-dark-card p-5 sm:p-6 rounded-xl border border-neutral-800 flex flex-col justify-between hover:border-gold/40 transition-all">
+                <div class="bg-dark-card p-5 sm:p-6 rounded-xl border border-neutral-800 flex flex-col justify-between hover:border-gold/40 transition-all reveal reveal-delay-2">
                     <div>
                         <div class="flex items-center justify-between mb-3 sm:mb-4">
                             <div class="flex text-gold text-xs gap-1">
@@ -705,7 +727,7 @@
                 </div>
 
                 <!-- Google Review Card 3 -->
-                <div class="bg-dark-card p-5 sm:p-6 rounded-xl border border-neutral-800 flex flex-col justify-between hover:border-gold/40 transition-all">
+                <div class="bg-dark-card p-5 sm:p-6 rounded-xl border border-neutral-800 flex flex-col justify-between hover:border-gold/40 transition-all reveal reveal-delay-3">
                     <div>
                         <div class="flex items-center justify-between mb-3 sm:mb-4">
                             <div class="flex text-gold text-xs gap-1">
@@ -730,7 +752,7 @@
             </div>
 
             <!-- View All Google Reviews CTA -->
-            <div class="text-center">
+            <div class="text-center reveal">
                 <a href="https://share.google/QC6RbTjfZzgptTt2g" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 sm:px-8 py-3 sm:py-3.5 rounded-lg border border-gold/50 hover:border-gold bg-black text-gold hover:text-black hover:bg-gold font-extrabold text-xs uppercase tracking-wider transition-all shadow-lg hover:shadow-gold/20">
                     <i class="fa-brands fa-google text-sm sm:text-base"></i>
                     <span>Read All Reviews On Google Maps</span>
@@ -740,10 +762,9 @@
         </div>
     </section>
 
-    <!-- SECTION 6: LOCATION + HOURS -->
     <section id="contact" class="py-12 sm:py-20 px-4 sm:px-6 lg:px-12 bg-dark-base border-b border-neutral-800">
         <div class="max-w-7xl mx-auto">
-            <div class="max-w-3xl mx-auto space-y-4 sm:space-y-6">
+            <div class="max-w-3xl mx-auto space-y-4 sm:space-y-6 reveal">
                 <!-- Location details -->
                 <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold">Visit Us</span>
                 <h2 class="font-display text-2xl sm:text-4xl font-extrabold uppercase text-white">
@@ -782,10 +803,9 @@
         </div>
     </section>
 
-    <!-- SECTION 7: FAQ + FINAL CTA -->
     <section id="faq" class="py-12 sm:py-20 px-4 sm:px-6 lg:px-12 bg-dark-surface relative">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center space-y-2 sm:space-y-3 mb-10 sm:mb-16">
+            <div class="text-center space-y-2 sm:space-y-3 mb-10 sm:mb-16 reveal">
                 <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold">Clear Answers</span>
                 <h2 class="font-display text-2xl sm:text-4xl font-extrabold uppercase text-white">
                     Frequently Asked <span class="gold-gradient-text">Questions</span>
@@ -794,7 +814,7 @@
 
             <div class="space-y-3 sm:space-y-4" id="faq-accordion">
                 <!-- FAQ Item 1 -->
-                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden">
+                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden reveal reveal-delay-1">
                     <button class="faq-toggle w-full px-5 sm:px-6 py-4 sm:py-5 text-left flex justify-between items-center text-white font-semibold text-xs sm:text-sm hover:text-gold transition-colors">
                         <span>Can I visit just for a daily walk-in workout?</span>
                         <i class="fa-solid fa-chevron-down text-gold transition-transform ml-2"></i>
@@ -805,7 +825,7 @@
                 </div>
 
                 <!-- FAQ Item 2 -->
-                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden">
+                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden reveal reveal-delay-1">
                     <button class="faq-toggle w-full px-5 sm:px-6 py-4 sm:py-5 text-left flex justify-between items-center text-white font-semibold text-xs sm:text-sm hover:text-gold transition-colors">
                         <span>How does custom pricing for 1-on-1 coaching work?</span>
                         <i class="fa-solid fa-chevron-down text-gold transition-transform ml-2"></i>
@@ -816,7 +836,7 @@
                 </div>
 
                 <!-- FAQ Item 3 -->
-                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden">
+                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden reveal reveal-delay-2">
                     <button class="faq-toggle w-full px-5 sm:px-6 py-4 sm:py-5 text-left flex justify-between items-center text-white font-semibold text-xs sm:text-sm hover:text-gold transition-colors">
                         <span>Are shower and locker facilities available?</span>
                         <i class="fa-solid fa-chevron-down text-gold transition-transform ml-2"></i>
@@ -827,7 +847,7 @@
                 </div>
 
                 <!-- FAQ Item 4 -->
-                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden">
+                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden reveal reveal-delay-2">
                     <button class="faq-toggle w-full px-5 sm:px-6 py-4 sm:py-5 text-left flex justify-between items-center text-white font-semibold text-xs sm:text-sm hover:text-gold transition-colors">
                         <span>Is this gym suitable for total beginners?</span>
                         <i class="fa-solid fa-chevron-down text-gold transition-transform ml-2"></i>
@@ -838,7 +858,7 @@
                 </div>
 
                 <!-- FAQ Item 5 -->
-                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden">
+                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden reveal reveal-delay-3">
                     <button class="faq-toggle w-full px-5 sm:px-6 py-4 sm:py-5 text-left flex justify-between items-center text-white font-semibold text-xs sm:text-sm hover:text-gold transition-colors">
                         <span>Do I need to bring my own towel?</span>
                         <i class="fa-solid fa-chevron-down text-gold transition-transform ml-2"></i>
@@ -849,7 +869,7 @@
                 </div>
 
                 <!-- FAQ Item 6 -->
-                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden">
+                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden reveal reveal-delay-3">
                     <button class="faq-toggle w-full px-5 sm:px-6 py-4 sm:py-5 text-left flex justify-between items-center text-white font-semibold text-xs sm:text-sm hover:text-gold transition-colors">
                         <span>Can women train comfortably at Innovation Fitness?</span>
                         <i class="fa-solid fa-chevron-down text-gold transition-transform ml-2"></i>
@@ -860,7 +880,7 @@
                 </div>
 
                 <!-- FAQ Item 7 -->
-                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden">
+                <div class="bg-dark-card border border-neutral-800 rounded-xl overflow-hidden reveal reveal-delay-4">
                     <button class="faq-toggle w-full px-5 sm:px-6 py-4 sm:py-5 text-left flex justify-between items-center text-white font-semibold text-xs sm:text-sm hover:text-gold transition-colors">
                         <span>Is parking free?</span>
                         <i class="fa-solid fa-chevron-down text-gold transition-transform ml-2"></i>
@@ -876,7 +896,7 @@
     <!-- FINAL CTA CONVERSION BANNER -->
     <section class="py-12 sm:py-20 px-4 sm:px-6 lg:px-12 bg-dark-base border-t border-gold/20 relative overflow-hidden">
         <div class="absolute -top-24 -left-24 w-72 h-72 bg-gold/10 rounded-full blur-[100px] pointer-events-none"></div>
-        <div class="max-w-5xl mx-auto text-center space-y-6 sm:space-y-8 relative z-10">
+        <div class="max-w-5xl mx-auto text-center space-y-6 sm:space-y-8 relative z-10 reveal">
             <h2 class="font-display text-2xl sm:text-5xl font-extrabold uppercase text-white tracking-tight">
                 Ready To Stop Guessing & <br>
                 <span class="gold-gradient-text">Start Transforming?</span>
@@ -895,7 +915,6 @@
         </div>
     </section>
 
-    <!-- FOOTER SECTION -->
     <footer class="bg-black text-gray-500 text-xs py-10 sm:py-12 px-4 sm:px-6 lg:px-12 border-t border-neutral-900">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 sm:mb-12">
             <!-- Brand Info -->
@@ -1094,8 +1113,186 @@
         </div>
     </div>
 
-    <!-- INTERACTIVITY JAVASCRIPT LOGIC -->
+    <!-- FULL-SCREEN GALLERY LIGHTBOX MODAL -->
+    <div id="gallery-lightbox" class="fixed inset-0 z-50 hidden flex flex-col justify-between p-4 sm:p-8 bg-black/95 backdrop-blur-lg select-none">
+        <!-- Lightbox Top Controls -->
+        <div class="flex items-center justify-between z-10">
+            <span id="lightbox-caption" class="text-xs sm:text-sm font-display font-bold text-gold uppercase tracking-wider">Gym Photo</span>
+            <button onclick="closeLightbox()" class="w-10 h-10 rounded-full bg-neutral-900/80 border border-neutral-700 text-gray-300 hover:text-white hover:border-gold flex items-center justify-center text-lg transition-colors" aria-label="Close Lightbox">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Lightbox Main Image Display -->
+        <div class="relative flex-1 flex items-center justify-center my-4 overflow-hidden">
+            <button onclick="prevLightbox()" class="absolute left-2 sm:left-4 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 border border-gold/40 text-gold hover:bg-gold hover:text-black flex items-center justify-center text-base sm:text-xl transition-all shadow-lg" aria-label="Previous Image">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <img id="lightbox-img" src="" alt="Enlarged Facility View" class="max-h-[75vh] max-w-[90vw] object-contain rounded-xl border border-gold/20 shadow-2xl transition-all duration-300">
+
+            <button onclick="nextLightbox()" class="absolute right-2 sm:right-4 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 border border-gold/40 text-gold hover:bg-gold hover:text-black flex items-center justify-center text-base sm:text-xl transition-all shadow-lg" aria-label="Next Image">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Lightbox Swipe Helper Bar -->
+        <div class="text-center text-[11px] text-gray-500 font-medium">
+            <span class="hidden sm:inline">Use arrow keys or click arrows to navigate</span>
+            <span class="sm:hidden"><i class="fa-solid fa-hand-pointer text-gold/70 mr-1"></i> Swipe left or right to switch photos</span>
+        </div>
+    </div>
+
     <script>
+        // Dynamic Live Status Indicator (Gym Open Now / Opening at X:XX AM/PM)
+        function updateLiveGymStatus() {
+            const statusDot = document.getElementById('status-dot');
+            const statusText = document.getElementById('status-text');
+            if (!statusDot || !statusText) return;
+
+            const now = new Date();
+            const day = now.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const currentMin = hours * 60 + minutes;
+
+            // Schedule definitions in minutes from midnight
+            // Sun-Thu (0-4): 7:00 (420) to 24:00 (1440)
+            // Fri (5): 14:00 (840) to 22:00 (1320)
+            // Sat (6): 9:00 (540) to 22:00 (1320)
+            const schedule = {
+                0: { open: 420, close: 1440, openStr: '7:00 AM' },
+                1: { open: 420, close: 1440, openStr: '7:00 AM' },
+                2: { open: 420, close: 1440, openStr: '7:00 AM' },
+                3: { open: 420, close: 1440, openStr: '7:00 AM' },
+                4: { open: 420, close: 1440, openStr: '7:00 AM' },
+                5: { open: 840, close: 1320, openStr: '2:00 PM' },
+                6: { open: 540, close: 1320, openStr: '9:00 AM' }
+            };
+
+            const todaySched = schedule[day];
+            let isOpen = false;
+
+            if (currentMin >= todaySched.open && currentMin < todaySched.close) {
+                isOpen = true;
+            }
+
+            if (isOpen) {
+                statusDot.className = "inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+                statusText.textContent = "Gym Open Now";
+            } else {
+                statusDot.className = "inline-block w-2 h-2 rounded-full bg-amber-500";
+                if (currentMin < todaySched.open) {
+                    statusText.textContent = `Opening at ${todaySched.openStr}`;
+                } else {
+                    const nextDay = (day + 1) % 7;
+                    const nextSched = schedule[nextDay];
+                    statusText.textContent = `Opening at ${nextSched.openStr}`;
+                }
+            }
+        }
+
+        // Full-Screen Gallery Lightbox Modal Logic
+        const galleryImages = [
+            { src: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop', title: 'Main Gym Floor & Heavy Dumbbell Rack' },
+            { src: 'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1200&auto=format&fit=crop', title: 'Dedicated Olympic Lifting Platforms' },
+            { src: 'https://images.unsplash.com/photo-1517931524326-bdd55a541177?q=80&w=1200&auto=format&fit=crop', title: 'Athletic Sprint Turf & Prowler Sled Lane' },
+            { src: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1200&auto=format&fit=crop', title: 'Cardio Boxing Padwork & Heavy Bag Station' }
+        ];
+
+        let currentLightboxIndex = 0;
+        const lightboxModal = document.getElementById('gallery-lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            updateLightboxContent();
+            lightboxModal.classList.remove('hidden');
+            lightboxModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightboxModal.classList.add('hidden');
+            lightboxModal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateLightboxContent() {
+            const item = galleryImages[currentLightboxIndex];
+            lightboxImg.src = item.src;
+            lightboxImg.alt = item.title;
+            lightboxCaption.textContent = `${item.title} (${currentLightboxIndex + 1} / ${galleryImages.length})`;
+        }
+
+        function prevLightbox() {
+            currentLightboxIndex = (currentLightboxIndex - 1 + galleryImages.length) % galleryImages.length;
+            updateLightboxContent();
+        }
+
+        function nextLightbox() {
+            currentLightboxIndex = (currentLightboxIndex + 1) % galleryImages.length;
+            updateLightboxContent();
+        }
+
+        // Swipe Gesture Support for Mobile Devices
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        if (lightboxModal) {
+            lightboxModal.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            lightboxModal.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+        }
+
+        function handleSwipe() {
+            const swipeThreshold = 40;
+            if (touchEndX < touchStartX - swipeThreshold) {
+                nextLightbox();
+            } else if (touchEndX > touchStartX + swipeThreshold) {
+                prevLightbox();
+            }
+        }
+
+        // Keyboard Arrow & Escape Navigation
+        document.addEventListener('keydown', (e) => {
+            if (lightboxModal && !lightboxModal.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') prevLightbox();
+                if (e.key === 'ArrowRight') nextLightbox();
+            }
+        });
+
+        // Scroll Reveal Animation via IntersectionObserver
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLiveGymStatus();
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -40px 0px',
+                threshold: 0.12
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(element => {
+                revealObserver.observe(element);
+            });
+        });
+
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
