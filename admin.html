@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -169,8 +168,7 @@
                 </div>
             </div>
 
-            <!-- Statistics Grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2.5 sm:gap-4">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-2.5 sm:gap-4">
                 <div class="p-3.5 sm:p-5 rounded-2xl glass-card flex flex-col justify-between">
                     <span class="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-wider block">Total Signups</span>
                     <div class="text-xl sm:text-3xl font-bold font-display text-white mt-1" id="admin-stat-total">0</div>
@@ -183,7 +181,7 @@
                     <span class="text-[9px] sm:text-[11px] text-gray-500 mt-1 block truncate">Male & Female</span>
                 </div>
 
-                <!-- Singlet & Crop Top Breakdown with Sizes -->
+                <!-- Total Singlet & Crop Top Breakdown with Sizes -->
                 <div class="p-3.5 sm:p-5 rounded-2xl glass-card col-span-2 sm:col-span-3 lg:col-span-1 border border-gold-500/40 flex flex-col justify-between">
                     <span class="text-[10px] sm:text-xs text-gold-400 font-bold uppercase tracking-wider block">Apparel & Sizes</span>
                     <div class="text-[10px] sm:text-xs font-bold font-mono text-gray-200 mt-1 space-y-1" id="admin-stat-apparel-breakdown">
@@ -193,9 +191,16 @@
                     <span class="text-[9px] sm:text-[11px] text-gray-500 mt-1 block truncate">Singlet vs Crop Top</span>
                 </div>
 
-                <div class="p-3.5 sm:p-5 rounded-2xl glass-card flex flex-col justify-between border border-amber-500/30">
-                    <span class="text-[10px] sm:text-xs text-amber-400 font-bold uppercase tracking-wider block">Apparel Collected</span>
-                    <div class="text-xl sm:text-3xl font-bold font-display text-amber-400 mt-1" id="admin-stat-apparel-collected">0</div>
+                <!-- Apparel Collected Breakdown with Sizes -->
+                <div class="p-3.5 sm:p-5 rounded-2xl glass-card col-span-2 sm:col-span-3 lg:col-span-1 border border-gold-500/40 flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] sm:text-xs text-gold-400 font-bold uppercase tracking-wider block">Apparel Collected</span>
+                        <span id="admin-stat-collected-total" class="text-xs sm:text-sm font-bold font-mono text-gold-400 bg-gold-500/10 px-2 py-0.5 rounded-md border border-gold-500/20">0</span>
+                    </div>
+                    <div class="text-[10px] sm:text-xs font-bold font-mono text-gray-200 mt-1 space-y-1" id="admin-stat-collected-breakdown">
+                        <div><span class="text-gold-300">🎽 Singlet (0):</span> S:0 M:0 L:0 XL:0</div>
+                        <div><span class="text-pink-300">✂️ Crop Top (0):</span> S:0 M:0 L:0 XL:0</div>
+                    </div>
                     <span class="text-[9px] sm:text-[11px] text-gray-500 mt-1 block truncate">Kits / shirts claimed</span>
                 </div>
 
@@ -265,15 +270,15 @@
                     </select>
 
                     <select id="admin-filter-collection" class="w-full bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500 min-h-[42px] cursor-pointer">
-                        <option value="ALL">All Collection</option>
-                        <option value="COLLECTED">Apparel Collected</option>
-                        <option value="NOT_COLLECTED">Apparel Pending</option>
+                        <option value="ALL">All Apparel Claim</option>
+                        <option value="COLLECTED">Collected</option>
+                        <option value="PENDING">Pending Claim</option>
                     </select>
 
                     <select id="admin-filter-checkin" class="w-full col-span-2 sm:col-span-1 bg-darkbg border border-darkborder rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-gold-500 min-h-[42px] cursor-pointer">
                         <option value="ALL">All Status</option>
                         <option value="CHECKED_IN">Checked In</option>
-                        <option value="NOT_CHECKED">Pending</option>
+                        <option value="NOT_CHECKED">Pending Check-In</option>
                     </select>
                 </div>
             </div>
@@ -425,7 +430,7 @@
         </div>
     </div>
 
-    <!-- Toast Notification Popup -->
+    <!-- Toast Notification -->
     <div id="toast-notification" class="fixed bottom-4 right-4 left-4 sm:left-auto sm:right-6 z-50 max-w-sm px-4 py-3 rounded-2xl glass-card border border-gold-500/40 text-xs font-medium text-white shadow-2xl flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
         <i id="toast-icon" class="fa-solid fa-circle-check text-gold-400 text-lg"></i>
         <span id="toast-message">Notification message</span>
@@ -625,7 +630,7 @@
                         tshirtSize: data.tshirtSize || data.tShirtSize || 'M',
                         emergencyContact: data.emergencyContact || '-',
                         checkedIn: !!data.checkedIn,
-                        apparelCollected: !!data.apparelCollected,
+                        apparelCollected: !!(data.apparelCollected || data.collected),
                         paymentStatus: data.paymentStatus || 'UNPAID',
                         createdAtMs: data.createdAtMs || (data.createdAt ? new Date(data.createdAt).getTime() : Date.now())
                     });
@@ -643,24 +648,6 @@
             return registeredParticipants.find(p => (p.docId && p.docId === idOrDocId) || p.id === idOrDocId);
         }
 
-        async function toggleApparelCollected(runner) {
-            const newStatus = !runner.apparelCollected;
-            if (isCloudStorageAvailable && db && runner.docId) {
-                try {
-                    const docRef = getDocRef(runner.docId);
-                    await updateDoc(docRef, { apparelCollected: newStatus });
-                    showToast(`Updated apparel collection for ${runner.fullName}`);
-                } catch (err) {
-                    console.error("Apparel collection update error:", err);
-                    showToast("Failed to update apparel collection.", true);
-                }
-            } else {
-                runner.apparelCollected = newStatus;
-                renderAdminDashboard();
-                showToast(`Updated apparel collection for ${runner.fullName}`);
-            }
-        }
-
         async function toggleCheckIn(runner) {
             const newStatus = !runner.checkedIn;
             if (isCloudStorageAvailable && db && runner.docId) {
@@ -675,6 +662,23 @@
                 runner.checkedIn = newStatus;
                 renderAdminDashboard();
                 showToast(`Updated check-in for ${runner.fullName}`);
+            }
+        }
+
+        async function toggleApparelCollected(runner) {
+            const newStatus = !runner.apparelCollected;
+            if (isCloudStorageAvailable && db && runner.docId) {
+                try {
+                    const docRef = getDocRef(runner.docId);
+                    await updateDoc(docRef, { apparelCollected: newStatus });
+                    showToast(`Updated apparel claim for ${runner.fullName}`);
+                } catch (err) {
+                    console.error("Apparel collection error:", err);
+                }
+            } else {
+                runner.apparelCollected = newStatus;
+                renderAdminDashboard();
+                showToast(`Updated apparel claim for ${runner.fullName}`);
             }
         }
 
@@ -782,16 +786,12 @@
             const checkedInCount = registeredParticipants.filter(p => p.checkedIn).length;
             document.getElementById('admin-stat-checkedin').textContent = checkedInCount;
 
-            // Apparel Collected statistics
-            const apparelCollectedCount = registeredParticipants.filter(p => p.apparelCollected).length;
-            document.getElementById('admin-stat-apparel-collected').textContent = apparelCollectedCount;
-
             // Gender statistics
             const maleCount = registeredParticipants.filter(p => (p.gender || '').toLowerCase() === 'male').length;
             const femaleCount = registeredParticipants.filter(p => (p.gender || '').toLowerCase() === 'female').length;
             document.getElementById('admin-stat-gender').innerHTML = `<span class="text-blue-400">${maleCount} M</span> • <span class="text-pink-400">${femaleCount} F</span>`;
 
-            // Apparel & Size breakdown calculation
+            // Total Apparel & Size breakdown calculation
             const singletRunners = registeredParticipants.filter(p => (p.apparelType || '').toLowerCase() === 'singlet');
             const cropTopRunners = registeredParticipants.filter(p => (p.apparelType || '').toLowerCase() === 'crop top');
 
@@ -808,6 +808,27 @@
             document.getElementById('admin-stat-apparel-breakdown').innerHTML = `
                 <div><span class="text-gold-300 font-bold">🎽 Singlet (${singletRunners.length}):</span> <span class="text-gray-300">S:${singletS} M:${singletM} L:${singletL} XL:${singletXL}</span></div>
                 <div><span class="text-pink-300 font-bold">✂️ Crop Top (${cropTopRunners.length}):</span> <span class="text-gray-300">S:${cropS} M:${cropM} L:${cropL} XL:${cropXL}</span></div>
+            `;
+
+            // Collected Apparel & Size breakdown calculation
+            const collectedRunners = registeredParticipants.filter(p => p.apparelCollected);
+            const collectedSinglet = collectedRunners.filter(p => (p.apparelType || '').toLowerCase() === 'singlet');
+            const collectedCropTop = collectedRunners.filter(p => (p.apparelType || '').toLowerCase() === 'crop top');
+
+            const colSingletS = collectedSinglet.filter(p => p.tshirtSize === 'S').length;
+            const colSingletM = collectedSinglet.filter(p => p.tshirtSize === 'M').length;
+            const colSingletL = collectedSinglet.filter(p => p.tshirtSize === 'L').length;
+            const colSingletXL = collectedSinglet.filter(p => p.tshirtSize === 'XL').length;
+
+            const colCropS = collectedCropTop.filter(p => p.tshirtSize === 'S').length;
+            const colCropM = collectedCropTop.filter(p => p.tshirtSize === 'M').length;
+            const colCropL = collectedCropTop.filter(p => p.tshirtSize === 'L').length;
+            const colCropXL = collectedCropTop.filter(p => p.tshirtSize === 'XL').length;
+
+            document.getElementById('admin-stat-collected-total').textContent = collectedRunners.length;
+            document.getElementById('admin-stat-collected-breakdown').innerHTML = `
+                <div><span class="text-gold-300 font-bold">🎽 Singlet (${collectedSinglet.length}):</span> <span class="text-gray-300">S:${colSingletS} M:${colSingletM} L:${colSingletL} XL:${colSingletXL}</span></div>
+                <div><span class="text-pink-300 font-bold">✂️ Crop Top (${collectedCropTop.length}):</span> <span class="text-gray-300">S:${colCropS} M:${colCropM} L:${colCropL} XL:${colCropXL}</span></div>
             `;
 
             // Payment statistics
@@ -851,12 +872,10 @@
                 if (filterPayment === 'PAID_TRANSFER') matchesPayment = runner.paymentStatus === 'TRANSFER' || runner.paymentStatus === 'ONLINE';
                 if (filterPayment === 'UNPAID') matchesPayment = !runner.paymentStatus || runner.paymentStatus === 'UNPAID';
 
-                let matchesCollectionStatus = true;
-                if (filterCollection === 'COLLECTED') matchesCollectionStatus = !!runner.apparelCollected;
-                if (filterCollection === 'NOT_COLLECTED') matchesCollectionStatus = !runner.apparelCollected;
-
+                const matchesCollection = filterCollection === 'ALL' || (filterCollection === 'COLLECTED' ? runner.apparelCollected : !runner.apparelCollected);
                 const matchesCheckin = filterCheckin === 'ALL' || (filterCheckin === 'CHECKED_IN' ? runner.checkedIn : !runner.checkedIn);
-                return matchesSearch && matchesApparel && matchesGender && matchesSize && matchesPayment && matchesCollectionStatus && matchesCheckin;
+                
+                return matchesSearch && matchesApparel && matchesGender && matchesSize && matchesPayment && matchesCollection && matchesCheckin;
             });
 
             if (filtered.length === 0) {
@@ -900,8 +919,8 @@
                         </div>
                     </td>
                     <td class="py-3 px-3 sm:px-6 whitespace-nowrap">
-                        <button data-action="toggle-collection" data-id="${key}" class="px-2.5 py-1.5 rounded-full text-[10px] font-bold border transition active:scale-95 ${runner.apparelCollected ? 'bg-amber-500/15 border-amber-500/40 text-amber-400 hover:bg-amber-500/25' : 'bg-gray-500/10 border-gray-500/30 text-gray-400 hover:bg-gray-500/20'}">
-                            <i class="fa-solid ${runner.apparelCollected ? 'fa-shirt text-amber-400' : 'fa-box-archive text-gray-400'} mr-1"></i>
+                        <button data-action="toggle-collection" data-id="${key}" class="px-2.5 py-1.5 rounded-full text-[10px] font-bold border transition active:scale-95 ${runner.apparelCollected ? 'bg-amber-500/15 border-amber-500/40 text-amber-300 hover:bg-amber-500/25' : 'bg-gray-700/20 border-gray-600/30 text-gray-400 hover:bg-gray-700/30'}">
+                            <i class="fa-solid ${runner.apparelCollected ? 'fa-shirt text-gold-400' : 'fa-shirt text-gray-500'} mr-1"></i>
                             ${runner.apparelCollected ? 'Collected' : 'Pending'}
                         </button>
                     </td>
@@ -951,8 +970,8 @@
                 if (!runner) return;
 
                 btn.addEventListener('click', () => {
-                    if (action === 'toggle-collection') toggleApparelCollected(runner);
                     if (action === 'open-payment') openPaymentModal(runner);
+                    if (action === 'toggle-collection') toggleApparelCollected(runner);
                     if (action === 'toggle-checkin') toggleCheckIn(runner);
                     if (action === 'view-pass') openPassModal(runner);
                     if (action === 'delete-runner') deleteRunner(runner);
@@ -1083,7 +1102,7 @@
                 showToast("No data to export.", true);
                 return;
             }
-            const headers = ["#", "Runner ID", "Full Name", "Gender", "Contact Number", "Apparel Type", "Tee Size", "Emergency Contact", "Apparel Collected", "Payment Status", "Checked In", "Registered At"];
+            const headers = ["#", "Runner ID", "Full Name", "Gender", "Contact Number", "Apparel Type", "Tee Size", "Apparel Collected", "Emergency Contact", "Payment Status", "Checked In", "Registered At"];
             const rows = registeredParticipants.map((p, index) => [
                 `"${index + 1}"`,
                 `"${p.id}"`,
@@ -1092,8 +1111,8 @@
                 `"${p.contactNumber}"`,
                 `"${p.apparelType || 'Singlet'}"`,
                 `"${p.tshirtSize}"`,
-                `"${p.emergencyContact.replace(/"/g, '""')}"`,
                 `"${p.apparelCollected ? 'YES' : 'NO'}"`,
+                `"${p.emergencyContact.replace(/"/g, '""')}"`,
                 `"${p.paymentStatus === 'QR' ? 'Paid (QR)' : p.paymentStatus === 'CASH' ? 'Paid (Cash)' : (p.paymentStatus === 'TRANSFER' || p.paymentStatus === 'ONLINE') ? 'Paid (Online Transfer)' : 'Unpaid'}"`,
                 `"${p.checkedIn ? 'YES' : 'NO'}"`,
                 `"${new Date(p.createdAtMs).toISOString()}"`
